@@ -1,0 +1,37 @@
+[33mcommit f395ee8ef20787223a96fc1650b0c38b951458fc[m
+Author: RochaFelpuda <felipe.21c@hotmail.com>
+Date:   Wed Apr 27 10:01:07 2022 -0300
+
+    add index.html
+
+[1mdiff --git a/index.html b/index.html[m
+[1mnew file mode 100644[m
+[1mindex 0000000..d9bfab1[m
+[1m--- /dev/null[m
+[1m+++ b/index.html[m
+[36m@@ -0,0 +1,24 @@[m
+[32m+[m[32m<!DOCTYPE html>[m
+[32m+[m[32m<html lang="en">[m
+[32m+[m[32m<head>[m
+[32m+[m[32m    <meta charset="UTF-8">[m
+[32m+[m[32m    <meta http-equiv="X-UA-Compatible" content="IE=edge">[m
+[32m+[m[32m    <meta name="viewport" content="width=device-width, initial-scale=1.0">[m
+[32m+[m[32m    <title>Diplomacy</title>[m
+[32m+[m[32m    <link rel="stylesheet" href="style.css">[m
+[32m+[m[32m</head>[m
+[32m+[m[32m<body onload="load()">[m
+[32m+[m[32m    <h1 id="TitleSpace"></h1>[m
+[32m+[m
+[32m+[m[32m    <section id="PlayersSection" class="container">[m[41m    [m
+[32m+[m[32m    </section>[m
+[32m+[m
+[32m+[m[32m    <script src="Controller/CreateElement.js"></script>[m
+[32m+[m[32m    <script src="Model/Player.js"></script>[m
+[32m+[m[32m    <script src="Model/Players_database.js"></script>[m
+[32m+[m[32m    <script src="Controller/Game.js"></script>[m
+[32m+[m[32m    <script src="View/view.js"></script>[m
+[32m+[m[32m    <script src="Controller/Controller.js"></script>[m
+[32m+[m[32m    <script src="Controller/load.js"></script>[m
+[32m+[m[32m</body>[m
+[32m+[m[32m</html>[m
+\ No newline at end of file[m
