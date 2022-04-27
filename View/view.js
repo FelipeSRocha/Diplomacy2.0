@@ -11,6 +11,7 @@ class View{
     }
 
     RenderTitle(){
+        //Verifica se existe algo no titulo e exclui 
         if(document.querySelectorAll(".Game_Title")){
             this.TitleSpace.innerText = ''
         }
@@ -37,6 +38,7 @@ class View{
     }
 
     RenderPlayerSection(){
+        //Verifica se existe algo na parte dos jogadores e exclui 
         if(document.querySelectorAll(".PlayerDiv")){
             this.PlayersSection.innerText = ''
         }
@@ -121,13 +123,13 @@ class View{
                         break
                     
                     //Renderiza o jogador selecionado
-                    case "selected":
-                        if (el[key]){
-                            let selected = document.getElementById("PlayerDiv_" + (1+i))
-                            selected.style.backgroundColor = "green"
-                            select = 'Diselect Player'
-                        }
-                        break
+                    // case "selected":
+                    //     if (el[key]){
+                    //         let selected = document.getElementById("PlayerDiv_" + (1+i))
+                    //         selected.style.backgroundColor = "green"
+                    //         select = 'Diselect Player'
+                    //     }
+                    //     break
                 }
 
             })
