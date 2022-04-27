@@ -6,7 +6,6 @@ class View{
     }
     RenderStartScreen(){
         this.RenderTitle()
-
         this.RenderPlayerSection()
         this.RenderTableSection()
     }
