@@ -15,10 +15,7 @@ body{
     position: relative;
     left: 50%;
     transform: translate(-50%);
-    margin-top: 10px;
 
-    background-color: aliceblue;
-    border-radius: 10px;
 
     height: auto;
     min-width: 120px;
@@ -43,7 +40,7 @@ body{
 .Container{
     margin: 5px;
     display: grid;
-    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-columns: 250px 1fr 250px;
     grid-template-rows: 40vh 40vh;
     grid-gap: 5px;
     grid-template-areas: "P1 T P2"
@@ -65,7 +62,7 @@ body{
 
 }
 .PlayerStats{
-    background-color: yellow;
+    background-color: rgb(240, 185, 255);
     border-radius: 10px;
     width: 100%;
     height: 100%;
@@ -73,23 +70,86 @@ body{
 .PlayerTitle{
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     font-style: italic;
 }
 .PlayerProd{
-    background-color: rgb(232, 113, 248);
+    /* background-color: rgb(232, 113, 248); */
+    padding: 5px;
+}
+.ResourceText{
+    margin: 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+    font-style: italic;
+}
+.PlayerProdEach{
     display: grid;
-    grid-template-columns: 40% 60%;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    height: 40%;
+    grid-template-columns: 2fr 1fr 2fr 1fr;
+    grid-template-rows: 18px 18px;
+    grid-template-areas: 
+    "img decbtn1 value incbtn1"
+    "img decbtn5 value incbtn5";
+    row-gap: 2px;
+    justify-items: center;
+    align-items: center;
+    margin: 2px;
+
+}
+.imgresource{
+    grid-area: img;
+    height: 25px;
+}
+.Dec1{
+    background-color: rgb(251, 173, 173);
+    border-radius: 4px;
+    border-color: rgb(170, 116, 116);
+    grid-area: decbtn1;
+    height: 100%;
+    width: 80%;
+}
+.Inc1{
+    background-color: rgb(251, 242, 173);
+    border-radius: 4px;
+    border-color: rgb(183, 177, 128);
+    grid-area: incbtn1;
+    height: 100%;
+    width: 80%;
+}
+.Dec5{
+    background-color: rgb(251, 135, 135);
+    border-radius: 4px;
+    border-color: rgb(170, 116, 116);
+    grid-area: decbtn5;
+    height: 100%;
+    width: 80%;
+}
+.Inc5{
+    background-color: rgb(249, 232, 105);
+    border-radius: 4px;
+    border-color: rgb(183, 177, 128);
+    grid-area: incbtn5;
+    height: 100%;
+    width: 80%;
+}
+.Prod{
+    grid-area: value;
+    margin: 0;
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 200%;
+    font-weight: bold;
+    font-style: italic;
 }
 .PlayerBank{
-    background-color: rgb(117, 245, 100);
-    display: grid;
-    grid-template-columns: 40% 60%;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+    padding: 5px;
 }
 .Table{
     background-color: rgb(112, 112, 112);
     grid-area: T;
+    border-radius: 10px;
 }
