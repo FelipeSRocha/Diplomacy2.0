@@ -5,61 +5,71 @@
 body{
     background-color: rgb(140, 255, 255);
 }
+.HeaderClass{
+    display: grid;
+    grid-template-rows: 40px 40px;
+    grid-template-areas: 
+    "head"
+    "btn";
+    justify-items: center;
+    align-items: flex-start;
+}
+.Head{
+    height: 100%;
+    margin: 0;
+    align-items: center;
+}
+
 .TitleSpace{
     font-family: 'Anton', sans-serif;
     font-size: 30px;
     text-align: center;
     width: 100%;
+    grid-area: head;
 }
-.Btn_Head{
-    position: relative;
-    left: 50%;
-    transform: translate(-50%);
-
-
-    height: auto;
-    min-width: 120px;
-    max-width: 500px;
-
-    text-align: center;
+.Btn_HeadClass{
+    grid-area: btn;
     display: flex;
     flex-flow: row wrap;
-    justify-content:center;
-    align-content: center;
+    width: 30%;
+    min-width: 230px;
+    max-width: 530px;
 }
-.Btn_Head button{
+.Players_btn{
     background-color: rgb(56, 50, 50);
-    font: 20px ;
     color: rgb(235, 235, 235);
     border-radius: 10px;
-    margin: 5px;
+    margin: 2px;
     padding: 5px;
     text-align: center;
     vertical-align: middle;
 }
-.Container{
+.ContainerClass{
     margin: 5px;
     display: grid;
-    grid-template-columns: 250px 1fr 250px;
+    grid-template-columns: 150px 1fr 150px;
     grid-template-rows: 40vh 40vh;
     grid-gap: 5px;
     grid-template-areas: "P1 T P2"
                         "P3 T P4";
 }
-.Player1{
+.ClassPlayerDiv{
+    background-color: rgb(204, 255, 213);
+    border: 2px solid;
+    border-radius: 10px;
+    border-color: rgb(0, 255, 94);
+}
+#IDPlayerDiv_1{
     grid-area: P1;
 }
-.Player2{
+#IDPlayerDiv_2{
     grid-area: P2;
-
 }
-.Player3{
+#IDPlayerDiv_3{
     grid-area: P3;
-
 }
-.Player4{
+#IDPlayerDiv_4{
     grid-area: P4;
-
 }
 .PlayerStats{
     background-color: rgb(240, 185, 255);
@@ -67,29 +77,22 @@ body{
     width: 100%;
     height: 100%;
 }
-.PlayerTitle{
+.ClassPlayerTitle{
     text-align: center;
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
     font-weight: bold;
     font-style: italic;
+    margin: 0;
 }
 .PlayerProd{
-    /* background-color: rgb(232, 113, 248); */
     padding: 5px;
 }
-.ResourceText{
-    margin: 0;
-    text-align: center;
-    font-family: 'Roboto', sans-serif;
-    font-size: 15px;
-    font-weight: bold;
-    font-style: italic;
-}
-.PlayerProdEach{
+
+.ClassPlayerProd_each{
     display: grid;
     height: 40%;
-    grid-template-columns: 2fr 1fr 2fr 1fr;
+    grid-template-columns: 1fr 1.1fr 2fr 1.1fr;
     grid-template-rows: 18px 18px;
     grid-template-areas: 
     "img decbtn1 value incbtn1"
@@ -98,9 +101,8 @@ body{
     justify-items: center;
     align-items: center;
     margin: 2px;
-
 }
-.imgresource{
+.img_resources{
     grid-area: img;
     height: 25px;
 }
@@ -136,20 +138,43 @@ body{
     height: 100%;
     width: 80%;
 }
-.Prod{
+.ResourcesText{
     grid-area: value;
     margin: 0;
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 200%;
+    font-size: 100%;
     font-weight: bold;
     font-style: italic;
 }
 .PlayerBank{
     padding: 5px;
 }
-.Table{
+.ClassPlayerBank_each{
+    display: grid;
+    height: 40%;
+    grid-template-columns: 1fr 1.1fr 2fr 1.1fr;
+    grid-template-rows: 18px 18px;
+    grid-template-areas: 
+    "img decbtn1 value incbtn1"
+    "img decbtn5 value incbtn5";
+    row-gap: 2px;
+    justify-items: center;
+    align-items: center;
+    margin: 2px;
+    margin-top: 5px;
+}
+.ClassTable{
+    position: fixed;
+    height: 100%;
+    width: 100%;
+    z-index: -1;
+    top: 0;
+    left: 0;
     background-color: rgb(112, 112, 112);
-    grid-area: T;
-    border-radius: 10px;
+    /* grid-area: T; */
+}
+.ClassImgTable{
+    width: 100%;
+    height: 100%;
 }
