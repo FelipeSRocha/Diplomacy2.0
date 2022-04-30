@@ -1,0 +1,95 @@
+@import url('https://fonts.googleapis.com/css2?family=Anton&family=Roboto:ital,wght@0,400;0,500;0,700;0,900;1,400;1,500;1,700;1,900&display=swap');
+*{
+    box-sizing: border-box;
+}
+body{
+    background-color: rgb(140, 255, 255);
+}
+.TitleSpace{
+    font-family: 'Anton', sans-serif;
+    font-size: 30px;
+    text-align: center;
+    width: 100%;
+}
+.Btn_Head{
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    margin-top: 10px;
+
+    background-color: aliceblue;
+    border-radius: 10px;
+
+    height: auto;
+    min-width: 120px;
+    max-width: 500px;
+
+    text-align: center;
+    display: flex;
+    flex-flow: row wrap;
+    justify-content:center;
+    align-content: center;
+}
+.Btn_Head button{
+    background-color: rgb(56, 50, 50);
+    font: 20px ;
+    color: rgb(235, 235, 235);
+    border-radius: 10px;
+    margin: 5px;
+    padding: 5px;
+    text-align: center;
+    vertical-align: middle;
+}
+.Container{
+    margin: 5px;
+    display: grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    grid-template-rows: 40vh 40vh;
+    grid-gap: 5px;
+    grid-template-areas: "P1 T P2"
+                        "P3 T P4";
+}
+.Player1{
+    grid-area: P1;
+}
+.Player2{
+    grid-area: P2;
+
+}
+.Player3{
+    grid-area: P3;
+
+}
+.Player4{
+    grid-area: P4;
+
+}
+.PlayerStats{
+    background-color: yellow;
+    border-radius: 10px;
+    width: 100%;
+    height: 100%;
+}
+.PlayerTitle{
+    text-align: center;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+    font-style: italic;
+}
+.PlayerProd{
+    background-color: rgb(232, 113, 248);
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.PlayerBank{
+    background-color: rgb(117, 245, 100);
+    display: grid;
+    grid-template-columns: 40% 60%;
+    grid-template-rows: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+}
+.Table{
+    background-color: rgb(112, 112, 112);
+    grid-area: T;
+}
