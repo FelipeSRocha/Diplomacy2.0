@@ -139,6 +139,11 @@ class View{
         })
     }
     RenderMap(){
+        const DivExist = document.querySelectorAll("#IDTable").length > 0
+        if(DivExist){
+            const element = document.getElementById('IDTable');
+            element.remove()
+        }
         const Table = new AddElement
         Table.AddElement("div", `masterID`, "IDTable", "ClassTable", "",()=>{},)
         const ImgTable = new AddElement 
