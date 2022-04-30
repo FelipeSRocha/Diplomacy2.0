@@ -1,39 +1,43 @@
 class View{
     constructor(){
-        this.TitleSpace = document.getElementById("TitleSpace")
-        this.PlayersSection = document.getElementById("PlayersSection")
-        this.ListofPlayers = Diplomacy.PlayerDB.Players
+        // this.Title = document.getElementById("Header")
+        // this.PlayersSection = document.getElementById("PlayersSection")
+        // this.ListofPlayers = Diplomacy.PlayerDB.Players
     }
     RenderStartScreen(){
         this.RenderTitle()
-        this.RenderPlayerSection()
-        this.RenderTableSection()
+        // this.RenderPlayerSection()
+        // this.RenderTableSection()
     }
 
     RenderTitle(){
-        //Verifica se existe algo no titulo e exclui 
-        if(document.querySelectorAll(".Game_Title")){
-            this.TitleSpace.innerText = ''
-        }
-        if(document.querySelectorAll(".Players_btn")){
-            this.TitleSpace.innerText = ''
-        }
+        // Verifica se existe algo no titulo e exclui 
+        // if(document.querySelectorAll(".Header")){
+        //     console.log(document.querySelectorAll(".Header"))
+        //     this.Title.innerText = ''
+        // }
+        
+        let header = new AddElement
+        header.AddElement("div","Game","Header","","", ()=>{})
 
-        let PlayersSectiontitle = new AddElement
-        PlayersSectiontitle.AddElement("h1", `TitleSpace`, "Game_Title", "", "Diplomacy", ()=>{})
+        let TitleSpace = new AddElement
+        TitleSpace.AddElement("div","Header","Title","TitleSpace","", ()=>{})
+
+        let Btn_Head = new AddElement
+        Btn_Head.AddElement("div","Header","Btn_Header","Btn_Head","", ()=>{})
 
         //Adiciona os botões Iniciais
-        const btn_ResetGame = new AddElement
-        btn_ResetGame.AddElement("button", `TitleSpace`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{Diplomacy.ResetGame()})
+        // const btn_ResetGame = new AddElement
+        // btn_ResetGame.AddElement("button", `TitleSpace`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{Diplomacy.ResetGame()})
 
-        const btn_RemovePlayer = new AddElement
-        btn_RemovePlayer.AddElement("button", `TitleSpace`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {Diplomacy.PlayerDB.RemovePlayer()})
+        // const btn_RemovePlayer = new AddElement
+        // btn_RemovePlayer.AddElement("button", `TitleSpace`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {Diplomacy.PlayerDB.RemovePlayer()})
 
-        const btn_AddPlayer = new AddElement
-        btn_AddPlayer.AddElement("button",`TitleSpace`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {Diplomacy.PlayerDB.AddPlayer()})
+        // const btn_AddPlayer = new AddElement
+        // btn_AddPlayer.AddElement("button",`TitleSpace`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {Diplomacy.PlayerDB.AddPlayer()})
         
-        const btn_NextRound = new AddElement
-        btn_NextRound.AddElement("button", `TitleSpace`, "btn_NextRound", "Players_btn", "Next Round",()=>{Diplomacy.NextRound()})
+        // const btn_NextRound = new AddElement
+        // btn_NextRound.AddElement("button", `TitleSpace`, "btn_NextRound", "Players_btn", "Next Round",()=>{Diplomacy.NextRound()})
 
     }
 
