@@ -7,6 +7,8 @@ class View{
     RenderStartScreen(){
         this.RenderTitle()
         this.RenderTable()
+        Zoom()
+        MoveMap()
     }
     RenderTitle(){
         // Verifica se existe algo no titulo e exclui 

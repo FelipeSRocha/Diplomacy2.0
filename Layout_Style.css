@@ -3,16 +3,19 @@
     box-sizing: border-box;
 }
 body{
-    background-color: rgb(140, 255, 255);
+    background-color: #0053D0;
+    margin: 0;
+    height: 100vh;
+    width: 100vw;
 }
 .HeaderClass{
     display: grid;
-    grid-template-rows: 40px 40px;
+    grid-template-rows: 60px 40px;
     grid-template-areas: 
     "head"
     "btn";
     justify-items: center;
-    align-items: flex-start;
+    align-items: center;
     gap: 5px;
 }
 .Head{
@@ -23,7 +26,9 @@ body{
 
 .Txt_HeadClass{
     font-family: 'Anton', sans-serif;
-    font-size: 30px;
+    color: rgb(255, 255, 255);
+    text-shadow: 5px 5px 10px black;
+    font-size: 45px;
     text-align: center;
     width: 100%;
     grid-area: head;
@@ -36,6 +41,7 @@ body{
     width: 30%;
     min-width: 230px;
     max-width: 530px;
+    justify-content: center;
 }
 .Players_btn{
     background-color: rgb(56, 50, 50);
@@ -45,33 +51,49 @@ body{
     padding: 5px;
     text-align: center;
     vertical-align: middle;
+    box-shadow: 5px 5px 10px black;
 }
 .ContainerClass{
-    margin: 5px;
-    display: grid;
+    position: relative;
+    width: 100vw;
+    height: 0;
+    /* display: grid;
     grid-template-columns: 150px 1fr 150px;
     grid-template-rows: 40vh 40vh;
     grid-gap: 5px;
     grid-template-areas: "P1 T P2"
-                        "P3 T P4";
+                        "P3 T P4"; */
 }
 .ClassPlayerDiv{
     background-color: rgb(204, 255, 213);
     border: 2px solid;
     border-radius: 10px;
     border-color: rgb(0, 255, 94);
+    width: 150px;
+    height: 370px;
+    box-shadow: 5px 5px 10px black;
 }
 #IDPlayerDiv_1{
-    grid-area: P1;
+    position: absolute;
+    left: 0;
+    margin-left: 5px;
 }
 #IDPlayerDiv_2{
-    grid-area: P2;
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
 }
 #IDPlayerDiv_3{
-    grid-area: P3;
+    position: absolute;
+    left: 0;
+    margin-left: 5px;
+    top: 380px;
 }
 #IDPlayerDiv_4{
-    grid-area: P4;
+    position: absolute;
+    right: 0;
+    margin-right: 5px;
+    top: 380px;
 }
 .PlayerStats{
     background-color: rgb(240, 185, 255);
@@ -175,6 +197,8 @@ body{
     left: 0;
 }
 .ClassImgTable{
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
 }
