@@ -7,9 +7,7 @@ class View{
     RenderStartScreen(){
         this.RenderTitle()
         this.RenderTable()
-        // this.RenderTableSection  ()
     }
-
     RenderTitle(){
         // Verifica se existe algo no titulo e exclui 
         const DivExist = document.querySelectorAll("#HeaderID").length > 0
@@ -19,16 +17,16 @@ class View{
         }
         
         let header = new AddElement
-        header.AddElement("div","masterID","HeaderID","HeaderClass","", ()=>{})
+        header.AddElement("div","masterID","HeaderID","HeaderClass","")
 
         let Title = new AddElement
-        Title.AddElement("div","HeaderID","TitleID","TitleClass","", ()=>{})
+        Title.AddElement("div","HeaderID","TitleID","TitleClass","")
         
         let Txt_Head = new AddElement
-        Txt_Head.AddElement("p","TitleID","Txt_HeadID","Txt_HeadClass","Diplomacy", ()=>{})
+        Txt_Head.AddElement("p","TitleID","Txt_HeadID","Txt_HeadClass","Diplomacy")
 
         let Btn_Head = new AddElement
-        Btn_Head.AddElement("div","HeaderID","Btn_HeadID","Btn_HeadClass","", ()=>{})
+        Btn_Head.AddElement("div","HeaderID","Btn_HeadID","Btn_HeadClass","")
 
         //Adiciona os botões Iniciais
         const btn_ResetGame = new AddElement
@@ -44,7 +42,6 @@ class View{
         btn_NextRound.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{Diplomacy.NextRound()}, "", "flex:100%")
 
     }
-
     RenderTable(){
         this.RenderPlayers()
         this.RenderMap()

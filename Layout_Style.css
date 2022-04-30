@@ -13,6 +13,7 @@ body{
     "btn";
     justify-items: center;
     align-items: flex-start;
+    gap: 5px;
 }
 .Head{
     height: 100%;
@@ -20,12 +21,13 @@ body{
     align-items: center;
 }
 
-.TitleSpace{
+.Txt_HeadClass{
     font-family: 'Anton', sans-serif;
     font-size: 30px;
     text-align: center;
     width: 100%;
     grid-area: head;
+    margin: 0;
 }
 .Btn_HeadClass{
     grid-area: btn;
@@ -171,8 +173,6 @@ body{
     z-index: -1;
     top: 0;
     left: 0;
-    background-color: rgb(112, 112, 112);
-    /* grid-area: T; */
 }
 .ClassImgTable{
     width: 100%;
