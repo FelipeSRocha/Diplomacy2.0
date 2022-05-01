@@ -35,12 +35,10 @@ function MoveMap(){
   map = wrapper.querySelector("#IDImgTable")
   let Speed = 50
   document.addEventListener("keydown", function(e){
-    console.log(e.key.toString())
     let getstyle = window.getComputedStyle(wrapper)
     let left = parseInt(getstyle.left)
     let top = parseInt(getstyle.top)
 
-    console.log(left, top)
     switch(e.key.toString()){
 
       case "a":
