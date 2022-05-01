@@ -5,7 +5,7 @@
 body{
     background-color: #0053D0;
     margin: 0;
-    height: 100vh;
+    height: 80vh;
     width: 100vw;
 }
 .masterClass{
@@ -75,7 +75,7 @@ body{
     border-radius: 10px;
     border-color: rgb(0, 255, 94);
     width: 150px;
-    height: 370px;
+    height: 350px;
     box-shadow: 5px 5px 10px black;
 }
 #IDPlayerDiv_1{
@@ -92,13 +92,13 @@ body{
     position: absolute;
     left: 0;
     margin-left: 5px;
-    top: 380px;
+    top: 365px;
 }
 #IDPlayerDiv_4{
     position: absolute;
     right: 0;
     margin-right: 5px;
-    top: 380px;
+    top: 365px;
 }
 .PlayerStats{
     background-color: rgb(240, 185, 255);
@@ -120,9 +120,8 @@ body{
 
 .ClassPlayerProd_each{
     display: grid;
-    height: 40%;
     grid-template-columns: 1fr 1.1fr 2fr 1.1fr;
-    grid-template-rows: 18px 18px;
+    grid-template-rows: 17px 17px;
     grid-template-areas: 
     "img decbtn1 value incbtn1"
     "img decbtn5 value incbtn5";
@@ -142,6 +141,7 @@ body{
     grid-area: decbtn1;
     height: 100%;
     width: 80%;
+    font-size: 10px;
 }
 .Inc1{
     background-color: rgb(251, 242, 173);
@@ -150,6 +150,7 @@ body{
     grid-area: incbtn1;
     height: 100%;
     width: 80%;
+    font-size: 10px;
 }
 .Dec5{
     background-color: rgb(251, 135, 135);
@@ -158,6 +159,7 @@ body{
     grid-area: decbtn5;
     height: 100%;
     width: 80%;
+    font-size: 10px;
 }
 .Inc5{
     background-color: rgb(249, 232, 105);
@@ -166,6 +168,7 @@ body{
     grid-area: incbtn5;
     height: 100%;
     width: 80%;
+    font-size: 10px;
 }
 .ResourcesText{
     grid-area: value;
@@ -183,7 +186,7 @@ body{
     display: grid;
     height: 40%;
     grid-template-columns: 1fr 1.1fr 2fr 1.1fr;
-    grid-template-rows: 18px 18px;
+    grid-template-rows: 17px 17px;
     grid-template-areas: 
     "img decbtn1 value incbtn1"
     "img decbtn5 value incbtn5";
@@ -202,12 +205,16 @@ body{
     top: 0;
     left: 0;
     justify-content: center;
-    align-content: flex-end;
+    align-items: center;
 
 }
 .ClassImgTable{
-    height: 90vh;
-    width: 80vw;
+    height: 80vh;
+    aspect-ratio: 14/9;
+}
+.Classmap{
+    height: 100%;
+    width: 100%;
 }
 .ClassFooter{
     width: 100%;
@@ -235,4 +242,41 @@ body{
     font-size: 25px;
     font-weight: bold;
     box-shadow: 5px 5px 10px black;
+}
+.ClassC_Africa{
+    position:relative;
+    top: -397px;
+    left: 324px;
+    transform: scale(.8);
+}
+#IDArgelia{
+    position: relative;
+    top: 0px;
+    left: 0px;
+
+}
+#IDEgito{
+    position: relative;
+    top: -80px;
+    left: -20px;
+}
+#IDSudao{
+    position: relative;
+    top: -80px;
+    left: -20px;
+}
+#IDCongo{
+    position: relative;
+    top: -80px;
+    left: -20px;
+}
+#IDMadagascar{
+    position: relative;
+    top: -80px;
+    left: -20px;
+}
+#IDAfricas{
+    position: relative;
+    top: -80px;
+    left: -20px;
 }

@@ -134,9 +134,7 @@ class View{
                         let btnBank_increase_5 = new AddElement
                         btnBank_increase_5.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,5)})
                         break
-                    
                 }
-
             })
             
         })
@@ -148,10 +146,12 @@ class View{
             element.remove()
         }
         const Table = new AddElement
-        Table.AddElement("div", `masterID`, "IDTable", "ClassTable", "",()=>{},)
+        Table.AddElement("div", `masterID`, "IDTable", "ClassTable")
         const ImgTable = new AddElement 
-        ImgTable.AddElement("img", `IDTable`, "IDImgTable", "ClassImgTable", "O Jogo",()=>{},"Img/O jogo2.png")
-
+        ImgTable.AddElement("div", `IDTable`, "IDImgTable", "ClassImgTable")
+        InsertMap()
+        // const map = new AddElement 
+        // map.AddElement("img", `IDImgTable`, "IDmap", "Classmap","","","SVGMap/MAPSVG.svg")
     }
     RenderFooter(){
         const DivExist = document.querySelectorAll("#IDFooter").length > 0
