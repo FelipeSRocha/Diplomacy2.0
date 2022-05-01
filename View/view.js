@@ -6,9 +6,10 @@ class View{
     }
     RenderStartScreen(){
         this.RenderTitle()
-        this.RenderTable()
+        this.RenderTable()  
         Zoom()
         MoveMap()
+
     }
     RenderTitle(){
         // Verifica se existe algo no titulo e exclui 
@@ -150,5 +151,6 @@ class View{
         Table.AddElement("div", `masterID`, "IDTable", "ClassTable", "",()=>{},)
         const ImgTable = new AddElement 
         ImgTable.AddElement("img", `IDTable`, "IDImgTable", "ClassImgTable", "O Jogo",()=>{},"Img/O jogo2.png")
+
     }
 }

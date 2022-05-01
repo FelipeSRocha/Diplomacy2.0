@@ -16,7 +16,7 @@ class Player_db{
             let NewPlayer = new Player()
             this.Players[this.Players.length] = NewPlayer
             this.AmountofPlayers++
-            Render.RenderStartScreen()
+            Render.RenderPlayers()
         }
     }
 
@@ -25,8 +25,8 @@ class Player_db{
             alert("Mínimo de 2 jogadores")
         }else{
             this.Players.pop()
-            this.AmountofPlayers--
-            Render.RenderStartScreen()
+            this.AmountofPlayers--  
+            Render.RenderPlayers()
         }
     }
 

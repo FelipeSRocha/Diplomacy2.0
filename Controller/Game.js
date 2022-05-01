@@ -12,10 +12,10 @@ class Game{
             Diplomacy.PlayerDB.Players[index].ModifyValue('Tecnologia',el['ProdTecnologia'])
         })  
 
-        Render.RenderStartScreen()
+        Render.RenderPlayers()
     }
 
     ResetGame(){
-        Controller()
+        Reset()
     }
 }

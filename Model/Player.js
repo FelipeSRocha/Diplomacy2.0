@@ -23,6 +23,6 @@ class Player{
         }else if(this[attribute]>25){
             this[attribute]=25
         }
-        Render.RenderStartScreen()
+        Render.RenderPlayers()
     }
 }
