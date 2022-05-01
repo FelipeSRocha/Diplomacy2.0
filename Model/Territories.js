@@ -1,6 +1,9 @@
-class NewWorld{
+class NewTerritory{
     constructor(){
         this.name = ""
+        this.type = ""
+        this.father = ""
+        
         this.NumberOfContinents = 0
         this.ListOfContinents = 0
     }

@@ -1,6 +1,7 @@
 class Game{
     constructor(){
         this.PlayerDB = new Player_db()
+        this.Round = -1
     }
 
     NextRound(){
@@ -11,11 +12,22 @@ class Game{
             Diplomacy.PlayerDB.Players[index].ModifyValue('Exercito',el['ProdExercito'])
             Diplomacy.PlayerDB.Players[index].ModifyValue('Tecnologia',el['ProdTecnologia'])
         })  
-
+        
+        this.CheckRound()
+        this.Round++
         Render.RenderPlayers()
+        Render.RenderFooter()
     }
 
     ResetGame(){
         Reset()
     }
+
+    CheckRound(){
+        let semestre = (this.Round%4)+1
+        let round = [this.Round+1,semestre]
+
+        return round
+    }
+    
 }

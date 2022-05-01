@@ -11,6 +11,7 @@ function Reset(){
   Diplomacy = new Game()
   Render = new View()
   Render.RenderPlayers()
+  Render.RenderFooter()
 }
 
 function Zoom(){

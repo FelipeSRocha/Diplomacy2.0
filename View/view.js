@@ -48,7 +48,7 @@ class View{
     RenderTable(){
         this.RenderPlayers()
         this.RenderMap()
-
+        this.RenderFooter()
     }
     RenderPlayers(){
         //Verifica se existe algo na parte dos jogadores e exclui 
@@ -152,5 +152,23 @@ class View{
         const ImgTable = new AddElement 
         ImgTable.AddElement("img", `IDTable`, "IDImgTable", "ClassImgTable", "O Jogo",()=>{},"Img/O jogo2.png")
 
+    }
+    RenderFooter(){
+        const DivExist = document.querySelectorAll("#IDFooter").length > 0
+        if(DivExist){
+            const element = document.getElementById('IDFooter');
+            element.remove()
+        }
+
+        let Footer = new AddElement
+        Footer.AddElement("div","masterID", `IDFooter`, `ClassFooter`)
+        let Round = new AddElement
+        let check = Diplomacy.CheckRound()
+        if(check[0]>1 && check[1] ==1 || check[1] == 3){
+            alert("Evento de Convenção!!")
+        }
+        Round.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: ${check[0]}`) 
+        let semester = new AddElement
+        semester.AddElement("p","IDFooter", `IDSemester`, `ClassRound`, `Semestre: ${check[1]}`)
     }
 }
