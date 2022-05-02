@@ -162,13 +162,16 @@ class View{
 
         let Footer = new AddElement
         Footer.AddElement("div","masterID", `IDFooter`, `ClassFooter`)
-        let Round = new AddElement
+
         let check = Diplomacy.CheckRound()
         if(check[0]>1 && check[1] ==1 || check[1] == 3){
-            alert("Evento de Convenção!!")
+            console.log("Evento de Convenção!!")
         }
+        let Round = new AddElement
         Round.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: ${check[0]}`) 
-        let semester = new AddElement
-        semester.AddElement("p","IDFooter", `IDSemester`, `ClassRound`, `Semestre: ${check[1]}`)
+        let Quarter = new AddElement
+        Quarter.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: ${check[1]}`)
+        let Year = new AddElement
+        Year.AddElement("p","IDFooter", `IDYear`, `ClassRound`, `Year: ${check[2]}`)
     }
 }

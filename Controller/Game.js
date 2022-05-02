@@ -24,10 +24,10 @@ class Game{
     }
 
     CheckRound(){
-        let semestre = (this.Round%4)+1
-        let round = [this.Round+1,semestre]
-
-        return round
+        let Quarter = (this.Round%4)+1
+        let year = parseInt(this.Round/4)
+        let fase = [this.Round+1,Quarter,year]
+        return fase
     }
     
 }
