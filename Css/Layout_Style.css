@@ -3,15 +3,17 @@
     box-sizing: border-box;
 }
 body{
+    position: fixed;
     background-color: #0053D0;
-    margin: 0;
-    height: 80vh;
+    height: 100vh;
     width: 100vw;
+    margin: 0;
 }
 .masterClass{
     position: absolute;
     width: 100vw;
     height: 100vh;
+    z-index: -1;
 }
 .HeaderClass{
     display: grid;
@@ -209,8 +211,11 @@ body{
 
 }
 .ClassImgTable{
-    height: 80vh;
+    height: 100vh;
     aspect-ratio: 14/9;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
 }
 .Classmap{
     height: 100%;
@@ -243,40 +248,8 @@ body{
     font-weight: bold;
     box-shadow: 5px 5px 10px black;
 }
-.ClassC_Africa{
-    position:relative;
-    top: -397px;
-    left: 324px;
-    transform: scale(.8);
+.ClassCountry{
+    stroke: black;
+    stroke-width: 1px;
 }
-#IDArgelia{
-    position: relative;
-    top: 0px;
-    left: 0px;
 
-}
-#IDEgito{
-    position: relative;
-    top: -80px;
-    left: -20px;
-}
-#IDSudao{
-    position: relative;
-    top: -80px;
-    left: -20px;
-}
-#IDCongo{
-    position: relative;
-    top: -80px;
-    left: -20px;
-}
-#IDMadagascar{
-    position: relative;
-    top: -80px;
-    left: -20px;
-}
-#IDAfricas{
-    position: relative;
-    top: -80px;
-    left: -20px;
-}
