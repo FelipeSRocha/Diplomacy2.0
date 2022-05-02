@@ -41,16 +41,49 @@ body{
     grid-area: head;
     margin: 0;
 }
+
 .Btn_HeadClass{
     grid-area: btn;
     display: flex;
     flex-flow: row wrap;
-    width: 30%;
+    width: 35%;
     min-width: 230px;
     max-width: 530px;
     justify-content: center;
 }
-.Players_btn{
+.Players_btn {
+    background-color: rgb(56, 50, 50);
+    border-radius: 12px;
+    color: rgb(235, 235, 235);
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    box-sizing: border-box;
+    border: 0;
+    padding: 5px;
+    margin: 5px;
+    font-size: 15px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .Players_btn:not(:disabled):hover,
+  .Players_btn:not(:disabled):focus {
+    outline: 0;
+    background: rgb(255, 254, 254);
+    color: rgb(10, 10, 10);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
+  }
+  
+  .Players_btn:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+  }
+/* .Players_btn{
     background-color: rgb(56, 50, 50);
     color: rgb(235, 235, 235);
     border-radius: 10px;
@@ -59,7 +92,7 @@ body{
     text-align: center;
     vertical-align: middle;
     box-shadow: 5px 5px 10px black;
-}
+} */
 .ContainerClass{
     position: relative;
     width: 100vw;
@@ -72,13 +105,12 @@ body{
                         "P3 T P4"; */
 }
 .ClassPlayerDiv{
-    background-color: rgb(204, 255, 213);
-    border: 2px solid;
+    background-color: rgb(253, 253, 253);
+    box-shadow: 0 0 2px 2px #fffcfc;
     border-radius: 10px;
-    border-color: rgb(0, 255, 94);
     width: 150px;
     height: 350px;
-    box-shadow: 5px 5px 10px black;
+    
 }
 #IDPlayerDiv_1{
     position: absolute;
@@ -116,6 +148,9 @@ body{
     font-style: italic;
     margin: 0;
 }
+.ClassPlayerTitle IDPlayerTitle_1{
+    color: #0053D0;
+}
 .PlayerProd{
     padding: 5px;
 }
@@ -136,42 +171,126 @@ body{
     grid-area: img;
     height: 25px;
 }
-.Dec1{
-    background-color: rgb(251, 173, 173);
-    border-radius: 4px;
-    border-color: rgb(170, 116, 116);
-    grid-area: decbtn1;
-    height: 100%;
-    width: 80%;
-    font-size: 10px;
+/* CSS */
+.Dec1 {
+  background-color: rgb(251, 173, 173);
+  border-radius: 12px;
+  color: #000;
+  cursor: pointer;
+  font-weight: bold;
+  text-align: center;
+  transition: 200ms;
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  font-size: 10px;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
 }
-.Inc1{
+
+.Dec1:not(:disabled):hover,
+.Dec1:not(:disabled):focus {
+  outline: 0;
+  background: #fd9696;
+  box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.Dec1:disabled {
+  filter: saturate(0.2) opacity(0.5);
+  -webkit-filter: saturate(0.2) opacity(0.5);
+  cursor: not-allowed;
+}
+
+.Inc1 {
     background-color: rgb(251, 242, 173);
-    border-radius: 4px;
-    border-color: rgb(183, 177, 128);
-    grid-area: incbtn1;
-    height: 100%;
-    width: 80%;
+    border-radius: 12px;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
     font-size: 10px;
-}
-.Dec5{
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .Inc1:not(:disabled):hover,
+  .Inc1:not(:disabled):focus {
+    outline: 0;
+    background: rgb(255, 240, 128);
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+  }
+  
+  .Inc1:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+  }
+
+.Dec5 {
     background-color: rgb(251, 135, 135);
-    border-radius: 4px;
-    border-color: rgb(170, 116, 116);
-    grid-area: decbtn5;
-    height: 100%;
-    width: 80%;
+    border-radius: 12px;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
     font-size: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
-.Inc5{
+
+.Dec5:not(:disabled):hover,
+.Dec5:not(:disabled):focus {
+    outline: 0;
+    background: rgb(246, 104, 104);
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.Dec5:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+}
+.Inc5 {
     background-color: rgb(249, 232, 105);
-    border-radius: 4px;
-    border-color: rgb(183, 177, 128);
-    grid-area: incbtn5;
-    height: 100%;
-    width: 80%;
+    border-radius: 12px;
+    color: #000;
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
     font-size: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
+
+.Inc5:not(:disabled):hover,
+.Inc5:not(:disabled):focus {
+    outline: 0;
+    background: rgb(249, 230, 88);
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.Inc5:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+}
+
 .ResourcesText{
     grid-area: value;
     margin: 0;
@@ -233,12 +352,9 @@ body{
     gap: 20px;
 }
 .ClassRound{
-    background-color:  rgb(204, 255, 213);
-    margin: 0;
-    margin-bottom: 10px;
+    background-color: rgb(253, 253, 253);
+    box-shadow: 0 0 2px 2px #fffcfc;
     border-radius: 10px;
-    border: 4px solid;
-    border-color: rgb(0, 255, 94);
     align-self: center;
     vertical-align: center;
     padding: 30px;
@@ -246,10 +362,189 @@ body{
     font-family: 'Roboto', sans-serif;
     font-size: 25px;
     font-weight: bold;
-    box-shadow: 5px 5px 10px black;
+
 }
-.ClassCountry{
+/* .ClassCountry{
     stroke: black;
     stroke-width: 1px;
+} */
+.C_AmericaNorte {
+    fill: rgb(255, 194, 119);
+    stroke-width: 1px;
+    stroke: #000;
+    
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
 }
 
+.C_AmericaNorte:not(:disabled):hover,
+.C_AmericaNorte:not(:disabled):focus {
+    z-index: 12;
+    fill: rgb(255, 165, 69);
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.C_AmericaNorte:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+}
+.C_AmericaSul {
+    fill: rgb(177, 255, 128) ;
+    stroke-width: 1px;
+    stroke: #000;
+    
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.C_AmericaSul:not(:disabled):hover,
+.C_AmericaSul:not(:disabled):focus {
+    z-index: 12;
+    fill: rgb(88, 249, 101);
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.C_AmericaSul:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+}
+.C_Africa {
+    fill: rgb(248, 145, 255) ;
+    stroke-width: 1px;
+    stroke: #000;
+    
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.C_Africa:not(:disabled):hover,
+.C_Africa:not(:disabled):focus {
+    z-index: 12;
+    fill: rgb(237, 78, 249);
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.C_Africa:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+}
+.C_Europe {
+    fill: rgb(145, 173, 255) ;
+    stroke-width: 1px;
+    stroke: #000;
+    
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.C_Europe:not(:disabled):hover,
+.C_Europe:not(:disabled):focus {
+    z-index: 12;
+    fill: rgb(58, 107, 255);
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.C_Europe:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+}
+.C_Asia {
+    fill: rgb(255, 231, 137) ;
+    stroke-width: 1px;
+    stroke: #000;
+    
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.C_Asia:not(:disabled):hover,
+.C_Asia:not(:disabled):focus {
+    z-index: 12;
+    fill: rgb(252, 217, 75) ;
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.C_Asia:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+}
+.C_Oceania {
+    fill: rgb(255, 137, 137) ;
+    stroke-width: 1px;
+    stroke: #000;
+    
+    cursor: pointer;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    width: 100%;
+    box-sizing: border-box;
+    border: 0;
+    font-size: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+
+.C_Oceania:not(:disabled):hover,
+.C_Oceania:not(:disabled):focus {
+    z-index: 12;
+    fill: rgb(250, 91, 91) ;
+    box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
+}
+
+.C_Oceania:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+}
