@@ -13,11 +13,17 @@ body{
     position: absolute;
     width: 100vw;
     height: 100vh;
-    z-index: -1;
+    z-index: 1;
+    justify-items: center;
 }
 .HeaderClass{
+    z-index: 2;
+    position: relative;
+    left: 50%;
+    transform: translate(-50%);
+    width: 20%;
     display: grid;
-    grid-template-rows: 60px 40px;
+    grid-template-rows: 60px 80px;
     grid-template-areas: 
     "head"
     "btn";
@@ -47,7 +53,7 @@ body{
     display: flex;
     flex-flow: row wrap;
     width: 35%;
-    min-width: 230px;
+    min-width: 200px;
     max-width: 530px;
     justify-content: center;
 }
@@ -64,7 +70,7 @@ body{
     border: 0;
     padding: 5px;
     margin: 5px;
-    font-size: 15px;
+    font-size: 12px;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
@@ -94,46 +100,36 @@ body{
     box-shadow: 5px 5px 10px black;
 } */
 .ContainerClass{
-    position: relative;
-    width: 100vw;
-    height: 0;
-    /* display: grid;
-    grid-template-columns: 150px 1fr 150px;
-    grid-template-rows: 40vh 40vh;
-    grid-gap: 5px;
-    grid-template-areas: "P1 T P2"
-                        "P3 T P4"; */
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
 }
-.ClassPlayerDiv{
-    background-color: rgb(253, 253, 253);
-    box-shadow: 0 0 2px 2px #fffcfc;
-    border-radius: 10px;
-    width: 150px;
-    height: 350px;
-    
-}
-#IDPlayerDiv_1{
+
+
+#IDPlayerStats_1{
     position: absolute;
     left: 0;
     margin-left: 5px;
 }
-#IDPlayerDiv_2{
+#IDPlayerStats_2{
     position: absolute;
     right: 0;
     margin-right: 5px;
 }
-#IDPlayerDiv_3{
+#IDPlayerStats_3{
     position: absolute;
     left: 0;
     margin-left: 5px;
-    top: 365px;
+    bottom: 0;
 }
-#IDPlayerDiv_4{
+#IDPlayerStats_4{
     position: absolute;
     right: 0;
     margin-right: 5px;
-    top: 365px;
+    bottom: 0;
 }
+
 .PlayerStats{
     background-color: rgb(240, 185, 255);
     border-radius: 10px;
@@ -148,17 +144,58 @@ body{
     font-style: italic;
     margin: 0;
 }
-.ClassPlayerTitle IDPlayerTitle_1{
-    color: #0053D0;
+#IDPlayerTitle_1{
+    color: #ffffff;
+    width: fit-content;
+    margin-left: 15px;
+    margin-right: 15px;
+    justify-self: left;
 }
-.PlayerProd{
-    padding: 5px;
+#IDPlayerTitle_2{
+    color: #ffffff;
+    width: fit-content;
+    margin-left: 15px;
+    margin-right: 15px;
+    justify-self: right;
+}   
+#IDPlayerTitle_3{
+    color: #ffffff;
+    width: fit-content;
+    margin-left: 15px;
+    margin-right: 15px;
+    justify-self: left;
 }
-
-.ClassPlayerProd_each{
+#IDPlayerTitle_4{
+    color: #ffffff;
+    width: fit-content;
+    margin-left: 15px;
+    margin-right: 15px;
+    justify-self: right;
+}
+.ClassPlayerStats{
+    /* background-color: rgb(253, 253, 253);
+    box-shadow: 0 0 2px 2px #fffcfc; */
+    border-radius: 10px;
+    width: 40%;
+    margin: 5px;
+    height: 115px;
     display: grid;
-    grid-template-columns: 1fr 1.1fr 2fr 1.1fr;
-    grid-template-rows: 17px 17px;
+    grid-template-rows: 1fr 1fr 1fr;
+    z-index: 2;
+}
+.ClassPlayerProd{
+    display: grid;
+    grid-template-areas: 
+    "PEnergia PComida PExercito PTecnologia";
+    align-items: center;
+}
+.ClassPlayerProd_each{
+    background-color: rgb(133, 98, 22);
+    box-shadow: 0 0 2px 1px rgb(133, 98, 22);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 30% 20% 30% 20%;
+    grid-template-rows: 1fr 1fr;
     grid-template-areas: 
     "img decbtn1 value incbtn1"
     "img decbtn5 value incbtn5";
@@ -166,6 +203,31 @@ body{
     justify-items: center;
     align-items: center;
     margin: 2px;
+    height: 90%;
+    padding: 5px;
+}
+.ClassPlayerBank{
+    display: grid;
+    grid-template-areas: 
+    "PEnergia PComida PExercito PTecnologia";
+    align-items: center;
+}
+.ClassPlayerBank_each{
+    background-color: rgb(94, 125, 2);
+    box-shadow: 0 0 2px 1px rgb(94, 125, 2);
+    border-radius: 10px;
+    display: grid;
+    grid-template-columns: 30% 20% 30% 20%;
+    grid-template-rows: 1fr 1fr;
+    grid-template-areas: 
+    "img decbtn1 value incbtn1"
+    "img decbtn5 value incbtn5";
+    row-gap: 2px;
+    justify-items: center;
+    align-items: center;
+    margin: 2px;
+    height: 90%;
+    padding: 5px;
 }
 .img_resources{
     grid-area: img;
@@ -174,13 +236,15 @@ body{
 /* CSS */
 .Dec1 {
   background-color: rgb(251, 173, 173);
-  border-radius: 12px;
+  border-radius: 8px;
+  height: 80%;
   color: #000;
   cursor: pointer;
   font-weight: bold;
   text-align: center;
   transition: 200ms;
   width: 100%;
+
   box-sizing: border-box;
   border: 0;
   font-size: 10px;
@@ -204,7 +268,8 @@ body{
 
 .Inc1 {
     background-color: rgb(251, 242, 173);
-    border-radius: 12px;
+    border-radius: 8px;
+    height: 80%;
     color: #000;
     cursor: pointer;
     font-weight: bold;
@@ -234,7 +299,8 @@ body{
 
 .Dec5 {
     background-color: rgb(251, 135, 135);
-    border-radius: 12px;
+    border-radius: 8px;
+    height: 80%;
     color: #000;
     cursor: pointer;
     font-weight: bold;
@@ -263,7 +329,8 @@ body{
 }
 .Inc5 {
     background-color: rgb(249, 232, 105);
-    border-radius: 12px;
+    border-radius: 8px;
+    height: 80%;
     color: #000;
     cursor: pointer;
     font-weight: bold;
@@ -299,30 +366,16 @@ body{
     font-size: 100%;
     font-weight: bold;
     font-style: italic;
+    color: white;
+    min-width: 31px;
 }
-.PlayerBank{
-    padding: 5px;
-}
-.ClassPlayerBank_each{
-    display: grid;
-    height: 40%;
-    grid-template-columns: 1fr 1.1fr 2fr 1.1fr;
-    grid-template-rows: 17px 17px;
-    grid-template-areas: 
-    "img decbtn1 value incbtn1"
-    "img decbtn5 value incbtn5";
-    row-gap: 2px;
-    justify-items: center;
-    align-items: center;
-    margin: 2px;
-    margin-top: 5px;
-}
+
 .ClassTable{
     display: flex;
     position: fixed;
     height: 100%;
     width: 100%;
-    z-index: -1;
+    z-index: 1;
     top: 0;
     left: 0;
     justify-content: center;
@@ -341,7 +394,11 @@ body{
     width: 100%;
 }
 .ClassFooter{
-    width: 100%;
+    position: absolute;
+    align-self: center;
+    left: 50%;
+    transform: translate(-50%);
+    width: 20%;
     height: 100px;
     bottom: 0;
     
@@ -349,7 +406,9 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 20px;
+    gap: 10px;
+    align-self: center;
+    z-index: 1;
 }
 .ClassRound{
     background-color: rgb(253, 253, 253);
@@ -357,10 +416,10 @@ body{
     border-radius: 10px;
     align-self: center;
     vertical-align: center;
-    padding: 30px;
+    padding: 5px;
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 25px;
+    font-size: 15px;
     font-weight: bold;
 
 }

@@ -7,8 +7,8 @@ class View{
     RenderStartScreen(){
         this.RenderTitle()
         this.RenderTable()  
-        Zoom()
-        MoveMap()
+        this.Zoom()
+        this.MoveMap()
 
     }
     RenderTitle(){
@@ -65,18 +65,41 @@ class View{
         this.ListofPlayers.forEach((el, i) =>{
 
             //Cria os elementos da interface do jogador
-            let PlayerDiv = new AddElement
-            PlayerDiv.AddElement("div","ContainerID", `IDPlayerDiv_${(1+i)}`, `ClassPlayerDiv`)
+            // let PlayerDiv = new AddElement
+            // PlayerDiv.AddElement("div","ContainerID", `IDPlayerDiv_${(1+i)}`, `ClassPlayerDiv`)
 
             let PlayerStats = new AddElement
-            PlayerStats.AddElement("div",`IDPlayerDiv_${(1+i)}`, `IDPlayerStats_${(1+i)}`, `ClassPlayerStats`)
+            PlayerStats.AddElement("div","ContainerID", `IDPlayerStats_${(1+i)}`, `ClassPlayerStats`)
 
             let PlayerTitle = new AddElement
-            PlayerTitle.AddElement("h1",`IDPlayerStats_${(1+i)}`, `IDPlayerTitle_${(1+i)}`, `ClassPlayerTitle`, `Player ${i+1}`)
-            let PlayerProd = new AddElement
-            PlayerProd.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
-            let PlayerBank = new AddElement
-            PlayerBank.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
+            if (i<2){
+                if (i<=1){
+                    let PlayerProd = new AddElement
+                    PlayerProd.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
+                    let PlayerBank = new AddElement
+                    PlayerBank.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
+                }else{
+                    let PlayerBank = new AddElement
+                    PlayerBank.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
+                    let PlayerProd = new AddElement
+                    PlayerProd.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
+                }
+                PlayerTitle.AddElement("h1",`IDPlayerStats_${(1+i)}`, `IDPlayerTitle_${(1+i)}`, `ClassPlayerTitle`, `Player ${i+1}`)
+            }else{
+                PlayerTitle.AddElement("h1",`IDPlayerStats_${(1+i)}`, `IDPlayerTitle_${(1+i)}`, `ClassPlayerTitle`, `Player ${i+1}`)
+                if (i<=1){
+                    let PlayerProd = new AddElement
+                    PlayerProd.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
+                    let PlayerBank = new AddElement
+                    PlayerBank.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
+                }else{
+                    let PlayerBank = new AddElement
+                    PlayerBank.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
+                    let PlayerProd = new AddElement
+                    PlayerProd.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
+                }
+            }
+
 
             //Itera pelos stats dos jogadores
             Object.keys(el).forEach(key =>{
@@ -89,7 +112,7 @@ class View{
                     case "ProdExercito":
                     case "ProdTecnologia":
                         let ProdDivEach = new AddElement
-                        ProdDivEach.AddElement("div",`IDPlayerProd_${(1+i)}`, `IDPlayerProd_${key}_${(1+i)}`, "ClassPlayerProd_each", )
+                        ProdDivEach.AddElement("div",`IDPlayerProd_${(1+i)}`, `IDPlayerProd_${key}_${(1+i)}`, `ClassPlayerProd_each`)
 
                         let img_Prod = new AddElement
                         let src_prod = `/Img/${key}.png`
@@ -152,6 +175,67 @@ class View{
         this.InsertMap()
         // const map = new AddElement 
         // map.AddElement("img", `IDImgTable`, "IDmap", "Classmap","","","SVGMap/MAPSVG.svg")
+    }
+    Zoom(){
+        const zoomElement = document.querySelector(".ClassImgTable");
+        let ZOOM_SPEED = 0.1;
+        document.addEventListener("wheel", function(e){
+          if (e.deltaY > 0) {
+            if(zoom>1){
+              zoomElement.style.transform = `scale(${(zoom -= ZOOM_SPEED)})`; 
+            }
+            
+          } else {
+            if(zoom<3){
+              zoomElement.style.transform = `scale(${(zoom += ZOOM_SPEED)})`;
+            }
+          }
+        });
+    }
+    MoveMap(){
+        const wrapper = document.querySelector("#IDTable")
+        let map = wrapper.querySelector("#IDImgTable")
+        let Speed = 50
+        document.addEventListener("keydown", function(e){
+          let getstyle = window.getComputedStyle(wrapper)
+          let left = parseInt(getstyle.left)
+          let top = parseInt(getstyle.top)
+      
+          switch(e.key.toString()){
+      
+            case "a":
+            case "A":
+            case "ArrowLeft":
+              if(left<200*zoom*zoom){
+                wrapper.style.left=`${left + Speed}px`
+              }
+            break
+      
+            case "w":
+            case "W":
+            case "ArrowUp":
+              if(top<200*zoom*zoom){
+                wrapper.style.top=`${top + Speed}px`
+              }
+            break
+      
+            case "s":
+            case "S":
+            case "ArrowDown":
+              if(top>-150*zoom*zoom){
+                wrapper.style.top=`${top - Speed}px`
+              }
+            break
+      
+            case "d":
+            case "D":
+            case "ArrowRight":
+              if(left>-200*zoom*zoom){
+                wrapper.style.left=`${left - Speed}px`
+              }
+            break
+          }
+        })
     }
     RenderFooter(){
         const DivExist = document.querySelectorAll("#IDFooter").length > 0
@@ -249,6 +333,6 @@ class View{
         
         `
 
-      }
+    }
 }
 
