@@ -155,7 +155,7 @@ class View{
       //Gambiarra para selecionar a hierarquia certa
       children = children.children[0].children[2].children
 
-      //Itera pelos childrens
+      //Itera pelos childre
       for (let i=0;i<children.length;i++){
         children[i].addEventListener("click", ()=>{
           let text = children[i].id
@@ -226,7 +226,27 @@ class View{
       })
     }
     RenderInfoTab(){
+
+    }
+    RenderInfoCountry(NameofCountry){
+      this.Inhtml.DeleteIfExist("#InfoTabID")
+
+      const pais = Territories.countries[NameofCountry]
+      
       this.Inhtml.AddElement("div", `masterID`, "InfoTabID", "InfoTabClass")
+      this.Inhtml.AddElement("p","InfoTabID","InfoCountry", "InfoCountry", pais.Nome)
+
+      this.Inhtml.AddElement("p","InfoTabID","Infotxt", "Infotxt", "Cost")
+
+      this.Inhtml.AddElement("img","InfoTabID","Infoenr", "Infoimgen", "","","SVGMap/Energia.svg")
+      this.Inhtml.AddElement("img","InfoTabID","Infocom", "Infoimgco", "","","SVGMap/Comida.svg")
+      this.Inhtml.AddElement("img","InfoTabID","Infoexe", "Infoimgex", "","","SVGMap/Exercito.svg")
+      this.Inhtml.AddElement("img","InfoTabID","Infotec", "Infoimgte", "","","SVGMap/Tecnologia.svg")
+
+      this.Inhtml.AddElement("p","InfoTabID","InfoCosten", "InfoCost", `+ ${pais.Energia*2}`)
+      this.Inhtml.AddElement("p","InfoTabID","InfoCostc", "InfoCost", `+ ${pais.Comida*2}`)
+      this.Inhtml.AddElement("p","InfoTabID","InfoCostex", "InfoCost", `+ ${pais.Exercito*2}`)
+      this.Inhtml.AddElement("p","InfoTabID","InfoCostte", "InfoCost", `+ ${pais.Tecnologia*2}`)
     }
     RenderFooter(){
       this.Inhtml.DeleteIfExist("#IDFooter")
@@ -240,28 +260,6 @@ class View{
       this.Inhtml.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: ${check[0]}`) 
       this.Inhtml.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: ${check[1]}`)
       this.Inhtml.AddElement("p","IDFooter", `IDYear`, `ClassRound`, `Year: ${check[2]}`)
-    }
-    RenderInfoCountry(NameofCountry){
-      this.Inhtml.DeleteIfExist("#TabID")
-
-      console.log(Territories)
-      const pais = Territories.countries[NameofCountry]
-      
-      this.Inhtml.AddElement("div", `InfoTabID`, "TabID", "TabClass")
-      this.Inhtml.AddElement("p","TabID","InfoCountry", "InfoCountry", pais.Nome)
-
-      this.Inhtml.AddElement("p","TabID","Infotxt", "Infotxt", "Cost")
-
-      this.Inhtml.AddElement("img","TabID","Infoenr", "Infoimgen", "","","SVGMap/Energia.svg")
-      this.Inhtml.AddElement("img","TabID","Infocom", "Infoimgco", "","","SVGMap/Comida.svg")
-      this.Inhtml.AddElement("img","TabID","Infoexe", "Infoimgex", "","","SVGMap/Exercito.svg")
-      this.Inhtml.AddElement("img","TabID","Infotec", "Infoimgte", "","","SVGMap/Tecnologia.svg")
-
-      this.Inhtml.AddElement("p","TabID","InfoCosten", "InfoCost", `+ ${pais.Energia*2}`)
-      this.Inhtml.AddElement("p","TabID","InfoCostc", "InfoCost", `+ ${pais.Comida*2}`)
-      this.Inhtml.AddElement("p","TabID","InfoCostex", "InfoCost", `+ ${pais.Exercito*2}`)
-      this.Inhtml.AddElement("p","TabID","InfoCostte", "InfoCost", `+ ${pais.Tecnologia*2}`)
-
     }
     ChangeColorTag(TagofCountry, NameCountry){
       const Country = document.getElementById(NameCountry)

@@ -1,8 +1,10 @@
 class InHTML{
     DeleteIfExist(IDElement){
-        const DivExist = document.querySelectorAll(IDElement).length > 0
+        let DivExist = document.querySelectorAll(IDElement).length > 0
+        console.log(DivExist)
         if(DivExist){
-            const element = document.getElementById(IDElement);
+            IDElement = IDElement.replace("#","")
+            let element = document.getElementById(IDElement);
             element.remove()
         }
     }

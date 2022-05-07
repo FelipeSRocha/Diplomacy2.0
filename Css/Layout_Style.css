@@ -383,7 +383,7 @@ cursor: not-allowed;
 #C_AmericaSul{
     cursor: pointer;
 }
-.TabClass{
+.InfoTabClass{
     position: absolute;
     right: 0;
     top: 50%;
