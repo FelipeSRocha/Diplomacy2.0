@@ -90,24 +90,12 @@ body{
     -webkit-filter: saturate(0.2) opacity(0.5);
     cursor: not-allowed;
   }
-/* .Players_btn{
-    background-color: rgb(56, 50, 50);
-    color: rgb(235, 235, 235);
-    border-radius: 10px;
-    margin: 2px;
-    padding: 5px;
-    text-align: center;
-    vertical-align: middle;
-    box-shadow: 5px 5px 10px black;
-} */
 .ContainerClass{
     position: absolute;
     top: 0;
     width: 100%;
     height: 100%;
 }
-
-
 #IDPlayerStats_1{
     position: absolute;
     left: 0;
@@ -130,7 +118,6 @@ body{
     margin-right: 5px;
     bottom: 0;
 }
-
 .PlayerStats{
     background-color: rgb(240, 185, 255);
     border-radius: 10px;
@@ -146,28 +133,28 @@ body{
     margin: 0;
 }
 #IDPlayerTitle_1{
-    color: #ffffff;
+    color: #fdf901;
     width: fit-content;
     margin-left: 15px;
     margin-right: 15px;
     justify-self: left;
 }
 #IDPlayerTitle_2{
-    color: #ffffff;
+    color: #fa4040;
     width: fit-content;
     margin-left: 15px;
     margin-right: 15px;
     justify-self: right;
 }   
 #IDPlayerTitle_3{
-    color: #ffffff;
+    color: #43fb00;
     width: fit-content;
     margin-left: 15px;
     margin-right: 15px;
     justify-self: left;
 }
 #IDPlayerTitle_4{
-    color: #ffffff;
+    color: #00f2ff;
     width: fit-content;
     margin-left: 15px;
     margin-right: 15px;
@@ -395,6 +382,86 @@ body{
 }
 #C_AmericaSul{
     cursor: pointer;
+}
+.TabClass{
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translate(0,-50%);
+    z-index: 2;
+
+
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    gap: 10px;
+    
+    display: grid;
+    grid-template-areas: 
+    "pais pais pais pais"
+    "txt txt txt txt"
+    "imgen imgc imgex imgte"
+    "costen costc costex costte"
+    "p1 p2 p3 p4"
+    "btn btn btn btn";
+    grid-row: 30px 30px 30px 30px;
+    justify-items: center;  
+    align-items: center;
+}
+.InfoCountry{
+    grid-area: pais;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+}
+.Infotxt{
+    grid-area: txt;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 15px;
+    font-weight: bold;
+}
+#InfoCosten{
+    grid-area: costen;
+}
+#InfoCostc{
+    grid-area: costc;
+}
+#InfoCostex{
+    grid-area: costex;
+}
+#InfoCostte{
+    grid-area: costte;
+}
+.InfoCost{
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin: 0;
+    padding: 5px;
+    background-color: rgb(251, 135, 135);
+    border-radius: 8px;
+}
+.Infoimgen{
+    grid-area: imgen;
+    height: 30px;
+    width: 30px;
+}
+.Infoimgco{
+    grid-area: imgc;
+    height: 30px;
+    width: 30px;
+}
+.Infoimgex{
+    grid-area: imgex;
+    height: 30px;
+    width: 30px;
+}
+.Infoimgte{
+    grid-area: imgte;
+    height: 30px;
+    width: 30px;
 }
 .ClassFooter{
     position: absolute;

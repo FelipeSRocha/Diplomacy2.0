@@ -48,6 +48,7 @@ class View{
     RenderTable(){
         this.RenderPlayers()
         this.RenderMap()
+        this.RenderInfoTab()
         this.RenderFooter()
     }
     RenderPlayers(){
@@ -203,7 +204,7 @@ class View{
         children[i].addEventListener("click", ()=>{
           let text = children[i].id
           text = text.replace("_2","")
-          console.log(text)
+          this.RenderInfoCountry(text)
         })
       }
       
@@ -269,6 +270,46 @@ class View{
           }
         })
     }
+    RenderInfoTab(){
+      const InfoTab = new AddElement
+      InfoTab.AddElement("div", `ContainerID`, "InfoTabID", "InfoTabClass")
+    }
+    RenderInfoCountry(NameofCountry){
+      const DivExist = document.querySelectorAll("#TabID").length > 0
+      if(DivExist){
+          const element = document.getElementById('TabID');
+          element.remove()
+      }
+      console.log(Territories)
+      const pais = Territories.countries[NameofCountry]
+      
+      const Tab = new AddElement
+      Tab.AddElement("div", `InfoTabID`, "TabID", "TabClass")
+      const InfoCountry = new AddElement
+      InfoCountry.AddElement("p","TabID","InfoCountry", "InfoCountry", pais.Nome)
+
+      const cost = new AddElement
+      cost.AddElement("p","TabID","Infotxt", "Infotxt", "Cost")
+
+      const imgenergia = new AddElement
+      imgenergia.AddElement("img","TabID","Infoenr", "Infoimgen", "","","SVGMap/Energia.svg")
+      const imgcomida = new AddElement
+      imgcomida.AddElement("img","TabID","Infocom", "Infoimgco", "","","SVGMap/Comida.svg")
+      const imgexercito = new AddElement
+      imgexercito.AddElement("img","TabID","Infoexe", "Infoimgex", "","","SVGMap/Exercito.svg")
+      const imgtecnologia = new AddElement
+      imgtecnologia.AddElement("img","TabID","Infotec", "Infoimgte", "","","SVGMap/Tecnologia.svg")
+
+      const Energia = new AddElement
+      Energia.AddElement("p","TabID","InfoCosten", "InfoCost", `+ ${pais.Energia*2}`)
+      const Comida = new AddElement
+      Comida.AddElement("p","TabID","InfoCostc", "InfoCost", `+ ${pais.Comida*2}`)
+      const Exercito = new AddElement
+      Exercito.AddElement("p","TabID","InfoCostex", "InfoCost", `+ ${pais.Exercito*2}`)
+      const Tecnologia = new AddElement
+      Tecnologia.AddElement("p","TabID","InfoCostte", "InfoCost", `+ ${pais.Tecnologia*2}`)
+
+    }
     RenderFooter(){
         const DivExist = document.querySelectorAll("#IDFooter").length > 0
         if(DivExist){
@@ -295,7 +336,6 @@ class View{
       const Tag = document.getElementById(TagofCountry)
       Tag.style.backgroundColor = Country.style.fill
     }
-
     PutinCenterofCountry(TagofCountry, NameCountry){
       const Country = document.getElementById(TagofCountry)
       const center = this.FindDimensionsofCountry(NameCountry)
@@ -319,7 +359,6 @@ class View{
       console.log(dimensions)
       return dimensions
     }
-
     AdjustPlace(NameCountry){
       let x = 0
       let y = 0
@@ -467,6 +506,5 @@ class View{
       }
       return {x: x, y: y}
     }
-
 }
 
