@@ -76,20 +76,20 @@ body{
     -webkit-user-select: none;
     touch-action: manipulation;
   }
-  
-  .Players_btn:not(:disabled):hover,
-  .Players_btn:not(:disabled):focus {
-    outline: 0;
-    background: rgb(255, 254, 254);
-    color: rgb(10, 10, 10);
-    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
-  }
-  
-  .Players_btn:disabled {
-    filter: saturate(0.2) opacity(0.5);
-    -webkit-filter: saturate(0.2) opacity(0.5);
-    cursor: not-allowed;
-  }
+
+.Players_btn:not(:disabled):hover,
+.Players_btn:not(:disabled):focus {
+outline: 0;
+background: rgb(255, 254, 254);
+color: rgb(10, 10, 10);
+box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.Players_btn:disabled {
+filter: saturate(0.2) opacity(0.5);
+-webkit-filter: saturate(0.2) opacity(0.5);
+cursor: not-allowed;
+}
 .ContainerClass{
     position: absolute;
     top: 0;
@@ -462,6 +462,12 @@ body{
     grid-area: imgte;
     height: 30px;
     width: 30px;
+}
+#Clickable{
+    cursor: pointer;
+}
+circle{
+    fill: #fa4040;
 }
 .ClassFooter{
     position: absolute;

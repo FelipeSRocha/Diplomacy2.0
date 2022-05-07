@@ -15,7 +15,7 @@ class Game{
         
         this.CheckRound()
         this.Round++
-        Render.RenderPlayers()
+        Render.ReloadTable()
         Render.RenderFooter()
     }
 

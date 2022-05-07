@@ -11,7 +11,7 @@ function Controller(){
 function Reset(){
   Diplomacy = new Game()
   Render = new View()
-  Render.RenderPlayers()
+  Render.ReloadTable()
   Render.RenderFooter()
 }
 

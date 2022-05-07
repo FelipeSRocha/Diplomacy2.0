@@ -3,105 +3,71 @@ class View{
         this.Title = document.getElementById("HeaderID")
         this.Table = document.getElementById("ContainerID")
         this.ListofPlayers = Diplomacy.PlayerDB.Players
+        this.Inhtml = new InHTML()
     }
     RenderStartScreen(){
-        this.RenderTitle()
-        this.RenderTable()  
-        this.Zoom()
-        this.MoveMap()
-        // this.RenderCountries()
+      this.RenderTitle()
+      this.RenderTable()  
     }
-    RenderTitle(){
-        // Verifica se existe algo no titulo e exclui 
-        const DivExist = document.querySelectorAll("#HeaderID").length > 0
-        if(DivExist){
-            const element = document.getElementById('HeaderID');
-            element.remove()
-        }
-        
-        let header = new AddElement
-        header.AddElement("div","masterID","HeaderID","HeaderClass","")
-
-        let Title = new AddElement
-        Title.AddElement("div","HeaderID","TitleID","TitleClass","")
-        
-        let Txt_Head = new AddElement
-        Txt_Head.AddElement("p","TitleID","Txt_HeadID","Txt_HeadClass","Diplomacy")
-
-        let Btn_Head = new AddElement
-        Btn_Head.AddElement("div","HeaderID","Btn_HeadID","Btn_HeadClass","")
-
-        //Adiciona os botões Iniciais
-        const btn_ResetGame = new AddElement
-        btn_ResetGame.AddElement("button", `Btn_HeadID`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{Diplomacy.ResetGame()}, "","flex:100%")
-
-        const btn_RemovePlayer = new AddElement
-        btn_RemovePlayer.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {Diplomacy.PlayerDB.RemovePlayer()}, "", "flex:45%")
-
-        const btn_AddPlayer = new AddElement
-        btn_AddPlayer.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {Diplomacy.PlayerDB.AddPlayer()}, "", "flex:45%")
-        
-        const btn_NextRound = new AddElement
-        btn_NextRound.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{Diplomacy.NextRound()}, "", "flex:100%")
-
+    ReloadTable(){
+      this.RenderPlayers()
+      this.RenderInfoTab()
+      this.RenderFooter()
     }
     RenderTable(){
-        this.RenderPlayers()
-        this.RenderMap()
-        this.RenderInfoTab()
-        this.RenderFooter()
+      this.RenderPlayers()
+      this.RenderMap()
+      this.RenderInfoTab()
+      this.RenderFooter()
+    }
+    RenderTitle(){
+      // Verifica se existe algo no titulo e exclui 
+      this.Inhtml.DeleteIfExist("#HeaderID")
+
+      //Adiciona Titulo
+      this.Inhtml.AddElement("div","masterID","HeaderID","HeaderClass","")
+      this.Inhtml.AddElement("div","HeaderID","TitleID","TitleClass","")
+      this.Inhtml.AddElement("p","TitleID","Txt_HeadID","Txt_HeadClass","Diplomacy")
+      this.Inhtml.AddElement("div","HeaderID","Btn_HeadID","Btn_HeadClass","")
+
+      //Adiciona os botões Iniciais
+      this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{Diplomacy.ResetGame()}, "","flex:100%")
+      this.Inhtml.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {Diplomacy.PlayerDB.RemovePlayer()}, "", "flex:45%")
+      this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {Diplomacy.PlayerDB.AddPlayer()}, "", "flex:45%")
+      this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{Diplomacy.NextRound()}, "", "flex:100%")
+
     }
     RenderPlayers(){
         //Verifica se existe algo na parte dos jogadores e exclui 
-        const DivExist = document.querySelectorAll("#ContainerID").length > 0
-        if(DivExist){
-            const element = document.getElementById('ContainerID');
-            element.remove()
-        }
+        this.Inhtml.DeleteIfExist("#ContainerID")
 
-        let container = new AddElement
-        container.AddElement("div","masterID","ContainerID","ContainerClass","",()=>{})
+        this.Inhtml.AddElement("div","masterID","ContainerID","ContainerClass","",()=>{})
 
         //Itera pela lista de jogares para renderizar a interface de cada um
         this.ListofPlayers.forEach((el, i) =>{
 
             //Cria os elementos da interface do jogador
-            // let PlayerDiv = new AddElement
-            // PlayerDiv.AddElement("div","ContainerID", `IDPlayerDiv_${(1+i)}`, `ClassPlayerDiv`)
+            this.Inhtml.AddElement("div","ContainerID", `IDPlayerStats_${(1+i)}`, `ClassPlayerStats`)
 
-            let PlayerStats = new AddElement
-            PlayerStats.AddElement("div","ContainerID", `IDPlayerStats_${(1+i)}`, `ClassPlayerStats`)
-
-            let PlayerTitle = new AddElement
             if (i<2){
                 if (i<=1){
-                    let PlayerProd = new AddElement
-                    PlayerProd.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
-                    let PlayerBank = new AddElement
-                    PlayerBank.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
+                  this.Inhtml.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
+                  this.Inhtml.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
                 }else{
-                    let PlayerBank = new AddElement
-                    PlayerBank.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
-                    let PlayerProd = new AddElement
-                    PlayerProd.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
+                  this.Inhtml.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
+                  this.Inhtml.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
                 }
-                PlayerTitle.AddElement("h1",`IDPlayerStats_${(1+i)}`, `IDPlayerTitle_${(1+i)}`, `ClassPlayerTitle`, `Player ${i+1}`)
+                this.Inhtml.AddElement("h1",`IDPlayerStats_${(1+i)}`, `IDPlayerTitle_${(1+i)}`, `ClassPlayerTitle`, `Player ${i+1}`)
             }else{
-                PlayerTitle.AddElement("h1",`IDPlayerStats_${(1+i)}`, `IDPlayerTitle_${(1+i)}`, `ClassPlayerTitle`, `Player ${i+1}`)
+              this.Inhtml.AddElement("h1",`IDPlayerStats_${(1+i)}`, `IDPlayerTitle_${(1+i)}`, `ClassPlayerTitle`, `Player ${i+1}`)
                 if (i<=1){
-                    let PlayerProd = new AddElement
-                    PlayerProd.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
-                    let PlayerBank = new AddElement
-                    PlayerBank.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
+                  this.Inhtml.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
+                  this.Inhtml.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
                 }else{
-                    let PlayerBank = new AddElement
-                    PlayerBank.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
-                    let PlayerProd = new AddElement
-                    PlayerProd.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
+                  this.Inhtml.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerBank_${(1+i)}`, `ClassPlayerBank`)
+                  this.Inhtml.AddElement("div",`IDPlayerStats_${(1+i)}`, `IDPlayerProd_${(1+i)}`, `ClassPlayerProd`)
                 }
             }
-
-
             //Itera pelos stats dos jogadores
             Object.keys(el).forEach(key =>{
                 let text = ""
@@ -112,25 +78,18 @@ class View{
                     case "ProdComida":
                     case "ProdExercito":
                     case "ProdTecnologia":
-                        let ProdDivEach = new AddElement
-                        ProdDivEach.AddElement("div",`IDPlayerProd_${(1+i)}`, `IDPlayerProd_${key}_${(1+i)}`, `ClassPlayerProd_each`)
+                      this.Inhtml.AddElement("div",`IDPlayerProd_${(1+i)}`, `IDPlayerProd_${key}_${(1+i)}`, `ClassPlayerProd_each`)
 
-                        let img_Prod = new AddElement
                         let src_prod = `/Img/${key}.png`
-                        img_Prod.AddElement("img",`IDPlayerProd_${key}_${(1+i)}`, "", "img_resources","",() =>{}, src_prod)
+                        this.Inhtml.AddElement("img",`IDPlayerProd_${key}_${(1+i)}`, "", "img_resources","",() =>{}, src_prod)
 
-                        let PlayerProd = new AddElement
                         text = `+ ${el[key]}`
-                        PlayerProd.AddElement("p",`IDPlayerProd_${key}_${(1+i)}`, "", "ResourcesText", text,()=>{})
+                        this.Inhtml.AddElement("p",`IDPlayerProd_${key}_${(1+i)}`, "", "ResourcesText", text,()=>{})
 
-                        let btnProd_decrease_1 = new AddElement
-                        btnProd_decrease_1.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-1)})
-                        let btnProd_increase_1 = new AddElement
-                        btnProd_increase_1.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,1)})
-                        let btnProd_decrease_5 = new AddElement
-                        btnProd_decrease_5.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-5)})
-                        let btnProd_increase_5 = new AddElement
-                        btnProd_increase_5.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,5)})
+                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-1)})
+                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,1)})
+                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-5)})
+                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,5)})
                         break
 
                     //Renderiza a parte do banco do jogador
@@ -138,25 +97,18 @@ class View{
                     case "Comida":
                     case "Exercito":
                     case "Tecnologia":
-                        let BankDivEach = new AddElement
-                        BankDivEach.AddElement("div",`IDPlayerBank_${(1+i)}`, `IDPlayerBank_${key}_${(1+i)}`, "ClassPlayerBank_each")
+                      this.Inhtml.AddElement("div",`IDPlayerBank_${(1+i)}`, `IDPlayerBank_${key}_${(1+i)}`, "ClassPlayerBank_each")
 
-                        let img_Bank = new AddElement
                         let src_Bank = `/Img/${key}.png`
-                        img_Bank.AddElement("img",`IDPlayerBank_${key}_${(1+i)}`, "", "img_resources","",() =>{}, src_Bank)
+                        this.Inhtml.AddElement("img",`IDPlayerBank_${key}_${(1+i)}`, "", "img_resources","",() =>{}, src_Bank)
 
-                        let PlayerBank = new AddElement
                         text = `+ ${el[key]}`
-                        PlayerBank.AddElement("p",`IDPlayerBank_${key}_${(1+i)}`, "", "ResourcesText", text,()=>{})
+                        this.Inhtml.AddElement("p",`IDPlayerBank_${key}_${(1+i)}`, "", "ResourcesText", text,()=>{})
 
-                        let btnBank_decrease_1 = new AddElement
-                        btnBank_decrease_1.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-1)})
-                        let btnBank_increase_1 = new AddElement
-                        btnBank_increase_1.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,1)})
-                        let btnBank_decrease_5 = new AddElement
-                        btnBank_decrease_5.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-5)})
-                        let btnBank_increase_5 = new AddElement
-                        btnBank_increase_5.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,5)})
+                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-1)})
+                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,1)})
+                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-5)})
+                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,5)})
                         break
                 }
             })
@@ -164,19 +116,18 @@ class View{
         })
     }
     RenderMap(){
-        const DivExist = document.querySelectorAll("#IDTable").length > 0
-        if(DivExist){
-            const element = document.getElementById('IDTable');
-            element.remove()
-        }
-        const Table = new AddElement
-        Table.AddElement("div", `masterID`, "IDTable", "ClassTable")
-        const ImgTable = new AddElement 
-        ImgTable.AddElement("div", `IDTable`, "IDImgTable", "ClassImgTable")
-        this.InsertMap()
-        
+      //Deleta Table Anterior
+      this.Inhtml.DeleteIfExist("#IDTable")
+
+      //Cria o mapa
+      this.Inhtml.AddElement("div", `masterID`, "IDTable", "ClassTable")
+      this.Inhtml.AddElement("div", `IDTable`, "IDImgTable", "ClassImgTable")
+      this.MapInsert()
+      this.MapZoom()
+      this.MapMove()
     }
-    InsertMap(){
+    MapInsert(){
+      //Magia que troca imagem pelo SVG
       const table = document.getElementById("IDImgTable")
       table.innerHTML="<img id='idimg' src='SVGMap/MapaSVG.svg'/>"
       const img = document.getElementById("idimg")
@@ -197,9 +148,14 @@ class View{
       
     }
     ActionMap(){
+      //Adiciona no svg o evento de clicar e renderizar o custo do pais
       let listofCountries = document.getElementById("IDImgTable")
       let children = listofCountries.childNodes[0]
+
+      //Gambiarra para selecionar a hierarquia certa
       children = children.children[0].children[2].children
+
+      //Itera pelos childrens
       for (let i=0;i<children.length;i++){
         children[i].addEventListener("click", ()=>{
           let text = children[i].id
@@ -207,129 +163,105 @@ class View{
           this.RenderInfoCountry(text)
         })
       }
-      
     }
-    Zoom(){
-        const zoomElement = document.querySelector(".ClassImgTable");
-        let ZOOM_SPEED = 0.1;
-        document.addEventListener("wheel", function(e){
-          if (e.deltaY > 0) {
-            if(zoom>1){
-              zoomElement.style.transform = `scale(${(zoom -= ZOOM_SPEED)})`; 
-            }
-            
-          } else {
-            if(zoom<3){
-              zoomElement.style.transform = `scale(${(zoom += ZOOM_SPEED)})`;
-            }
+    MapZoom(){
+      const zoomElement = document.querySelector(".ClassImgTable");
+      let ZOOM_SPEED = 0.1;
+      document.addEventListener("wheel", function(e){
+        if (e.deltaY > 0) {
+          if(zoom>1){
+            zoomElement.style.transform = `scale(${(zoom -= ZOOM_SPEED)})`; 
           }
-        });
+          
+        } else {
+          if(zoom<3){
+            zoomElement.style.transform = `scale(${(zoom += ZOOM_SPEED)})`;
+          }
+        }
+      });
     }
-    MoveMap(){
-        const wrapper = document.querySelector("#IDTable")
-        let map = wrapper.querySelector("#IDImgTable")
-        let Speed = 50
-        document.addEventListener("keydown", function(e){
-          let getstyle = window.getComputedStyle(wrapper)
-          let left = parseInt(getstyle.left)
-          let top = parseInt(getstyle.top)
-      
-          switch(e.key.toString()){
-      
-            case "a":
-            case "A":
-            case "ArrowLeft":
-              if(left<200*zoom*zoom){
-                wrapper.style.left=`${left + Speed}px`
-              }
-            break
-      
-            case "w":
-            case "W":
-            case "ArrowUp":
-              if(top<200*zoom*zoom){
-                wrapper.style.top=`${top + Speed}px`
-              }
-            break
-      
-            case "s":
-            case "S":
-            case "ArrowDown":
-              if(top>-150*zoom*zoom){
-                wrapper.style.top=`${top - Speed}px`
-              }
-            break
-      
-            case "d":
-            case "D":
-            case "ArrowRight":
-              if(left>-200*zoom*zoom){
-                wrapper.style.left=`${left - Speed}px`
-              }
-            break
-          }
-        })
+    MapMove(){
+      const wrapper = document.querySelector("#IDTable")
+      let map = wrapper.querySelector("#IDImgTable")
+      let Speed = 50
+      document.addEventListener("keydown", function(e){
+        let getstyle = window.getComputedStyle(wrapper)
+        let left = parseInt(getstyle.left)
+        let top = parseInt(getstyle.top)
+    
+        switch(e.key.toString()){
+    
+          case "a":
+          case "A":
+          case "ArrowLeft":
+            if(left<200*zoom*zoom){
+              wrapper.style.left=`${left + Speed}px`
+            }
+          break
+    
+          case "w":
+          case "W":
+          case "ArrowUp":
+            if(top<200*zoom*zoom){
+              wrapper.style.top=`${top + Speed}px`
+            }
+          break
+    
+          case "s":
+          case "S":
+          case "ArrowDown":
+            if(top>-150*zoom*zoom){
+              wrapper.style.top=`${top - Speed}px`
+            }
+          break
+    
+          case "d":
+          case "D":
+          case "ArrowRight":
+            if(left>-200*zoom*zoom){
+              wrapper.style.left=`${left - Speed}px`
+            }
+          break
+        }
+      })
     }
     RenderInfoTab(){
-      const InfoTab = new AddElement
-      InfoTab.AddElement("div", `ContainerID`, "InfoTabID", "InfoTabClass")
+      this.Inhtml.AddElement("div", `masterID`, "InfoTabID", "InfoTabClass")
+    }
+    RenderFooter(){
+      this.Inhtml.DeleteIfExist("#IDFooter")
+
+      this.Inhtml.AddElement("div","masterID", `IDFooter`, `ClassFooter`)
+
+      let check = Diplomacy.CheckRound()
+      if(check[0]>1 && check[1] ==1 || check[1] == 3){
+          console.log("Evento de Convenção!!")
+      }
+      this.Inhtml.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: ${check[0]}`) 
+      this.Inhtml.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: ${check[1]}`)
+      this.Inhtml.AddElement("p","IDFooter", `IDYear`, `ClassRound`, `Year: ${check[2]}`)
     }
     RenderInfoCountry(NameofCountry){
-      const DivExist = document.querySelectorAll("#TabID").length > 0
-      if(DivExist){
-          const element = document.getElementById('TabID');
-          element.remove()
-      }
+      this.Inhtml.DeleteIfExist("#TabID")
+
       console.log(Territories)
       const pais = Territories.countries[NameofCountry]
       
-      const Tab = new AddElement
-      Tab.AddElement("div", `InfoTabID`, "TabID", "TabClass")
-      const InfoCountry = new AddElement
-      InfoCountry.AddElement("p","TabID","InfoCountry", "InfoCountry", pais.Nome)
+      this.Inhtml.AddElement("div", `InfoTabID`, "TabID", "TabClass")
+      this.Inhtml.AddElement("p","TabID","InfoCountry", "InfoCountry", pais.Nome)
 
-      const cost = new AddElement
-      cost.AddElement("p","TabID","Infotxt", "Infotxt", "Cost")
+      this.Inhtml.AddElement("p","TabID","Infotxt", "Infotxt", "Cost")
 
-      const imgenergia = new AddElement
-      imgenergia.AddElement("img","TabID","Infoenr", "Infoimgen", "","","SVGMap/Energia.svg")
-      const imgcomida = new AddElement
-      imgcomida.AddElement("img","TabID","Infocom", "Infoimgco", "","","SVGMap/Comida.svg")
-      const imgexercito = new AddElement
-      imgexercito.AddElement("img","TabID","Infoexe", "Infoimgex", "","","SVGMap/Exercito.svg")
-      const imgtecnologia = new AddElement
-      imgtecnologia.AddElement("img","TabID","Infotec", "Infoimgte", "","","SVGMap/Tecnologia.svg")
+      this.Inhtml.AddElement("img","TabID","Infoenr", "Infoimgen", "","","SVGMap/Energia.svg")
+      this.Inhtml.AddElement("img","TabID","Infocom", "Infoimgco", "","","SVGMap/Comida.svg")
+      this.Inhtml.AddElement("img","TabID","Infoexe", "Infoimgex", "","","SVGMap/Exercito.svg")
+      this.Inhtml.AddElement("img","TabID","Infotec", "Infoimgte", "","","SVGMap/Tecnologia.svg")
 
-      const Energia = new AddElement
-      Energia.AddElement("p","TabID","InfoCosten", "InfoCost", `+ ${pais.Energia*2}`)
-      const Comida = new AddElement
-      Comida.AddElement("p","TabID","InfoCostc", "InfoCost", `+ ${pais.Comida*2}`)
-      const Exercito = new AddElement
-      Exercito.AddElement("p","TabID","InfoCostex", "InfoCost", `+ ${pais.Exercito*2}`)
-      const Tecnologia = new AddElement
-      Tecnologia.AddElement("p","TabID","InfoCostte", "InfoCost", `+ ${pais.Tecnologia*2}`)
+      this.Inhtml.AddElement("p","TabID","InfoCosten", "InfoCost", `+ ${pais.Energia*2}`)
+      this.Inhtml.AddElement("p","TabID","InfoCostc", "InfoCost", `+ ${pais.Comida*2}`)
+      this.Inhtml.AddElement("p","TabID","InfoCostex", "InfoCost", `+ ${pais.Exercito*2}`)
+      this.Inhtml.AddElement("p","TabID","InfoCostte", "InfoCost", `+ ${pais.Tecnologia*2}`)
 
-    }
-    RenderFooter(){
-        const DivExist = document.querySelectorAll("#IDFooter").length > 0
-        if(DivExist){
-            const element = document.getElementById('IDFooter');
-            element.remove()
-        }
-
-        let Footer = new AddElement
-        Footer.AddElement("div","masterID", `IDFooter`, `ClassFooter`)
-
-        let check = Diplomacy.CheckRound()
-        if(check[0]>1 && check[1] ==1 || check[1] == 3){
-            console.log("Evento de Convenção!!")
-        }
-        let Round = new AddElement
-        Round.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: ${check[0]}`) 
-        let Quarter = new AddElement
-        Quarter.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: ${check[1]}`)
-        let Year = new AddElement
-        Year.AddElement("p","IDFooter", `IDYear`, `ClassRound`, `Year: ${check[2]}`)
     }
     ChangeColorTag(TagofCountry, NameCountry){
       const Country = document.getElementById(NameCountry)

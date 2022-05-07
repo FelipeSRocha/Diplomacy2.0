@@ -16,7 +16,7 @@ class Player_db{
             let NewPlayer = new Player()
             this.Players[this.Players.length] = NewPlayer
             this.AmountofPlayers++
-            Render.RenderPlayers()
+            Render.ReloadTable()
         }
     }
 
@@ -26,7 +26,7 @@ class Player_db{
         }else{
             this.Players.pop()
             this.AmountofPlayers--  
-            Render.RenderPlayers()
+            Render.ReloadTable()
         }
     }
 
