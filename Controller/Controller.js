@@ -4,6 +4,7 @@ let zoom = 1
 
 function Controller(){
   Diplomacy = new Game()
+  Territories = new World()
   Render = new View()
   Render.RenderStartScreen()
 }

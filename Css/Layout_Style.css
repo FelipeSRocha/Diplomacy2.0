@@ -13,6 +13,7 @@ body{
     position: absolute;
     width: 100vw;
     height: 100vh;
+    min-width: 1400px;
     z-index: 1;
     justify-items: center;
 }
@@ -383,6 +384,7 @@ body{
 
 }
 .ClassImgTable{
+    position: relative;
     height: 100vh;
     aspect-ratio: 14/9;
     justify-content: center;
@@ -423,12 +425,8 @@ body{
     font-weight: bold;
 
 }
-/* .ClassCountry{
-    stroke: black;
-    stroke-width: 1px;
-} */
 .C_AmericaNorte {
-    fill: rgb(255, 194, 119);
+    fill: rgb(218, 164, 98);
     stroke-width: 1px;
     stroke: #000;
     
@@ -444,21 +442,19 @@ body{
     -webkit-user-select: none;
     touch-action: manipulation;
 }
-
 .C_AmericaNorte:not(:disabled):hover,
 .C_AmericaNorte:not(:disabled):focus {
     z-index: 12;
     fill: rgb(255, 165, 69);
     box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
-
 .C_AmericaNorte:disabled {
     filter: saturate(0.2) opacity(0.5);
     -webkit-filter: saturate(0.2) opacity(0.5);
     cursor: not-allowed;
 }
 .C_AmericaSul {
-    fill: rgb(177, 255, 128) ;
+    fill: rgb(99, 175, 52) ;
     stroke-width: 1px;
     stroke: #000;
     
@@ -469,26 +465,24 @@ body{
     width: 100%;
     box-sizing: border-box;
     border: 0;
-    font-size: 10px;
+    font-size: 15px;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
 }
-
 .C_AmericaSul:not(:disabled):hover,
 .C_AmericaSul:not(:disabled):focus {
     z-index: 12;
     fill: rgb(88, 249, 101);
     box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
-
 .C_AmericaSul:disabled {
     filter: saturate(0.2) opacity(0.5);
     -webkit-filter: saturate(0.2) opacity(0.5);
     cursor: not-allowed;
 }
 .C_Africa {
-    fill: rgb(248, 145, 255) ;
+    fill: rgb(198, 104, 204) ;
     stroke-width: 1px;
     stroke: #000;
     
@@ -504,23 +498,21 @@ body{
     -webkit-user-select: none;
     touch-action: manipulation;
 }
-
 .C_Africa:not(:disabled):hover,
 .C_Africa:not(:disabled):focus {
     z-index: 12;
     fill: rgb(237, 78, 249);
     box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
-
 .C_Africa:disabled {
     filter: saturate(0.2) opacity(0.5);
     -webkit-filter: saturate(0.2) opacity(0.5);
     cursor: not-allowed;
 }
 .C_Europe {
-    fill: rgb(145, 173, 255) ;
-    stroke-width: 1px;
-    stroke: #000;
+    fill: rgb(0, 25, 102) ;
+    stroke-width: 2px;
+    stroke: rgb(0, 64, 255);
     
     cursor: pointer;
     font-weight: bold;
@@ -534,23 +526,21 @@ body{
     -webkit-user-select: none;
     touch-action: manipulation;
 }
-
 .C_Europe:not(:disabled):hover,
 .C_Europe:not(:disabled):focus {
     z-index: 12;
     fill: rgb(58, 107, 255);
     box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
-
 .C_Europe:disabled {
     filter: saturate(0.2) opacity(0.5);
     -webkit-filter: saturate(0.2) opacity(0.5);
     cursor: not-allowed;
 }
 .C_Asia {
-    fill: rgb(255, 231, 137) ;
-    stroke-width: 1px;
-    stroke: #000;
+    fill: rgb(190, 170, 88) ;
+    stroke-width: 2px;
+    stroke: rgb(255, 204, 0);
     
     cursor: pointer;
     font-weight: bold;
@@ -564,23 +554,22 @@ body{
     -webkit-user-select: none;
     touch-action: manipulation;
 }
-
 .C_Asia:not(:disabled):hover,
 .C_Asia:not(:disabled):focus {
     z-index: 12;
     fill: rgb(252, 217, 75) ;
     box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
-
 .C_Asia:disabled {
     filter: saturate(0.2) opacity(0.5);
     -webkit-filter: saturate(0.2) opacity(0.5);
     cursor: not-allowed;
 }
 .C_Oceania {
-    fill: rgb(255, 137, 137) ;
-    stroke-width: 1px;
-    stroke: #000;
+    fill: rgb(198, 75, 75) ;
+    stroke-width: 2px;
+    stroke: rgb(230, 16, 16);
+
     
     cursor: pointer;
     font-weight: bold;
@@ -594,16 +583,77 @@ body{
     -webkit-user-select: none;
     touch-action: manipulation;
 }
-
 .C_Oceania:not(:disabled):hover,
 .C_Oceania:not(:disabled):focus {
     z-index: 12;
     fill: rgb(250, 91, 91) ;
     box-shadow: 0 0 0 2px rgba(0,0,0,.2), 0 3px 8px 0 rgba(0,0,0,.15);
 }
-
 .C_Oceania:disabled {
     filter: saturate(0.2) opacity(0.5);
     -webkit-filter: saturate(0.2) opacity(0.5);
     cursor: not-allowed;
 }
+.Production{
+    height: 20px;
+    width: 20px;
+}
+.Tag_img{
+    height: 15px;
+    width: 15px;
+    margin: 1px;
+}
+
+.Tag_Country {
+    /* background-color: rgba(215, 211, 211, 0.718); */
+    border-radius: 12px;
+    color: rgb(255, 255, 255);
+    text-shadow: 0px 0px 5px rgb(0, 0, 0);
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    box-sizing: border-box;
+    border: 0;
+    padding: 5px;
+    margin: 5px;
+    font-size: 10px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    position: absolute;
+    display: grid;
+    justify-content: center;
+    width: fit-content;
+  }
+  
+  .Tag_Country:not(:disabled):hover,
+  .Tag_Country:not(:disabled):focus {
+    outline: 0;
+    background: rgb(255, 254, 254);
+    color: rgb(135, 135, 135);
+    box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
+    text-shadow: 1px 1px 3px rgb(255, 255, 255);
+    
+  }
+  
+  .Tag_Country:disabled {
+    filter: saturate(0.2) opacity(0.5);
+    -webkit-filter: saturate(0.2) opacity(0.5);
+    cursor: not-allowed;
+  }
+.TxtTag{
+    margin: 0;
+
+}
+.TagDownClass{
+    display: flex;
+    justify-content: center;
+    margin: 2px;
+}
+.TagUpClass{
+    display: flex;
+    justify-content: center;
+}
+
