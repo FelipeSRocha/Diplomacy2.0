@@ -31,7 +31,8 @@ class Player_db{
     }
 
     SetPlayers(){
-        this.AmountofPlayers = parseInt(window.prompt("Quantos Jogadores? (Mín = 2, Máx = 4)","2"))
+        this.AmountofPlayers = 4
+        // this.AmountofPlayers = parseInt(window.prompt("Quantos Jogadores? (Mín = 2, Máx = 4)","2"))
         if(isNaN(this.AmountofPlayers)){
             alert("Insira um número entre 2 e 4")
             this.SetPlayers()
