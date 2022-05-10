@@ -2,7 +2,7 @@ class View{
     constructor(){
         this.Title = document.getElementById("HeaderID")
         this.Table = document.getElementById("ContainerID")
-        this.ListofPlayers = Diplomacy.PlayerDB.Players
+        this.ListofPlayers = DataFounder.Players
         this.Inhtml = new InHTML()
     }
     RenderStartScreen(){
@@ -11,13 +11,11 @@ class View{
     }
     ReloadTable(){
       this.RenderPlayers()
-      this.RenderInfoTab()
       this.RenderFooter()
     }
     RenderTable(){
       this.RenderPlayers()
       this.RenderMap()
-      this.RenderInfoTab()
       this.RenderFooter()
     }
     RenderTitle(){
@@ -32,8 +30,8 @@ class View{
 
       //Adiciona os botões Iniciais
       this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{Diplomacy.ResetGame()}, "","flex:100%")
-      this.Inhtml.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {Diplomacy.PlayerDB.RemovePlayer()}, "", "flex:45%")
-      this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {Diplomacy.PlayerDB.AddPlayer()}, "", "flex:45%")
+      this.Inhtml.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {DataFounder.RemovePlayer()}, "", "flex:45%")
+      this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {DataFounder.AddPlayer()}, "", "flex:45%")
       this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{Diplomacy.NextRound()}, "", "flex:100%")
 
     }
@@ -45,7 +43,7 @@ class View{
 
         //Itera pela lista de jogares para renderizar a interface de cada um
         this.ListofPlayers.forEach((el, i) =>{
-
+          
             //Cria os elementos da interface do jogador
             this.Inhtml.AddElement("div","ContainerID", `IDPlayerStats_${(1+i)}`, `ClassPlayerStats`)
 
@@ -86,10 +84,10 @@ class View{
                         text = `+ ${el[key]}`
                         this.Inhtml.AddElement("p",`IDPlayerProd_${key}_${(1+i)}`, "", "ResourcesText", text,()=>{})
 
-                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-1)})
-                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,1)})
-                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-5)})
-                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,5)})
+                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{DataFounder.Players[i].ModifyValue(key,-1)})
+                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{DataFounder.Players[i].ModifyValue(key,1)})
+                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{DataFounder.Players[i].ModifyValue(key,-5)})
+                        this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{DataFounder.Players[i].ModifyValue(key,5)})
                         break
 
                     //Renderiza a parte do banco do jogador
@@ -105,10 +103,10 @@ class View{
                         text = `+ ${el[key]}`
                         this.Inhtml.AddElement("p",`IDPlayerBank_${key}_${(1+i)}`, "", "ResourcesText", text,()=>{})
 
-                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-1)})
-                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,1)})
-                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,-5)})
-                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{Diplomacy.PlayerDB.Players[i].ModifyValue(key,5)})
+                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{DataFounder.Players[i].ModifyValue(key,-1)})
+                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{DataFounder.Players[i].ModifyValue(key,1)})
+                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{DataFounder.Players[i].ModifyValue(key,-5)})
+                        this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{DataFounder.Players[i].ModifyValue(key,5)})
                         break
                 }
             })
@@ -225,16 +223,13 @@ class View{
         }
       })
     }
-    RenderInfoTab(){
-
-    }
     RenderInfoCountry(NameofCountry){
       this.Inhtml.DeleteIfExist("#InfoTabID")
 
-      const pais = Territories.countries[NameofCountry]
+      const Country = DataFounder.countries[NameofCountry]
       
       this.Inhtml.AddElement("div", `masterID`, "InfoTabID", "InfoTabClass")
-      this.Inhtml.AddElement("p","InfoTabID","InfoCountry", "InfoCountry", pais.Nome)
+      this.Inhtml.AddElement("p","InfoTabID","InfoCountry", "InfoCountry", Country.Nome)
 
       this.Inhtml.AddElement("p","InfoTabID","Infotxt", "Infotxt", "Cost")
 
@@ -243,10 +238,35 @@ class View{
       this.Inhtml.AddElement("img","InfoTabID","Infoexe", "Infoimgex", "","","SVGMap/Exercito.svg")
       this.Inhtml.AddElement("img","InfoTabID","Infotec", "Infoimgte", "","","SVGMap/Tecnologia.svg")
 
-      this.Inhtml.AddElement("p","InfoTabID","InfoCosten", "InfoCost", `+ ${pais.Energia*2}`)
-      this.Inhtml.AddElement("p","InfoTabID","InfoCostc", "InfoCost", `+ ${pais.Comida*2}`)
-      this.Inhtml.AddElement("p","InfoTabID","InfoCostex", "InfoCost", `+ ${pais.Exercito*2}`)
-      this.Inhtml.AddElement("p","InfoTabID","InfoCostte", "InfoCost", `+ ${pais.Tecnologia*2}`)
+      this.Inhtml.AddElement("p","InfoTabID","InfoCosten", "InfoCost", `+ ${Country.Energia*2}`)
+      this.Inhtml.AddElement("p","InfoTabID","InfoCostc", "InfoCost", `+ ${Country.Comida*2}`)
+      this.Inhtml.AddElement("p","InfoTabID","InfoCostex", "InfoCost", `+ ${Country.Exercito*2}`)
+      this.Inhtml.AddElement("p","InfoTabID","InfoCostte", "InfoCost", `+ ${Country.Tecnologia*2}`)
+
+      this.Inhtml.AddText("InfoTabID","checkbox_ID_P1","checkbox_txt_Class","P1")
+      this.Inhtml.AddText("InfoTabID","checkbox_ID_P2","checkbox_txt_Class","P2")
+      this.Inhtml.AddText("InfoTabID","checkbox_ID_P3","checkbox_txt_Class","P3")
+      this.Inhtml.AddText("InfoTabID","checkbox_ID_P4","checkbox_txt_Class","P4")
+
+      console.log(DataFounder.AmountofPlayers)
+      // for(DataFounder)
+      this.Inhtml.AddInput("checkbox","InfoTabID", "checkbox_p1","Checkbox_p",Country.Players[0])
+      this.Inhtml.AddInput("checkbox","InfoTabID", "checkbox_p2","Checkbox_p",Country.Players[1])
+      this.Inhtml.AddInput("checkbox","InfoTabID", "checkbox_p3","Checkbox_p",Country.Players[2])
+      this.Inhtml.AddInput("checkbox","InfoTabID", "checkbox_p4","Checkbox_p",Country.Players[3])
+
+      this.Inhtml.AddBtn("InfoTabID","ID_CheckInfluency","Players_btn","Confirmar Influência",()=>this.CheckInfluency(NameofCountry))
+
+    }
+    CheckInfluency(NameofCountry){
+      let influencyplayers = [false,false,false,false]
+      for(let i=1;i<=4;i++){
+        let test = document.getElementById(`checkbox_p${i}`).checked
+        if(test==true){
+          influencyplayers[i-1]=true
+        }
+      }
+      DataFounder.UpdatePlayersInfluency(NameofCountry,influencyplayers)
     }
     RenderFooter(){
       this.Inhtml.DeleteIfExist("#IDFooter")
@@ -289,152 +309,6 @@ class View{
       console.log(dimensions)
       return dimensions
     }
-    AdjustPlace(NameCountry){
-      let x = 0
-      let y = 0
-      switch (NameCountry){
-        case "Brasil":
-           x = +10
-           y = -10
-          break
-        case "Chile":
-          x = -10
-          y = -50
-          break
-        case "Venezuela":
-          x = -15
-          break
-        case "Mexico":
-          x= -20
-          break
-        case "Jamaica":
-          x = -10
-          y = 10
-          break
-        case "Nova York":
-          x = 10
-          y = 10
-          break
-        case "Ottawa":
-          x = -10
-          y = 5
-          break
-        case "Labrador":
-          x = -15
-          y = 5
-          break
-        case "Vancouver":
-          x = 10
-          y = 5
-          break
-        case "Alaska":
-          x = -15
-          y = 5
-          break
-        case "Mackenzie":
-          x = -20
-          y = 60
-          break
-        case "Gronelandia":
-          x = 25
-          y = 0
-          break
-        case "Islandia":
-          x = -10
-          y = 5
-          break
-        case "Franca":
-          x = -25
-          y = 10
-          break
-        case "Inglaterra":
-          x = -10
-          break
-        case "Alemanha":
-          x = -5
-          y = 5
-          break
-        case "Polonia":
-          x = -8
-          y = 8
-          break
-        case "Moscou":
-          x = -5
-          y = 10
-          break
-        case "Egito":
-          x = -10
-          y = 5
-          break
-        case "Sudao":
-          x = -10
-          y = -15
-          break
-        case "AfricaS":
-          x = -10
-          y = 5
-          break
-        case "Aral":
-          x = -10
-          y = 10
-          break
-        case "Omsk":
-          x = -35
-          y = 10
-          break
-        case "Dudinka":
-          x = -10
-          break
-        case "Siberia":
-          x = -5
-          y = 10
-          break
-        case "Tchita":
-          x = -5
-          y = 20
-          break
-        case "China":
-          x = -5
-          y = 25
-          break
-        case "Mongolia":
-          x = -5
-          y = 15
-          break
-        case "India":
-          x = -10
-          y = 0
-          break
-        case "Vietna":
-          x = -10
-          y = 10
-          break
-        case "Vladvostok":
-          x = -10
-          y = -10
-          break
-        case "Japao":
-          x = -5
-          y = 15  
-          break
-        case "Borneu":
-          x = -5
-          y = 10  
-          break
-        case "Sumatra":
-          x = -10
-          y = 10  
-          break
-        case "Guine":
-          x = -10
-          y = 0  
-          break
-        case "Australia":
-          x = 0
-          y = -10
-          break
-      }
-      return {x: x, y: y}
-    }
+
 }
 

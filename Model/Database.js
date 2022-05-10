@@ -1,4 +1,4 @@
-class World{
+class DataBase{
     constructor(){
         this.countries = {'Siberia': {"Energia": 0, "Comida": 2, "Exercito": 0, "Tecnologia": 0, "Nome":"Sibéria", "Players":[false,false,false,false]}, 
         'Inglaterra': {"Energia": 0, "Comida": 0, "Exercito": 1, "Tecnologia": 1, "Nome":"Inglaterra", "Players":[false,false,false,false]}, 
@@ -44,55 +44,69 @@ class World{
         'Madagascar': {"Energia": 0, "Comida": 1, "Exercito": 0, "Tecnologia": 0, "Nome":"Madagascar", "Players":[false,false,false,false]},
         'Chile': {"Energia": 0, "Comida": 1, "Exercito": 0, "Tecnologia": 0, "Nome":"Chile", "Players":[false,false,false,false]}
         }
-
-        this.type = ""
-        this.father = ""
-        this.Resources = {Energia: 0[0,0,0,0], Comida: 0[0,0,0,0], Exercito: 0, Tecnologia: 0}
-        this.NumberOfContinents = 0
-        this.ListOfContinents = 0
+        console.log("teste")
+        this.AmountofPlayers = 3
+        this.MaxPlayers = 4
+        this.MinPlayers = 2
+        this.Players = []
+        this.PlayersNames=["Player1","Player2","Player3","Player4"]
+        this.SetPlayers()
     }
+    UpdatePlayersInfluency(NameofCountry,influencyplayers){
+        this.countries[NameofCountry].Players = influencyplayers
 
-    AddContinent(){
-
+        for(let i= 0;i<4;i++){
+            let newPlayerValue = new Player
+            Object.keys(this.countries).forEach(element=>{
+                let prod = this.countries[element]
+                let influency = this.countries[element].Players[i]
+                if(influency == true){
+                    newPlayerValue.ProdEnergia += prod.Energia
+                    newPlayerValue.ProdComida += prod.Comida
+                    newPlayerValue.ProdExercito += prod.Exercito
+                    newPlayerValue.ProdTecnologia += prod.Tecnologia
+                }
+            })
+           
+            this.Players[i] = newPlayerValue
+        }
+        console.log(this.Players)
     }
-    
-    RemoveContinent(){
-
+    AddPlayer(){
+        if (this.AmountofPlayers == this.MaxPlayers){
+            alert("Máximo de 4 jogadores")
+        }else{
+            let NewPlayer = new Player()
+            this.Players[this.Players.length] = NewPlayer
+            this.AmountofPlayers++
+            Render.ReloadTable()
+        }
     }
-
-    SetNumberofContinents(){
-
+    RemovePlayer(){
+        if (this.AmountofPlayers == this.MinPlayers){
+            alert("Mínimo de 2 jogadores")
+        }else{
+            this.Players.pop()
+            this.AmountofPlayers-- 
+            Render.ReloadTable()
+        }
     }
-
+    SetPlayers(){
+        // this.AmountofPlayers = parseInt(window.prompt("Quantos Jogadores? (Mín = 2, Máx = 4)","2"))
+        if(isNaN(this.AmountofPlayers)){
+            alert("Insira um número entre 2 e 4")
+            this.SetPlayers()
+        }
+        if (this.AmountofPlayers > this.MaxPlayers){
+            alert("Máximo de 4 jogadores")
+            this.SetPlayers()
+        }else if(this.AmountofPlayers < this.MinPlayers){
+            alert("Mínimo de 2 jogadores")
+            this.SetPlayers()
+        }
+        for (let i = 0; i < this.AmountofPlayers; i++){
+            this.Players[i] = new Player()
+        }
+    }
 }
 
-class NewContinent{
-    constructor(){
-        this.name = ""
-        this.BonusResource = ["", 0]
-        this.NumberofCountries = 0
-        this.ListOfCountries = []
-    }
-
-    AddContries(){
-
-    }
-    
-    RemoveContries(){
-
-    }
-
-    SetNumberofContriess(){
-        
-    }
-}
-
-class NewCountry{
-    constructor(){
-        this.name
-        this.ProdEnergia = 0
-        this.ProdComida = 0
-        this.ProdExercito = 0
-        this.ProdTecnologia = 0
-    }
-}

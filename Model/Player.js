@@ -9,6 +9,7 @@ class Player{
         this.Exercito = 0
         this.Tecnologia = 0
         this.selected = false
+        this.PlayerInfluence = []
     }
 
     SelectPlayer(){
@@ -24,5 +25,13 @@ class Player{
             this[attribute]=25
         }
         Render.RenderPlayers()
+    }
+    UpdateValue(attribute, amount){
+        this[attribute] += amount
+        if (this[attribute]<0){
+            this[attribute]=0
+        }else if(this[attribute]>25){
+            this[attribute]=25
+        }
     }
 }

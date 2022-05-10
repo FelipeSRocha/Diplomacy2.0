@@ -4,12 +4,13 @@ let zoom = 1
 
 function Controller(){
   Diplomacy = new Game()
-  Territories = new World()
+  DataFounder = new DataBase()
   Render = new View()
   Render.RenderStartScreen()
 }
 function Reset(){
   Diplomacy = new Game()
+  Database = new DataBase()
   Render = new View()
   Render.ReloadTable()
   Render.RenderFooter()
