@@ -7,6 +7,10 @@ class InHTML{
             element.remove()
         }
     }
+    CheckIfExist(IDElement){
+        let DivExist = document.querySelectorAll(IDElement).length > 0
+        return DivExist
+    }
     AddElement(type, id_place="", id="", classname="", text="",f = ()=>{}, src=""){
         const place = document.getElementById(id_place)
         const el = document.createElement(type)

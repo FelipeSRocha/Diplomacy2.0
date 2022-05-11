@@ -18,9 +18,8 @@ function Reset(){
   Render.RenderFooter()
   Render.RenderPlayers()
   DataFounder.UpdateDataInfluency()
+  Inhtml.DeleteIfExist("#EventTabID")
 }
-
-
 
 function OverContry(){
   let country = document.getElementsByClassName("ClassCountry");

@@ -409,6 +409,39 @@ cursor: not-allowed;
     justify-items: center;  
     align-items: center;
 }
+.EventTabClass{
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translate(0,-50%);
+    z-index: 2;
+    width: 15%;
+
+    background-color: white;
+    border-radius: 20px;
+    padding: 20px;
+    gap: 10px;
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 30px;
+    font-weight: bold;
+
+    display: grid;
+    justify-items: center;  
+    align-items: center;
+}  
+.InfoEvent{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}  
+.InfoEvent2{
+    margin: 0;
+    font-family: 'Roboto', sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+}  
 .checkbox_txt_Class{
     font-family: 'Roboto', sans-serif;
     font-size: 30px;
@@ -459,6 +492,7 @@ cursor: not-allowed;
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
     font-weight: bold;
+    text-align: justify;
 }
 #InfoCosten{
     grid-area: costen;
@@ -503,9 +537,6 @@ cursor: not-allowed;
 }
 #Clickable{
     cursor: pointer;
-}
-circle{
-    fill: #fa4040;
 }
 .ClassFooter{
     position: absolute;

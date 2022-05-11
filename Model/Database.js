@@ -92,7 +92,6 @@ class DataBase{
             Object.keys(this.countries).forEach(element=>{
                 let influency = this.countries[element].Players[i]
                 let circle = document.getElementById(`${element}_2`).children[2].children[i]
-                console.log(element)
                 if(influency == true){
                     circle.style.fill = this.PlayersColors[i]
                     circle.style['stroke-opacity'] = "1";
@@ -115,7 +114,7 @@ class DataBase{
             let NewPlayer = new Player()
             this.Players[this.Players.length] = NewPlayer
             this.AmountofPlayers++
-            Render.ReloadTable()
+            Render.RenderPlayers()
         }
     }
     RemovePlayer(){
@@ -124,7 +123,7 @@ class DataBase{
         }else{
             this.Players.pop()
             this.AmountofPlayers-- 
-            Render.ReloadTable()
+            Render.RenderPlayers()
         }
     }
     SetPlayers(){

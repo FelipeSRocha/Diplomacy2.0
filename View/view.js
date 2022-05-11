@@ -263,13 +263,30 @@ class View{
 
     this.Inhtml.AddElement("div","masterID", `IDFooter`, `ClassFooter`)
 
-    let check = Diplomacy.CheckRound()
-    if(check[0]>1 && check[1] ==1 || check[1] == 3){
-        console.log("Evento de Convenção!!")
+    let fase = Diplomacy.CheckRound()
+
+    this.Inhtml.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: ${fase.Round}`) 
+    this.Inhtml.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: ${fase.Quarter}`)
+    this.Inhtml.AddElement("p","IDFooter", `IDYear`, `ClassRound`, `Year: ${fase.Year}`)
+  }
+  DisplayEvent(EventName, Effect){
+    this.Inhtml.DeleteIfExist("#EventTabID")
+
+    this.Inhtml.AddElement("div", `masterID`, "EventTabID", "EventTabClass", "Evento de Convenção!")
+    this.Inhtml.AddElement("div", `EventTabID`, "Event1ID", "Event1Class")
+    this.Inhtml.AddElement("p", `Event1ID`, " ", "InfoEvent",EventName)
+    this.Inhtml.AddElement("p", `Event1ID`, " ", "Infotxt",Effect)
+  }
+  DisplaySecondEvent(EventName, Effect){
+    let First = this.Inhtml.CheckIfExist("#EventTabID")
+    console.log(First)
+    if(!First){
+      this.Inhtml.AddElement("div", `masterID`, "EventTabID", "EventTabClass", "Evento de Convenção!")
+      
     }
-    this.Inhtml.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: ${check[0]}`) 
-    this.Inhtml.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: ${check[1]}`)
-    this.Inhtml.AddElement("p","IDFooter", `IDYear`, `ClassRound`, `Year: ${check[2]}`)
+    this.Inhtml.AddElement("div", `EventTabID`, "Event2ID", "Event2Class")
+    this.Inhtml.AddElement("p", `Event2ID`, " ", "InfoEvent",EventName)
+    this.Inhtml.AddElement("p", `Event2ID`, " ", "Infotxt",Effect)
   }
   ChangeColorTag(TagofCountry, NameCountry){
     const Country = document.getElementById(NameCountry)
