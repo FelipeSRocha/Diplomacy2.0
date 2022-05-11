@@ -3,17 +3,21 @@ let Render
 let zoom = 1
 
 function Controller(){
-  Diplomacy = new Game()
   DataFounder = new DataBase()
+  Diplomacy = new Game()
+
   Render = new View()
   Render.RenderStartScreen()
 }
 function Reset(){
+  DataFounder = new DataBase()
   Diplomacy = new Game()
-  Database = new DataBase()
+
   Render = new View()
   Render.ReloadTable()
   Render.RenderFooter()
+  Render.RenderPlayers()
+  DataFounder.UpdateDataInfluency()
 }
 
 

@@ -44,15 +44,17 @@ class DataBase{
         'Madagascar': {"Energia": 0, "Comida": 1, "Exercito": 0, "Tecnologia": 0, "Nome":"Madagascar", "Players":[false,false,false,false]},
         'Chile': {"Energia": 0, "Comida": 1, "Exercito": 0, "Tecnologia": 0, "Nome":"Chile", "Players":[false,false,false,false]}
         }
-        console.log("teste")
         this.AmountofPlayers = 3
         this.MaxPlayers = 4
         this.MinPlayers = 2
         this.Players = []
         this.PlayersNames=["Player1","Player2","Player3","Player4"]
+        this.PlayersColors=["Yellow","Red","Green","Cyan"]
         this.SetPlayers()
+        
+
     }
-    UpdatePlayersInfluency(NameofCountry,influencyplayers){
+    CheckPlayersProduction(NameofCountry,influencyplayers){
         this.countries[NameofCountry].Players = influencyplayers
 
         for(let i= 0;i<4;i++){
@@ -60,17 +62,51 @@ class DataBase{
             Object.keys(this.countries).forEach(element=>{
                 let prod = this.countries[element]
                 let influency = this.countries[element].Players[i]
+                let circle = document.getElementById(`${element}_2`).children[2].children[i]
                 if(influency == true){
                     newPlayerValue.ProdEnergia += prod.Energia
                     newPlayerValue.ProdComida += prod.Comida
                     newPlayerValue.ProdExercito += prod.Exercito
                     newPlayerValue.ProdTecnologia += prod.Tecnologia
+                    newPlayerValue.PlayerInfluence.push(element)
+
+                    circle.style.fill = this.PlayersColors[i]
+                    circle.style['stroke-opacity'] = "1";
+                    circle.style['stroke-width'] = "2";
+                    console.log()
+                }else{
+                    circle.style.fill = "none"
+                    circle.style.stroke = "black";
+                    circle.style['stroke-opacity'] = "0.12";
+                    circle.style['stroke-width'] = "1";
+                    console.log()
                 }
             })
            
             this.Players[i] = newPlayerValue
         }
-        console.log(this.Players)
+        Render.RenderPlayers()
+    }
+    UpdateDataInfluency(){
+        for(let i= 0;i<4;i++){
+            Object.keys(this.countries).forEach(element=>{
+                let influency = this.countries[element].Players[i]
+                let circle = document.getElementById(`${element}_2`).children[2].children[i]
+                console.log(element)
+                if(influency == true){
+                    circle.style.fill = this.PlayersColors[i]
+                    circle.style['stroke-opacity'] = "1";
+                    circle.style['stroke-width'] = "2";
+                    console.log()
+                }else{
+                    circle.style.fill = "none"
+                    circle.style.stroke = "black";
+                    circle.style['stroke-opacity'] = "0.12";
+                    circle.style['stroke-width'] = "1";
+                    console.log()
+                }
+            })
+        }
     }
     AddPlayer(){
         if (this.AmountofPlayers == this.MaxPlayers){

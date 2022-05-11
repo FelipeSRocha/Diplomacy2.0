@@ -27,6 +27,5 @@ class Game{
         let year = parseInt(this.Round/4)
         let fase = [this.Round+1,Quarter,year]
         return fase
-    }
-    
+    }  
 }
