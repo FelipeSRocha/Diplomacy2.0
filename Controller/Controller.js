@@ -18,7 +18,8 @@ function Reset(){
   Render.RenderFooter()
   Render.RenderPlayers()
   DataFounder.UpdateDataInfluency()
-  Inhtml.DeleteIfExist("#EventTabID")
+  Render.Inhtml.DeleteIfExist("#EventTabID")
+  Render.Inhtml.DeleteIfExist("#InfoTabID")
 }
 
 function OverContry(){

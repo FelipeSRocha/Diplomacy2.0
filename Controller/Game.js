@@ -25,6 +25,7 @@ class Game{
 
     ResetGame(){
         Reset()
+        
     }
 
     CheckRound(){

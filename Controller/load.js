@@ -1,5 +1,3 @@
 function load(){
     Controller()
-    
-    // Drag()
 }
