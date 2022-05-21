@@ -1,24 +1,27 @@
-let Diplomacy
-let Render
 let zoom = 1
+let DB = new DataBase()
+let MEC = new Game()
+let VIEW = new View() 
+const Inhtml = new InHTML()
 
-function Controller(){
-  DataFounder = new DataBase()
-  Diplomacy = new Game()
-  Render = new View()
-  Render.RenderStartScreen()
+function newGame(){
+  VIEW.RenderTitle()
+  VIEW.RenderPlayers()
+  VIEW.RenderMap()
+  VIEW.RenderFooter()
+
 }
-function Reset(){
-  DataFounder = new DataBase()
-  Diplomacy = new Game()
+function resetGame(){
+  Inhtml.DeleteIfExist('#masterID')
+  Inhtml.AddElement('div','body','masterID','masterclass')
+  DB = new DataBase()
+  MEC = new Game()
+  VIEW = new View()
 
-  Render = new View()
-  Render.ReloadTable()
-  Render.RenderFooter()
-  Render.RenderPlayers()
-  DataFounder.UpdateDataInfluency()
-  Render.Inhtml.DeleteIfExist("#EventTabID")
-  Render.Inhtml.DeleteIfExist("#InfoTabID")
+  VIEW.RenderTitle()
+  VIEW.RenderPlayers()
+  VIEW.RenderMap()
+  VIEW.RenderFooter()
 }
 
 function OverContry(){

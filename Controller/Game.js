@@ -11,16 +11,17 @@ class Game{
     }
 
     NextRound(){
-        let UpdatePlayer = DataFounder.Players
+        let UpdatePlayer = DB.Players
         UpdatePlayer.forEach((el, index) =>{
-            DataFounder.Players[index].ModifyValue('Energia',el['ProdEnergia'])
-            DataFounder.Players[index].ModifyValue('Comida',el['ProdComida'])
-            DataFounder.Players[index].ModifyValue('Exercito',el['ProdExercito'])
-            DataFounder.Players[index].ModifyValue('Tecnologia',el['ProdTecnologia'])
+            DB.Players[index].ModifyValue('Energia',el['ProdEnergia'])
+            DB.Players[index].ModifyValue('Comida',el['ProdComida'])
+            DB.Players[index].ModifyValue('Exercito',el['ProdExercito'])
+            DB.Players[index].ModifyValue('Tecnologia',el['ProdTecnologia'])
         })  
         
         this.Round++
-        Render.ReloadTable()
+        VIEW.RenderPlayers()
+        VIEW.RenderFooter()
     }
 
     ResetGame(){
@@ -58,9 +59,9 @@ class Game{
 
         if(Quarter==1){
 
-            Render.DisplayEvent(event, this.Events[event].Efeito)
+            VIEW.DisplayEvent(event, this.Events[event].Efeito)
         }else if(Quarter==3){
-            Render.DisplaySecondEvent(event, this.Events[event].Efeito)
+            VIEW.DisplaySecondEvent(event, this.Events[event].Efeito)
         }
 
         delete this.Events[event]
@@ -81,4 +82,5 @@ class Game{
     
         return rand;
     }
+    
 }

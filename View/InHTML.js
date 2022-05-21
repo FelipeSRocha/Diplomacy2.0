@@ -7,6 +7,11 @@ class InHTML{
             element.remove()
         }
     }
+    DeleteChildElements(IDElement){
+        let Div = document.querySelectorAll(IDElement)
+        Div.innerHTML = ''
+        console.log(Div)
+    }
     CheckIfExist(IDElement){
         let DivExist = document.querySelectorAll(IDElement).length > 0
         return DivExist

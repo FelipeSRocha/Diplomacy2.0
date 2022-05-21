@@ -52,7 +52,7 @@ class DataBase{
         this.PlayersColors=["Yellow","Red","Green","Cyan"]
         this.SetPlayers()
     }
-    
+
     CheckPlayersProduction(NameofCountry,influencyplayers){
         this.countries[NameofCountry].Players = influencyplayers
 
@@ -84,7 +84,7 @@ class DataBase{
            
             this.Players[i] = newPlayerValue
         }
-        Render.RenderPlayers()
+        VIEW.RenderPlayers()
     }
     UpdateDataInfluency(){
         for(let i= 0;i<4;i++){
@@ -113,7 +113,7 @@ class DataBase{
             let NewPlayer = new Player()
             this.Players[this.Players.length] = NewPlayer
             this.AmountofPlayers++
-            Render.RenderPlayers()
+            VIEW.RenderPlayers()
         }
     }
     RemovePlayer(){
@@ -122,7 +122,7 @@ class DataBase{
         }else{
             this.Players.pop()
             this.AmountofPlayers-- 
-            Render.RenderPlayers()
+            VIEW.RenderPlayers()
         }
     }
     SetPlayers(){

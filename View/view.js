@@ -2,7 +2,7 @@ class View{
   constructor(){
       this.Title = document.getElementById("HeaderID")
       this.Table = document.getElementById("ContainerID")
-      this.ListofPlayers = DataFounder.Players
+      this.ListofPlayers = DB.Players
       this.Inhtml = new InHTML()
   }
   // RenderStartScreen(){
@@ -29,10 +29,10 @@ class View{
     this.Inhtml.AddElement("div","HeaderID","Btn_HeadID","Btn_HeadClass","")
 
     //Adiciona os botões Iniciais
-    this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{Diplomacy.ResetGame()}, "","flex:100%")
-    this.Inhtml.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {DataFounder.RemovePlayer()}, "", "flex:45%")
-    this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {DataFounder.AddPlayer()}, "", "flex:45%")
-    this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{Diplomacy.NextRound()}, "", "flex:100%")
+    this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{resetGame()}, "","flex:100%")
+    this.Inhtml.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {DB.RemovePlayer()}, "", "flex:45%")
+    this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {DB.AddPlayer()}, "", "flex:45%")
+    this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{MEC.NextRound()}, "", "flex:100%")
   }
   RenderPlayers(){
       //Verifica se existe algo na parte dos jogadores e exclui 
@@ -41,7 +41,7 @@ class View{
       this.Inhtml.AddElement("div","masterID","ContainerID","ContainerClass","",()=>{})
       let i = 0
       //Itera pela lista de jogares para renderizar a interface de cada um
-      for (let i = 0; i < DataFounder.AmountofPlayers; i++){
+      for (let i = 0; i < DB.AmountofPlayers; i++){
         //Cria os elementos da interface do jogador
         this.Inhtml.AddElement("div","ContainerID", `IDPlayerStats_${(i+1)}`, `ClassPlayerStats`)
         if (i<2){
@@ -81,10 +81,10 @@ class View{
                     text = `+ ${this.ListofPlayers[i][key]}`
                     this.Inhtml.AddElement("p",`IDPlayerProd_${key}_${(1+i)}`, "", "ResourcesText", text,()=>{})
 
-                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{DataFounder.Players[i].ModifyValue(key,-1)})
-                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{DataFounder.Players[i].ModifyValue(key,1)})
-                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{DataFounder.Players[i].ModifyValue(key,-5)})
-                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{DataFounder.Players[i].ModifyValue(key,5)})
+                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{DB.Players[i].ModifyValue(key,-1)})
+                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{DB.Players[i].ModifyValue(key,1)})
+                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{DB.Players[i].ModifyValue(key,-5)})
+                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{DB.Players[i].ModifyValue(key,5)})
                     break
 
                 //Renderiza a parte do banco do jogador
@@ -100,10 +100,10 @@ class View{
                     text = `+ ${this.ListofPlayers[i][key]}`
                     this.Inhtml.AddElement("p",`IDPlayerBank_${key}_${(1+i)}`, "", "ResourcesText", text,()=>{})
 
-                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{DataFounder.Players[i].ModifyValue(key,-1)})
-                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{DataFounder.Players[i].ModifyValue(key,1)})
-                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{DataFounder.Players[i].ModifyValue(key,-5)})
-                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{DataFounder.Players[i].ModifyValue(key,5)})
+                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{DB.Players[i].ModifyValue(key,-1)})
+                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{DB.Players[i].ModifyValue(key,1)})
+                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{DB.Players[i].ModifyValue(key,-5)})
+                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{DB.Players[i].ModifyValue(key,5)})
                     break
             }
         })
@@ -223,7 +223,7 @@ class View{
   RenderInfoCountry(NameofCountry){
     this.Inhtml.DeleteIfExist("#InfoTabID")
 
-    const Country = DataFounder.countries[NameofCountry]
+    const Country = DB.countries[NameofCountry]
     
     this.Inhtml.AddElement("div", `masterID`, "InfoTabID", "InfoTabClass")
     this.Inhtml.AddElement("p","InfoTabID","InfoCountry", "InfoCountry", Country.Nome)
@@ -240,7 +240,7 @@ class View{
     this.Inhtml.AddElement("p","InfoTabID","InfoCostex", "InfoCost", `+ ${Country.Exercito*2}`)
     this.Inhtml.AddElement("p","InfoTabID","InfoCostte", "InfoCost", `+ ${Country.Tecnologia*2}`)
 
-    for(let x = 1; x <= DataFounder.AmountofPlayers; x++){
+    for(let x = 1; x <= DB.AmountofPlayers; x++){
       this.Inhtml.AddText(`InfoTabID`,`checkbox_ID_P${x}`,`checkbox_txt_Class`,`P${x}`)
       this.Inhtml.AddInput(`checkbox`,`InfoTabID`, `checkbox_p${x}`,`Checkbox_p`,Country.Players[x-1])
     }
@@ -249,20 +249,20 @@ class View{
   }
   CheckInfluency(NameofCountry){
     let influencyplayers = [false,false,false,false]
-    for(let i=1;i<=DataFounder.AmountofPlayers;i++){
+    for(let i=1;i<=DB.AmountofPlayers;i++){
       let test = document.getElementById(`checkbox_p${i}`).checked
       if(test==true){
         influencyplayers[i-1]=true
       }
     }
-    DataFounder.CheckPlayersProduction(NameofCountry,influencyplayers)
+    DB.CheckPlayersProduction(NameofCountry,influencyplayers)
   }
   RenderFooter(){
     this.Inhtml.DeleteIfExist("#IDFooter")
 
     this.Inhtml.AddElement("div","masterID", `IDFooter`, `ClassFooter`)
 
-    let fase = Diplomacy.CheckRound()
+    let fase = MEC.CheckRound()
 
     this.Inhtml.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: ${fase.Round}`) 
     this.Inhtml.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: ${fase.Quarter}`)

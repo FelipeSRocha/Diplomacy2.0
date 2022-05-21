@@ -19,7 +19,8 @@ function criarSala(){
       }else{
         alert("Esse nome de sala já existe!")
       }
-    })
+    }
+    )
   }
 }
 function entrarSala(){

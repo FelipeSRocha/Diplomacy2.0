@@ -14,7 +14,7 @@ class Player{
 
     SelectPlayer(){
         this.selected = !this.selected
-        Render.RenderStartScreen()
+        VIEW.RenderStartScreen()
     }
 
     ModifyValue(attribute, amount){
@@ -24,7 +24,7 @@ class Player{
         }else if(this[attribute]>25){
             this[attribute]=25
         }
-        Render.RenderPlayers()
+        VIEW.RenderPlayers()
     }
     UpdateValue(attribute, amount){
         this[attribute] += amount
