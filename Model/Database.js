@@ -44,16 +44,15 @@ class DataBase{
         'Madagascar': {"Energia": 0, "Comida": 1, "Exercito": 0, "Tecnologia": 0, "Nome":"Madagascar", "Players":[false,false,false,false]},
         'Chile': {"Energia": 0, "Comida": 1, "Exercito": 0, "Tecnologia": 0, "Nome":"Chile", "Players":[false,false,false,false]}
         }
-        this.AmountofPlayers = 3
+        this.AmountofPlayers = 4
         this.MaxPlayers = 4
         this.MinPlayers = 2
         this.Players = []
         this.PlayersNames=["Player1","Player2","Player3","Player4"]
         this.PlayersColors=["Yellow","Red","Green","Cyan"]
         this.SetPlayers()
-        
-
     }
+    
     CheckPlayersProduction(NameofCountry,influencyplayers){
         this.countries[NameofCountry].Players = influencyplayers
 

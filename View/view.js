@@ -5,19 +5,19 @@ class View{
       this.ListofPlayers = DataFounder.Players
       this.Inhtml = new InHTML()
   }
-  RenderStartScreen(){
-    this.RenderTitle()
-    this.RenderTable()  
-  }
-  ReloadTable(){
-    this.RenderPlayers()
-    this.RenderFooter()
-  }
-  RenderTable(){
-    this.RenderPlayers()
-    this.RenderMap()
-    this.RenderFooter()
-  }
+  // RenderStartScreen(){
+  //   this.RenderTitle()
+  //   this.RenderTable()  
+  // }
+  // ReloadTable(){
+  //   this.RenderPlayers()
+  //   this.RenderFooter()
+  // }
+  // RenderTable(){
+  //   this.RenderPlayers()
+  //   this.RenderMap()
+  //   this.RenderFooter()
+  // }
   RenderTitle(){
     // Verifica se existe algo no titulo e exclui 
     this.Inhtml.DeleteIfExist("#HeaderID")
@@ -33,7 +33,6 @@ class View{
     this.Inhtml.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {DataFounder.RemovePlayer()}, "", "flex:45%")
     this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {DataFounder.AddPlayer()}, "", "flex:45%")
     this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{Diplomacy.NextRound()}, "", "flex:100%")
-
   }
   RenderPlayers(){
       //Verifica se existe algo na parte dos jogadores e exclui 

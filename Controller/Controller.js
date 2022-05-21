@@ -5,7 +5,6 @@ let zoom = 1
 function Controller(){
   DataFounder = new DataBase()
   Diplomacy = new Game()
-
   Render = new View()
   Render.RenderStartScreen()
 }
