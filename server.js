@@ -15,14 +15,8 @@ server.use(express.json())
 
 server.use(routesbase)
 server.use(routesgamebase)
+server.use(routesaddserver)
 server.use(routesenterserver)
-// server.use(routesform)
-
-server.set("views", path.join(__dirname, "views"))
-server.set("view engine", "ejs")
-
-server.get("/", (req,res)=>{
-    res.render("index")
-})
+server.use(routesform)
 
 server.listen(port, () => console.log(`Server rodando na porta: ${port}`));

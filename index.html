@@ -8,15 +8,30 @@
     <link rel="stylesheet" href="/Css/Layout_Style.css">
 
 </head>
-<body onload="newGame()" id="body">
+<body id="body">
+    <div id="form">
+        <h1 class="titulo">Bem vindo a Diplomacy!</h1>
+        <form>
+            <label for="nick">Insira seu nick: </label>
+            <input type="text" id="nick"> 
+            <label for="room">Insira o nome da sala: </label>
+            <input type="text" id="room"> 
+            <label for="password">Insira a senha da sala: </label>
+            <input type="text" id="password"> 
+            <button type="button" onclick="criarSala()">Criar Sala</button>
+            <button type="button" onclick="entrarSala()">Entrar</button>
+        </form>
+    </div>
     <div class="masterClass" id="masterID" z-index="-1"></div>
     
-    <script src="Model/Player.js"></script>
-    <script src="Model/Players_database.js"></script>
-    <script src="Model/Database.js"></script>
-    <script src="Controller/Game.js"></script>
-    <script src="View/InHTML.js"></script>
-    <script src="View/view.js"></script>
-    <script src="Controller/Controller.js"></script>
+    <script src="/Model/Player.js"></script>
+    <!-- <script src="Model/Players_database.js"></script> -->
+    <!-- <script src="Model/Database.js"></script> -->
+    <script src="/Controller/Game.js"></script>
+    <script src="/View/InHTML.js"></script>
+    <script src="/View/view.js"></script>
+    <script src="/Controller/brain.js"></script>
+    <script src="/Controller/Controller.js"></script>
+    <script src="/controller/formActions.js"></script>
 </body>
 </html>

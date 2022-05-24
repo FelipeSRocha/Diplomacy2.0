@@ -15,7 +15,9 @@ function criarSala(){
     .then(response=>response.json())
     .then(data=>{
       if(data){
-        alert("Sala criada com sucesso!")
+        // alert("Sala criada com sucesso!")
+        deleteForm()
+        newGame()
       }else{
         alert("Esse nome de sala já existe!")
       }
@@ -50,7 +52,8 @@ function entrarSala(){
       break
       case "3":
         //tudo ok
-        alert("Entrando na sala!")
+        // alert("Entrando na sala!")
+        deleteForm()
       break
       case "4":
         //tudo ok
@@ -64,31 +67,17 @@ function getDatafromform(){
   const nick = document.getElementById("nick").value
   const room = document.getElementById("room").value
   const password = document.getElementById("password").value
-  if (nick =="" || room == ""|| password ==""){
-    alert("Preencha todos os campos")
-    return false
-  }
+  // if (nick =="" || room == ""|| password ==""){
+  //   alert("Preencha todos os campos")
+  //   return false
+  // }
   const game = {room: room,
     player: nick ,
     password: password ,
     }
   return game
 }
-//   const request = new XMLHttpRequest()
-//   request.open("POST",`http://localhost:3000/games`)
-//   request.setRequestHeader("token", "AAAAAAAAAAAAAAAAAAAAAAAAAAA")
-//   request.setRequestHeader("Content-Type", "application/json")
-//   try {
-//       request.send(JSON.stringify(game))
-//       request.onreadystatechange = ()=>{
-//           if(request.readyState == 4){
-//               const a = request.responseText
-//               console.log(`Resposta: ${request.response}`)
-//           }
-//       }
-//   } catch (error) {
-//       if(error){
-
-//       }
-//   }
-
+function deleteForm(){
+  const inhtml = new InHTML()
+  inhtml.DeleteIfExist("#form")
+}

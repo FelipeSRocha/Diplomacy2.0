@@ -6,7 +6,7 @@ const dirmaster = path.dirname(path.dirname(__dirname+'/base.js'))
 
 
 routes.get("/", (req, res) => {
-    res.sendFile(dirmaster+"/form.html");
+    res.sendFile(dirmaster+"/index.html");
 });
 
 module.exports = routes

@@ -2,22 +2,9 @@ class View{
   constructor(){
       this.Title = document.getElementById("HeaderID")
       this.Table = document.getElementById("ContainerID")
-      this.ListofPlayers = DB.Players
       this.Inhtml = new InHTML()
   }
-  // RenderStartScreen(){
-  //   this.RenderTitle()
-  //   this.RenderTable()  
-  // }
-  // ReloadTable(){
-  //   this.RenderPlayers()
-  //   this.RenderFooter()
-  // }
-  // RenderTable(){
-  //   this.RenderPlayers()
-  //   this.RenderMap()
-  //   this.RenderFooter()
-  // }
+
   RenderTitle(){
     // Verifica se existe algo no titulo e exclui 
     this.Inhtml.DeleteIfExist("#HeaderID")
@@ -39,73 +26,55 @@ class View{
       this.Inhtml.DeleteIfExist("#ContainerID")
 
       this.Inhtml.AddElement("div","masterID","ContainerID","ContainerClass","",()=>{})
-      let i = 0
       //Itera pela lista de jogares para renderizar a interface de cada um
-      for (let i = 0; i < DB.AmountofPlayers; i++){
+      for (let pN = 0; pN < DB.AmountofPlayers; pN++){
         //Cria os elementos da interface do jogador
-        this.Inhtml.AddElement("div","ContainerID", `IDPlayerStats_${(i+1)}`, `ClassPlayerStats`)
-        if (i<2){
-          if (i<=1){
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(i+1)}`, `IDPlayerProd_${(i+1)}`, `ClassPlayerProd`)
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(i+1)}`, `IDPlayerBank_${(i+1)}`, `ClassPlayerBank`)
+
+        this.Inhtml.AddElement("div","ContainerID", `IDPlayerStats_${(pN+1)}`, `ClassPlayerStats`)
+        if (pN<2){
+          if (pN<=1){
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerProd_${(pN+1)}`, `ClassPlayerProd`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerBank_${(pN+1)}`, `ClassPlayerBank`)
           }else{
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(i+1)}`, `IDPlayerBank_${(i+1)}`, `ClassPlayerBank`)
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(i+1)}`, `IDPlayerProd_${(i+1)}`, `ClassPlayerProd`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerBank_${(pN+1)}`, `ClassPlayerBank`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerProd_${(pN+1)}`, `ClassPlayerProd`)
           }
-          this.Inhtml.AddElement("h1",`IDPlayerStats_${(i+1)}`, `IDPlayerTitle_${(i+1)}`, `ClassPlayerTitle`, `Player ${i+1}`)
+          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN+1)}`, `IDPlayerTitle_${(pN+1)}`, `ClassPlayerTitle`, DB.players[pN].stats.name)
         }else{
-          this.Inhtml.AddElement("h1",`IDPlayerStats_${(i+1)}`, `IDPlayerTitle_${(i+1)}`, `ClassPlayerTitle`, `Player ${i+1}`)
-          if (i<=1){
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(i+1)}`, `IDPlayerProd_${(i+1)}`, `ClassPlayerProd`)
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(i+1)}`, `IDPlayerBank_${(i+1)}`, `ClassPlayerBank`)
+          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN+1)}`, `IDPlayerTitle_${(pN+1)}`, `ClassPlayerTitle`, DB.players[pN].stats.name)
+          if (pN<=1){
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerProd_${(pN+1)}`, `ClassPlayerProd`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerBank_${(pN+1)}`, `ClassPlayerBank`)
           }else{
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(i+1)}`, `IDPlayerBank_${(i+1)}`, `ClassPlayerBank`)
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(i+1)}`, `IDPlayerProd_${(i+1)}`, `ClassPlayerProd`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerBank_${(pN+1)}`, `ClassPlayerBank`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerProd_${(pN+1)}`, `ClassPlayerProd`)
           }
         }
         //Itera pelos stats dos jogadores
-        Object.keys(this.ListofPlayers[i]).forEach(key =>{
-            let text = ""
-            switch(key){
 
-                //Renderiza a parte de produção do jogador
-                case "ProdEnergia":
-                case "ProdComida":
-                case "ProdExercito":
-                case "ProdTecnologia":
-                  this.Inhtml.AddElement("div",`IDPlayerProd_${(1+i)}`, `IDPlayerProd_${key}_${(1+i)}`, `ClassPlayerProd_each`)
+        Object.keys(DB.players[pN].prod).forEach(key =>{
+          console.log(key)
+          this.Inhtml.AddElement("div",`IDPlayerProd_${(1+pN)}`, `IDPlayerProd_${key}_${(1+pN)}`, `ClassPlayerProd_each`)
+          let src_prod = `/Img/Prod${key}.png`
+          this.Inhtml.AddElement("img",`IDPlayerProd_${key}_${(1+pN)}`, "", "img_resources","",() =>{}, src_prod)
+          this.Inhtml.AddElement("p",`IDPlayerProd_${key}_${(1+pN)}`, "", "ResourcesText", 0,()=>{})
 
-                    let src_prod = `/Img/${key}.png`
-                    this.Inhtml.AddElement("img",`IDPlayerProd_${key}_${(1+i)}`, "", "img_resources","",() =>{}, src_prod)
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+pN)}`, "", "Dec1", "-1",()=>{DB.Players[pN].ModifyValue(key,-1)})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+pN)}`, "", "Inc1", "+1",()=>{DB.Players[pN].ModifyValue(key,1)})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+pN)}`, "", "Dec5", "-5",()=>{DB.Players[pN].ModifyValue(key,-5)})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+pN)}`, "", "Inc5", "+5",()=>{DB.Players[pN].ModifyValue(key,5)})
+        })
+        Object.keys(DB.players[pN].bank).forEach(key =>{
+          console.log(key)
+          this.Inhtml.AddElement("div",`IDPlayerBank_${(1+pN)}`, `IDPlayerBank_${key}_${(1+pN)}`, `ClassPlayerBank_each`)
+          let src_Bank = `/Img/${key}.png`
+          this.Inhtml.AddElement("img",`IDPlayerBank_${key}_${(1+pN)}`, "", "img_resources","",() =>{}, src_Bank)
+          this.Inhtml.AddElement("p",`IDPlayerBank_${key}_${(1+pN)}`, "", "ResourcesText", 0,()=>{})
 
-                    text = `+ ${this.ListofPlayers[i][key]}`
-                    this.Inhtml.AddElement("p",`IDPlayerProd_${key}_${(1+i)}`, "", "ResourcesText", text,()=>{})
-
-                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{DB.Players[i].ModifyValue(key,-1)})
-                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{DB.Players[i].ModifyValue(key,1)})
-                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{DB.Players[i].ModifyValue(key,-5)})
-                    this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{DB.Players[i].ModifyValue(key,5)})
-                    break
-
-                //Renderiza a parte do banco do jogador
-                case "Energia":
-                case "Comida":
-                case "Exercito":
-                case "Tecnologia":
-                  this.Inhtml.AddElement("div",`IDPlayerBank_${(1+i)}`, `IDPlayerBank_${key}_${(1+i)}`, "ClassPlayerBank_each")
-
-                    let src_Bank = `/Img/${key}.png`
-                    this.Inhtml.AddElement("img",`IDPlayerBank_${key}_${(1+i)}`, "", "img_resources","",() =>{}, src_Bank)
-
-                    text = `+ ${this.ListofPlayers[i][key]}`
-                    this.Inhtml.AddElement("p",`IDPlayerBank_${key}_${(1+i)}`, "", "ResourcesText", text,()=>{})
-
-                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec1", "-1",()=>{DB.Players[i].ModifyValue(key,-1)})
-                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc1", "+1",()=>{DB.Players[i].ModifyValue(key,1)})
-                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Dec5", "-5",()=>{DB.Players[i].ModifyValue(key,-5)})
-                    this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+i)}`, "", "Inc5", "+5",()=>{DB.Players[i].ModifyValue(key,5)})
-                    break
-            }
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+pN)}`, "", "Dec1", "-1",()=>{DB.Players[pN].ModifyValue(key,-1)})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+pN)}`, "", "Inc1", "+1",()=>{DB.Players[pN].ModifyValue(key,1)})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+pN)}`, "", "Dec5", "-5",()=>{DB.Players[pN].ModifyValue(key,-5)})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+pN)}`, "", "Inc5", "+5",()=>{DB.Players[pN].ModifyValue(key,5)})
         })
       } 
       
