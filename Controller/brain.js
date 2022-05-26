@@ -116,11 +116,22 @@ class DataBase{
             let prod = {Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0}
             Object.keys(this.countries).forEach(country =>{
                 const value = this.countries[country].Players[pN]
+                let circle = document.getElementById(`${country}_2`).children[2].children[pN]
                 if (value){
                     prod.Energia += this.countries[country].Energia
                     prod.Comida += this.countries[country].Comida
                     prod.Exercito += this.countries[country].Exercito
                     prod.Tecnologia += this.countries[country].Tecnologia
+
+                    circle.style.fill = this.players[pN].stats.color
+                    circle.style['stroke-opacity'] = "1";
+                    circle.style['stroke-width'] = "2";
+                }else{
+                    circle.style.fill = "none"
+                    circle.style.stroke = "black";
+                    circle.style['stroke-opacity'] = "0.12";
+                    circle.style['stroke-width'] = "1";
+                    console.log()
                 }
             })
             this.players[pN].prod = prod
