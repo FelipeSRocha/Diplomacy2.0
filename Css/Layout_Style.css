@@ -96,23 +96,23 @@ cursor: not-allowed;
     width: 100%;
     height: 100%;
 }
-#IDPlayerStats_1{
+#IDPlayerStats_0{
     position: absolute;
     left: 0;
     margin-left: 5px;
 }
-#IDPlayerStats_2{
+#IDPlayerStats_1{
     position: absolute;
     right: 0;
     margin-right: 5px;
 }
-#IDPlayerStats_3{
+#IDPlayerStats_2{
     position: absolute;
     left: 0;
     margin-left: 5px;
     bottom: 0;
 }
-#IDPlayerStats_4{
+#IDPlayerStats_3{
     position: absolute;
     right: 0;
     margin-right: 5px;
@@ -464,16 +464,16 @@ cursor: not-allowed;
     grid-area: p4;
     color: #00f2ff;
 }
-#checkbox_p1{
+#checkbox_p0{
     grid-area: ck1;
 }
-#checkbox_p2{
+#checkbox_p1{
     grid-area: ck2;
 }
-#checkbox_p3{
+#checkbox_p2{
     grid-area: ck3;
 }
-#checkbox_p4{
+#checkbox_p3{
     grid-area: ck4;
 }
 #ID_CheckInfluency{

@@ -10,19 +10,7 @@ class Game{
         }
     }
 
-    NextRound(){
-        let UpdatePlayer = DB.Players
-        UpdatePlayer.forEach((el, index) =>{
-            DB.Players[index].ModifyValue('Energia',el['ProdEnergia'])
-            DB.Players[index].ModifyValue('Comida',el['ProdComida'])
-            DB.Players[index].ModifyValue('Exercito',el['ProdExercito'])
-            DB.Players[index].ModifyValue('Tecnologia',el['ProdTecnologia'])
-        })  
-        
-        this.Round++
-        VIEW.RenderPlayers()
-        VIEW.RenderFooter()
-    }
+
 
     ResetGame(){
         Reset()

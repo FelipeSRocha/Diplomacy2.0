@@ -19,7 +19,7 @@ class View{
     this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{resetGame()}, "","flex:100%")
     this.Inhtml.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {DB.RemovePlayer()}, "", "flex:45%")
     this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {DB.AddPlayer()}, "", "flex:45%")
-    this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{MEC.NextRound()}, "", "flex:100%")
+    this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{DB.NextRound()}, "", "flex:100%")
   }
   RenderPlayers(){
       //Verifica se existe algo na parte dos jogadores e exclui 
@@ -30,51 +30,49 @@ class View{
       for (let pN = 0; pN < DB.AmountofPlayers; pN++){
         //Cria os elementos da interface do jogador
 
-        this.Inhtml.AddElement("div","ContainerID", `IDPlayerStats_${(pN+1)}`, `ClassPlayerStats`)
+        this.Inhtml.AddElement("div","ContainerID", `IDPlayerStats_${(pN)}`, `ClassPlayerStats`)
         if (pN<2){
           if (pN<=1){
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerProd_${(pN+1)}`, `ClassPlayerProd`)
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerBank_${(pN+1)}`, `ClassPlayerBank`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerProd_${(pN)}`, `ClassPlayerProd`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerBank_${(pN)}`, `ClassPlayerBank`)
           }else{
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerBank_${(pN+1)}`, `ClassPlayerBank`)
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerProd_${(pN+1)}`, `ClassPlayerProd`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerBank_${(pN)}`, `ClassPlayerBank`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerProd_${(pN)}`, `ClassPlayerProd`)
           }
-          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN+1)}`, `IDPlayerTitle_${(pN+1)}`, `ClassPlayerTitle`, DB.players[pN].stats.name)
+          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[pN].stats.name)
         }else{
-          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN+1)}`, `IDPlayerTitle_${(pN+1)}`, `ClassPlayerTitle`, DB.players[pN].stats.name)
+          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[pN].stats.name)
           if (pN<=1){
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerProd_${(pN+1)}`, `ClassPlayerProd`)
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerBank_${(pN+1)}`, `ClassPlayerBank`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerProd_${(pN)}`, `ClassPlayerProd`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerBank_${(pN)}`, `ClassPlayerBank`)
           }else{
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerBank_${(pN+1)}`, `ClassPlayerBank`)
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN+1)}`, `IDPlayerProd_${(pN+1)}`, `ClassPlayerProd`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerBank_${(pN)}`, `ClassPlayerBank`)
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerProd_${(pN)}`, `ClassPlayerProd`)
           }
         }
         //Itera pelos stats dos jogadores
 
         Object.keys(DB.players[pN].prod).forEach(key =>{
-          console.log(key)
-          this.Inhtml.AddElement("div",`IDPlayerProd_${(1+pN)}`, `IDPlayerProd_${key}_${(1+pN)}`, `ClassPlayerProd_each`)
+          this.Inhtml.AddElement("div",`IDPlayerProd_${(pN)}`, `IDPlayerProd_${key}_${(pN)}`, `ClassPlayerProd_each`)
           let src_prod = `/Img/Prod${key}.png`
-          this.Inhtml.AddElement("img",`IDPlayerProd_${key}_${(1+pN)}`, "", "img_resources","",() =>{}, src_prod)
-          this.Inhtml.AddElement("p",`IDPlayerProd_${key}_${(1+pN)}`, "", "ResourcesText", 0,()=>{})
+          this.Inhtml.AddElement("img",`IDPlayerProd_${key}_${(pN)}`, "", "img_resources","",() =>{}, src_prod)
+          this.Inhtml.AddElement("p",`IDPlayerProd_${key}_${(pN)}`, `P${pN}_prod${key}`, "ResourcesText", 0,()=>{})
 
-          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+pN)}`, "", "Dec1", "-1",()=>{DB.Players[pN].ModifyValue(key,-1)})
-          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+pN)}`, "", "Inc1", "+1",()=>{DB.Players[pN].ModifyValue(key,1)})
-          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+pN)}`, "", "Dec5", "-5",()=>{DB.Players[pN].ModifyValue(key,-5)})
-          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(1+pN)}`, "", "Inc5", "+5",()=>{DB.Players[pN].ModifyValue(key,5)})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Dec1", "-1",()=>{DB.ModifyValue(pN,"prod",key,-1)})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Inc1", "+1",()=>{DB.ModifyValue(pN,"prod",key,1)})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Dec5", "-5",()=>{DB.ModifyValue(pN,"prod",key,-5)})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Inc5", "+5",()=>{DB.ModifyValue(pN,"prod",key,5)})
         })
         Object.keys(DB.players[pN].bank).forEach(key =>{
-          console.log(key)
-          this.Inhtml.AddElement("div",`IDPlayerBank_${(1+pN)}`, `IDPlayerBank_${key}_${(1+pN)}`, `ClassPlayerBank_each`)
+          this.Inhtml.AddElement("div",`IDPlayerBank_${(pN)}`, `IDPlayerBank_${key}_${(pN)}`, `ClassPlayerBank_each`)
           let src_Bank = `/Img/${key}.png`
-          this.Inhtml.AddElement("img",`IDPlayerBank_${key}_${(1+pN)}`, "", "img_resources","",() =>{}, src_Bank)
-          this.Inhtml.AddElement("p",`IDPlayerBank_${key}_${(1+pN)}`, "", "ResourcesText", 0,()=>{})
+          this.Inhtml.AddElement("img",`IDPlayerBank_${key}_${(pN)}`, "", "img_resources","",() =>{}, src_Bank)
+          this.Inhtml.AddElement("p",`IDPlayerBank_${key}_${(pN)}`, `P${pN}_bank${key}`, "ResourcesText", 0,()=>{})
 
-          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+pN)}`, "", "Dec1", "-1",()=>{DB.Players[pN].ModifyValue(key,-1)})
-          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+pN)}`, "", "Inc1", "+1",()=>{DB.Players[pN].ModifyValue(key,1)})
-          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+pN)}`, "", "Dec5", "-5",()=>{DB.Players[pN].ModifyValue(key,-5)})
-          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(1+pN)}`, "", "Inc5", "+5",()=>{DB.Players[pN].ModifyValue(key,5)})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Dec1", "-1",()=>{DB.ModifyValue(pN,"bank",key,-1)})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Inc1", "+1",()=>{DB.ModifyValue(pN,"bank",key,1)})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Dec5", "-5",()=>{DB.ModifyValue(pN,"bank",key,-5)})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Inc5", "+5",()=>{DB.ModifyValue(pN,"bank",key,5)})
         })
       } 
       
@@ -209,33 +207,18 @@ class View{
     this.Inhtml.AddElement("p","InfoTabID","InfoCostex", "InfoCost", `+ ${Country.Exercito*2}`)
     this.Inhtml.AddElement("p","InfoTabID","InfoCostte", "InfoCost", `+ ${Country.Tecnologia*2}`)
 
-    for(let x = 1; x <= DB.AmountofPlayers; x++){
-      this.Inhtml.AddText(`InfoTabID`,`checkbox_ID_P${x}`,`checkbox_txt_Class`,`P${x}`)
-      this.Inhtml.AddInput(`checkbox`,`InfoTabID`, `checkbox_p${x}`,`Checkbox_p`,Country.Players[x-1])
+    for(let x = 0; x < DB.AmountofPlayers; x++){
+      this.Inhtml.AddText(`InfoTabID`,`checkbox_ID_P${x+1}`,`checkbox_txt_Class`,`P${x+1}`)
+      this.Inhtml.AddInput(`checkbox`,`InfoTabID`, `checkbox_p${x}`,`Checkbox_p`,Country.Players[x])
     }
-    this.Inhtml.AddBtn(`InfoTabID`,`ID_CheckInfluency`,`Players_btn`,`Confirmar Influência`,()=>this.CheckInfluency(NameofCountry))
-
-  }
-  CheckInfluency(NameofCountry){
-    let influencyplayers = [false,false,false,false]
-    for(let i=1;i<=DB.AmountofPlayers;i++){
-      let test = document.getElementById(`checkbox_p${i}`).checked
-      if(test==true){
-        influencyplayers[i-1]=true
-      }
-    }
-    DB.CheckPlayersProduction(NameofCountry,influencyplayers)
+    this.Inhtml.AddBtn(`InfoTabID`,`ID_CheckInfluency`,`Players_btn`,`Confirmar Influência`,()=>DB.UpdateInfluency(NameofCountry))
   }
   RenderFooter(){
     this.Inhtml.DeleteIfExist("#IDFooter")
-
     this.Inhtml.AddElement("div","masterID", `IDFooter`, `ClassFooter`)
-
-    let fase = MEC.CheckRound()
-
-    this.Inhtml.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: ${fase.Round}`) 
-    this.Inhtml.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: ${fase.Quarter}`)
-    this.Inhtml.AddElement("p","IDFooter", `IDYear`, `ClassRound`, `Year: ${fase.Year}`)
+    this.Inhtml.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: 0`) 
+    this.Inhtml.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: 0`)
+    this.Inhtml.AddElement("p","IDFooter", `IDYear`, `ClassRound`, `Year: 0`)
   }
   DisplayEvent(EventName, Effect){
     this.Inhtml.DeleteIfExist("#EventTabID")
@@ -247,7 +230,6 @@ class View{
   }
   DisplaySecondEvent(EventName, Effect){
     let First = this.Inhtml.CheckIfExist("#EventTabID")
-    console.log(First)
     if(!First){
       this.Inhtml.AddElement("div", `masterID`, "EventTabID", "EventTabClass", "Evento de Convenção!")
       
@@ -284,6 +266,12 @@ class View{
     console.log(dimensions)
     return dimensions
   }
-
+  ChangePlayerValue(player,type, attribute, newValue){
+    const valueChange = document.getElementById(`P${player}_${type}${attribute}`)
+    valueChange.innerHTML = newValue
+  }
+  ColorPlayerCircle(){
+    
+  }
 }
 
