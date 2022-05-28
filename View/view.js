@@ -270,8 +270,26 @@ class View{
     const valueChange = document.getElementById(`P${player}_${type}${attribute}`)
     valueChange.innerHTML = newValue
   }
-  ColorPlayerCircle(){
-    
+  ColorPlayerCircle(country, pN, color){
+    let circle = document.getElementById(`${country}_2`).children[2].children[pN]
+    if (color){ 
+        circle.style.fill = DB.players[pN].stats.color
+        circle.style['stroke-opacity'] = "1";
+        circle.style['stroke-width'] = "2";
+    }else{
+        circle.style.fill = "none"
+        circle.style.stroke = "black";
+        circle.style['stroke-opacity'] = "0.12";
+        circle.style['stroke-width'] = "1";
+    }
+  }
+  UpdateFooter(fase){
+    const round = document.getElementById("IDRound")
+    const Quarter = document.getElementById("IDQuarter")
+    const Year = document.getElementById("IDYear")
+    round.innerHTML = `Round: ${fase.Round}`
+    Quarter.innerHTML = `Quarter: ${fase.Quarter}`
+    Year.innerHTML = `Year: ${fase.Year}`
   }
 }
 

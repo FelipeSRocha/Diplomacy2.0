@@ -70,24 +70,30 @@ class DataBase{
             territories:[]         
             },
         }  
-        this.Events ={
-        1:{nome:"Embargo Econômico",efeito:"O jogador com maior produção de tecnologia escolhe um jogador para que não possa comprar passagens, criar alianças e negociar recursos durante o ano.",f:()=>{}},
-        2:{nome:"Avanço Militar", efeito:"O jogador com maior exército retira o domínio de um território de outro jogador.",f:()=>{}},
-        3:{nome:"Sobrecarga", efeito:"O jogador com maior produção energética descarta seus tokens de energia e perde sua produção de energia durante o ano.",f:()=>{
 
-        }},
-        4:{nome:"Represália", efeito:"O jogador com maior produção energética retira o domínio de um território de outro jogador.",f:()=>{}},
-        5:{nome:"Escassez de Comida", efeito:"Todos os jogadores menos o maior produtor de alimento não produzem mais comida durante o ano.",f:()=>{}},
-        6:{nome:"Combate a Fome", efeito:"O jogador com a maior produção de alimento deve distribuir todo o seu estoque de alimento aos outros jogadores durante o ano (ele escolhe a quantidade e para quem).",f:()=>{}}
-        }
-        this.activeEvents = []
+        this.Events = this.ResetEvents()
         this.AmountofPlayers = 4
         this.MaxPlayers = 4
         this.MinPlayers = 2
         this.Round = -1
     }
 
+    ResetEvents(){
+        //reseta aos eventos padroes de inicio de ano
+        const events ={
+            0:{nome:"Embargo Econômico",efeito:"O jogador com maior produção de tecnologia escolhe um jogador para que não possa comprar passagens, criar alianças e negociar recursos durante o ano."},
+            1:{nome:"Avanço Militar", efeito:"O jogador com maior exército retira o domínio de um território de outro jogador."},
+            2:{nome:"Sobrecarga", efeito:"O jogador com maior produção energética descarta seus tokens de energia e perde sua produção de energia durante o ano.",},
+            3:{nome:"Represália", efeito:"O jogador com maior produção energética retira o domínio de um território de outro jogador."},
+            4:{nome:"Escassez de Comida", efeito:"Todos os jogadores menos o maior produtor de alimento não produzem mais comida durante o ano."},
+            5:{nome:"Combate a Fome", efeito:"O jogador com a maior produção de alimento deve distribuir todo o seu estoque de alimento aos outros jogadores durante o ano (ele escolhe a quantidade e para quem)."},
+            lista:[0,1,2,3,4,5],
+            activeEvents:[],
+        }
+        return events
+    }
     ModifyValue(player,type, attribute, amount){
+        //adiciona um valor no banco ou producao de um player
         let newValue = amount + this.players[player][type][attribute]
         if (newValue<0){
             newValue=0
@@ -98,7 +104,9 @@ class DataBase{
         
         VIEW.ChangePlayerValue(player,type, attribute, newValue)
     }
+
     UpdateInfluency(NameofCountry){
+        //adiciona o pais selecionado na producao dos jogadores
         let influencyplayers = [false,false,false,false]
         for(let i=0;i<this.AmountofPlayers;i++){
           let test = document.getElementById(`checkbox_p${i}`).checked
@@ -106,100 +114,179 @@ class DataBase{
             influencyplayers[i]=true
           }
         }
-        console.log(influencyplayers)
         this.countries[NameofCountry].Players = influencyplayers
         this.UpdatePlayersProduction()
-        this.UpdateAllProduction()
+        this.UpdateProdorBank("prod")
     }
+
+    NextRound(){
+        //realiza todas as verificacoes para avancar o round
+        this.Round++
+
+        this.UpdatePlayersProduction()
+
+        const fase = this.GenerateFase()
+
+        this.ExecuteEvents()
+
+        this.ProducetoBank()
+
+        this.UpdateProdorBank("bank")
+
+        VIEW.UpdateFooter(fase)
+    }
+    GenerateFase(){
+        //calcula proxima fase e verifica eventos
+        let Quarter = (this.Round%4)+1
+        let year = parseInt(this.Round/4)
+        let fase = {"Round": this.Round+1, "Quarter":Quarter,"Year":year}
+        if (fase.Quarter==1){
+            this.Events = this.ResetEvents()
+            this.ResetBank()
+        }
+        if(fase.Round>1 && fase.Quarter ==1 || fase.Quarter == 3){
+            console.log("Evento de Convenção!!")
+            this.PickEvent(fase.Quarter)
+        }
+
+        return fase
+    } 
     UpdatePlayersProduction(){
+        //Itera sobre os paises e atualiza a producao de todos os jogadores
         for(let pN = 0; pN < this.AmountofPlayers; pN++){
             let prod = {Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0}
             Object.keys(this.countries).forEach(country =>{
                 const value = this.countries[country].Players[pN]
-                let circle = document.getElementById(`${country}_2`).children[2].children[pN]
                 if (value){
                     prod.Energia += this.countries[country].Energia
                     prod.Comida += this.countries[country].Comida
                     prod.Exercito += this.countries[country].Exercito
                     prod.Tecnologia += this.countries[country].Tecnologia
 
-                    circle.style.fill = this.players[pN].stats.color
-                    circle.style['stroke-opacity'] = "1";
-                    circle.style['stroke-width'] = "2";
+                    const index = this.players[pN].territories.indexOf(country)
+                    if (index == -1) {
+                        this.players[pN].territories.push(country) 
+                    }
+
+                    VIEW.ColorPlayerCircle(country, pN, true)
                 }else{
-                    circle.style.fill = "none"
-                    circle.style.stroke = "black";
-                    circle.style['stroke-opacity'] = "0.12";
-                    circle.style['stroke-width'] = "1";
-                    console.log()
+                    VIEW.ColorPlayerCircle(country, pN, false)
+                    const index = this.players[pN].territories.indexOf(country)
+                    if (index > -1) {
+                        this.players[pN].territories.splice(index, 1); 
+                    }
                 }
             })
             this.players[pN].prod = prod
         }
+
     }
-    UpdateAllProduction(){
-        Object.keys(DB.players).forEach(pN =>{
-            console.log(pN)
-            Object.keys(DB.players[pN].prod).forEach(key =>{
-                VIEW.ChangePlayerValue(pN,"prod",key,DB.players[pN].prod[key])
-            })
-        })  
-    }
-    NextRound(){
-        Object.keys(DB.players).forEach(pN =>{
-            Object.keys(DB.players[pN].prod).forEach(key =>{
-                this.ModifyValue(pN,"bank",key,DB.players[pN].prod[key])
-            })
-        })  
-        this.Round++
-        const round = this.CheckRound()
-    }
-    CheckRound(){
-        let Quarter = (this.Round%4)+1
-        let year = parseInt(this.Round/4)
-        let fase = {"Round": this.Round+1, "Quarter":Quarter,"Year":year}
-        if (fase.Quarter==1){
-            this.Events ={
-                1:{nome:"Embargo Econômico",efeito:"O jogador com maior produção de tecnologia escolhe um jogador para que não possa comprar passagens, criar alianças e negociar recursos durante o ano."},
-                2:{nome:"Avanço Militar", efeito:"O jogador com maior exército retira o domínio de um território de outro jogador."},
-                3:{nome:"Sobrecarga", efeito:"O jogador com maior produção energética descarta seus tokens de energia e perde sua produção de energia durante o ano."},
-                4:{nome:"Represália", efeito:"O jogador com maior produção energética retira o domínio de um território de outro jogador."},
-                5:{nome:"Escassez de Comida", efeito:"Todos os jogadores menos o maior produtor de alimento não produzem mais comida durante o ano."},
-                6:{nome:"Combate a Fome", efeito:"O jogador com a maior produção de alimento deve distribuir todo o seu estoque de alimento aos outros jogadores durante o ano (ele escolhe a quantidade e para quem)."}
+    ExecuteEvents(){
+        this.Events.activeEvents.forEach(key=>{
+            const targetPlayer = key[1]
+            switch(key[0]){
+                case 2:
+                    //O jogador com maior produção energética descarta seus tokens de energia e perde sua produção de energia durante o ano.
+                    targetPlayer.forEach(pN=>{
+                        this.players[pN].prod.Energia = 0
+                        this.players[pN].bank.Energia = 0
+                    })
+                    break
+                case 4:
+                    //Todos os jogadores menos o maior produtor de alimento não produzem mais comida durante o ano
+                    for (let pN =0; pN < this.AmountofPlayers; pN++){
+                        const verify = targetPlayer.indexOf(pN)
+                        console.log(pN, targetPlayer,verify)
+                        if (verify == -1){
+                            this.players[pN].prod.Comida = 0
+                        }
+                    }
+                    break
+            }
+        })
+        this.UpdateProdorBank("prod")
+    } 
+    ProducetoBank(){
+        Object.keys(this.players).forEach(pN =>{
+            Object.keys(this.players[pN].prod).forEach(attribute =>{
+                const add = this.players[pN].prod[attribute]
+                const bank = this.players[pN].bank[attribute]
+                let newValue = add + bank
+                if (newValue<0){
+                    newValue=0
+                }else if(newValue>25){
+                    newValue=25
                 }
-            this.activeEvents = []
-        }
-        if(fase.Round>1 && fase.Quarter ==1 || fase.Quarter == 3){
-            console.log("Evento de Convenção!!")
-            this.ConventionEvent(fase.Quarter)
-        }
-
-        return fase
-    } 
-    ConventionEvent(Quarter){
-        console.log(this.Events)
-        let keys = Object.keys(this.Events);
-
-        const random = Math.floor(Math.random() * keys.length)
-
-        if(Quarter==1){
-            VIEW.DisplayEvent(this.Events[random].nome, this.Events[random].efeito)
-        }else if(Quarter==3){
-            VIEW.DisplaySecondEvent(this.Events[random].nome, this.Events[random].efeito)
-        }
-        this.CheckEvents(random)
-        delete this.Events[random]
+                this.players[pN].bank[attribute] = newValue
+            })
+        })  
+        //adiciona um valor no banco ou producao de um player
     }
-    CheckEvents(evento){
-        console.log(evento)
-        switch(evento){
-            case 3:
+    UpdateProdorBank(type){
+        //renderiza a prod ou bank dos jogadores na tela
+        Object.keys(DB.players).forEach(pN =>{
+            Object.keys(DB.players[pN][type]).forEach(key =>{
+                VIEW.ChangePlayerValue(pN,type,key,DB.players[pN][type][key])
+            })
+        })  
+    }
+    ResetBank(){
+        Object.keys(this.players).forEach(pN =>{
+            Object.keys(this.players[pN].prod).forEach(attribute =>{
+                this.players[pN].bank[attribute] = 0
+            })
+        })  
+        //adiciona um valor no banco ou producao de um player
+    }
+    PickEvent(Quarter){
+        //adiciona eventos ativos
+        const random = Math.floor(Math.random() * this.Events.lista.length)
+        const number = this.Events.lista[random]
+        
+        if(Quarter==1){
+            VIEW.DisplayEvent(this.Events[number].nome, this.Events[number].efeito)
+        }else if(Quarter==3){
+            VIEW.DisplaySecondEvent(this.Events[number].nome, this.Events[number].efeito)
+        }
 
+        this.Events.lista.splice(random,1)
+        const target = this.SelectTargetPlayer(number)
+        this.Events.activeEvents.push([number,target])
+
+    }
+    SelectTargetPlayer(key){
+        let targetPlayer = [-1]
+        switch(key){
+            case 2:
+                console.log("Achou o evento")
+                //O jogador com maior produção energética descarta seus tokens de energia e perde sua produção de energia durante o ano.
+                targetPlayer = this.findBiggestProd("Energia")
                 break
-            case 5:
-
+            case 4:
+                //Todos os jogadores menos o maior produtor de alimento não produzem mais comida durante o ano
+                targetPlayer = this.findBiggestProd("Comida")
                 break
         }
-    } 
+        console.log(key, targetPlayer)
+        return targetPlayer
+    }
+    findBiggestProd(attribute){
+        //acha o jogador com a maior producao de determinado atributo
+        let targetPlayer = 0
+        let listofTargets = [0]
+        for (let pN = 1; pN <this.AmountofPlayers;pN++){
+
+            let verif = this.players[pN].prod[attribute]
+            let target = this.players[targetPlayer].prod[attribute]
+            console.log(verif, target, pN, targetPlayer)
+            if (verif > target){    
+                listofTargets = [pN]
+                targetPlayer = pN
+            } else if (verif == target){
+                listofTargets.push(pN)
+            }
+        }
+        return listofTargets
+    }
 
 }
