@@ -1,23 +1,19 @@
 function criarSala(){
   const game = getDatafromform()
   if (game){
-    const url = `http://localhost:3000/addServer`
+    const url = `http://localhost:3000/enter?room=${game.room}&player=${game.player}&password=${game.password}&isHost=true`
     const options = {
-  
-        method: 'POST',
-        headers: {
-            'Accept': 'application/json',
-            'Content-Type': 'application/json;charset=UTF-8'
-        },
-        body: JSON.stringify(game)
-    }
+        method: 'GET',
+        }
+    
     fetch(url,options)
     .then(response=>response.json())
     .then(data=>{
       if(data){
         // alert("Sala criada com sucesso!")
         deleteForm()
-        newGame()
+        const realtime = connectStream()
+        newGame(game, realtime)
       }else{
         alert("Esse nome de sala já existe!")
       }
@@ -27,15 +23,10 @@ function criarSala(){
 }
 function entrarSala(){
   const game = getDatafromform()
-  const url = `http://localhost:3000/enterServer`
+  const url = `http://localhost:3000/gameroom?room=${game.room}&password=${game.password}&isHost=false`
   const options = {
 
-      method: 'POST',
-      headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/json;charset=UTF-8'
-      },
-      body: JSON.stringify(game)
+      method: 'GET',
   }
   fetch(url,options)
   .then(response=>response.json())
@@ -52,8 +43,8 @@ function entrarSala(){
       break
       case "3":
         //tudo ok
-        // alert("Entrando na sala!")
         deleteForm()
+        newGame(game.room)
       break
       case "4":
         //tudo ok
@@ -62,15 +53,14 @@ function entrarSala(){
     }
   })
 }
-
 function getDatafromform(){
   const nick = document.getElementById("nick").value
   const room = document.getElementById("room").value
   const password = document.getElementById("password").value
-  // if (nick =="" || room == ""|| password ==""){
-  //   alert("Preencha todos os campos")
-  //   return false
-  // }
+  if (nick =="" || room == ""|| password ==""){
+    alert("Preencha todos os campos")
+    return false
+  }
   const game = {room: room,
     player: nick ,
     password: password ,
@@ -80,4 +70,13 @@ function getDatafromform(){
 function deleteForm(){
   const inhtml = new InHTML()
   inhtml.DeleteIfExist("#form")
+}
+function connectStream(){
+  console.log(`Conectando com stream`)
+
+  const realtime = new Ably.Realtime({
+    authUrl: "/auth",
+  });
+  console.log("Cliente conectado com stream")
+  return realtime
 }

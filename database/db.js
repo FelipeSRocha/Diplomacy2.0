@@ -7,6 +7,7 @@ class serverList{
     }
   }
   addServer(server){
+    console.log(server)
     const testroom = server.room in this.liveServers
     let result = true
     

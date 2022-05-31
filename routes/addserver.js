@@ -1,17 +1,23 @@
 const express = require('express')
 const routes = express.Router()
 const database = require('../database/db')
-const path = require('path');
-const dirmaster = path.dirname(path.dirname(__dirname+'/base.js'))
 
+routes.get("/enter", (req, res) => {
+    const params = req.query
+    console.log(`Requesito: ${JSON.stringify(params)}`)
+    if (params.isHost === "true"){
+        const server = {room: params.room, password: params.password, player: params.player}
 
+        const resp = database.addServer(server)
 
-routes.post("/addServer", (req, res) => {
-    const server = req.body
-    const resp = database.addServer(server)
-    res.send(resp)
-
-    // 
+        if (resp == true){
+            console.log("Redirecionando player para um server")
+            res.redirect(`/gameroom?room=${server.room}&password=${server.password}&isHost=true`)
+        } else {
+            res.send(resp)
+        }
+    } 
+    
 });
 
 module.exports = routes

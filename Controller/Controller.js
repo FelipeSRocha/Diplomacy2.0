@@ -1,15 +1,18 @@
 let zoom = 1
-let DB = new DataBase()
-let MEC = new Game()
+// let DB = new DataBase()
+// let MEC = new Game()
 let VIEW = new View() 
 const Inhtml = new InHTML()
 
-function newGame(){
-  VIEW.RenderTitle()
-  VIEW.RenderPlayers()
-  VIEW.RenderMap()
-  VIEW.RenderFooter()
 
+function newGame(game, realtime){
+  stream(game, realtime)
+  
+  VIEW.RenderTitle()
+  // VIEW.RenderPlayers()
+  // VIEW.RenderMap()
+  // VIEW.RenderFooter()
+  console.log("NewGame finalizado")
 }
 function resetGame(){
   Inhtml.DeleteIfExist('#masterID')
@@ -40,6 +43,17 @@ function OverContry(){
   }
 }
 
+function stream(game, realtime){
+  console.log("Achando canal")
+  const pubChannel = realtime.channels.get(`${game.room}-Player`);
+  const subChannel = realtime.channels.get(`${game.room}-Server`);
+  pubChannel.publish('init',{init:1})
+  subChannel.subscribe(function(msg) {
+    console.log(msg.data)
+    alert(`Se for 2 deu bom: ${msg.data.resp}`)
+  });
+  console.log("Canal estabelecido")
+}
 
 
 
