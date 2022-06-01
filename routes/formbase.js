@@ -4,7 +4,7 @@ const routes = express.Router()
 const dirmaster = path.dirname(path.dirname(__dirname+'/base.js'))
 
 
-routes.get("/main.css", (req, res) => {
+routes.get("/Css/main.css", (req, res) => {
     res.sendFile(dirmaster+'/Css/main.css');
 });
 routes.get("/controller/formActions.js", (req, res) => {

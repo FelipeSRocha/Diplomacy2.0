@@ -6,27 +6,37 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Diplomacy teste</title>
     <link rel="stylesheet" href="/Css/Layout_Style.css">
+    <link rel="stylesheet" href="/Css/main.css">
     
     <script src="https://cdn.ably.io/lib/ably.min-1.js"></script>
     <script src="/controller/formActions.js"></script>
+    <!-- <script src="/Controller/comms.js"></script> -->
 
 </head>
-<body id="body">
-    <div id="form">
-        <h1 class="titulo">Bem vindo a Diplomacy!</h1>
-        <form>
-            <label for="nick">Insira seu nick: </label>
-            <input type="text" id="nick"> 
-            <label for="room">Insira o nome da sala: </label>
-            <input type="text" id="room"> 
-            <label for="password">Insira a senha da sala: </label>
-            <input type="text" id="password"> 
-            <button type="button" onclick="criarSala()">Criar Sala</button>
-            <button type="button" onclick="entrarSala()">Entrar</button>
-        </form>
-    </div>
-    <div class="masterClass" id="masterID" z-index="-1"></div>
+<body id="body" onload="load()">
 
+    <div class="form_new" id="form">
+        <h1 class="header">Welcome to Diplomacy!</h1>
+        <div class="nick">        
+            <label for="nick">Insert your nickname</label>
+            <input type="text" id="nick" placeholder="Enter a nickname"> 
+            </form>
+        </div>
+
+        <div class="card_body" id="card_create">
+            <label for="new_roomcode">Share the room code below</label>
+            <input type="text" id="new_roomcode" value="xXxXxXx"> 
+            <button type="button" onclick="hostNewGame()">Create a Room!</button>
+        </div>
+        <div class="card_body" id="card_join">
+            <label for="join_roomcode">Insert the room code below</label>
+            <input type="text" id="join_roomcode" placeholder="Enter the roomcode"> 
+            <button type="button" onclick="joinRoom()">Join a Room!</button>
+        </div>
+
+    </div>
+
+    <div class="masterClass" id="masterID" z-index="-1"></div>
     <script src="/View/InHTML.js"></script>
     <script src="/View/view.js"></script>
     <script src="/Controller/Controller.js"></script>

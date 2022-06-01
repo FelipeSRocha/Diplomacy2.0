@@ -37,7 +37,6 @@ body{
     margin: 0;
     align-items: center;
 }
-
 .Txt_HeadClass{
     font-family: 'Anton', sans-serif;
     color: rgb(255, 255, 255);
@@ -48,7 +47,6 @@ body{
     grid-area: head;
     margin: 0;
 }
-
 .Btn_HeadClass{
     grid-area: btn;
     display: flex;

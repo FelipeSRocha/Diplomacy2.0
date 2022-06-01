@@ -1,18 +1,17 @@
 let zoom = 1
-// let DB = new DataBase()
-// let MEC = new Game()
+let gameInit 
+let pubChannel
+let subChannel
+let connect
 let VIEW = new View() 
 const Inhtml = new InHTML()
 
-
-function newGame(game, realtime){
-  stream(game, realtime)
-  
-  VIEW.RenderTitle()
-  // VIEW.RenderPlayers()
-  // VIEW.RenderMap()
-  // VIEW.RenderFooter()
-  console.log("NewGame finalizado")
+function newGame(database){
+  deleteForm()
+  let DB = database
+  VIEW.RenderPlayers(DB)
+  VIEW.RenderMap()
+  VIEW.RenderFooter(DB)
 }
 function resetGame(){
   Inhtml.DeleteIfExist('#masterID')
@@ -27,33 +26,24 @@ function resetGame(){
   VIEW.RenderFooter()
 }
 
-function OverContry(){
-  let country = document.getElementsByClassName("ClassCountry");
-  for (var i = 0; i < country.length; i++) {
-    country.item(i).addEventListener("mouseover",(e)=>{
-      let name = document.getElementById(e.path[0].id)
-      let color = "#ca0b0b"
-      name.style.fill = color
-    })
-    country.item(i).addEventListener("mouseout",(e)=>{
-      let name = document.getElementById(e.path[0].id)
-      let color = "#C4C4C4"
-      name.style.fill = color
-    })
-  }
-}
-
-function stream(game, realtime){
+function enterGame(game, realtime){
   console.log("Achando canal")
-  const pubChannel = realtime.channels.get(`${game.room}-Player`);
-  const subChannel = realtime.channels.get(`${game.room}-Server`);
-  pubChannel.publish('init',{init:1})
-  subChannel.subscribe(function(msg) {
-    console.log(msg.data)
-    alert(`Se for 2 deu bom: ${msg.data.resp}`)
+  connect = realtime
+  gameInit = connect.channels.get(`${game.room}-Master`);
+  pubChannel = connect.channels.get(`${game.room}-Player`);
+  subChannel = connect.channels.get(`${game.room}-Server`);
+  pubChannel.publish('init',{init:true})
+
+  gameInit.subscribe(function(msg) {
+    if (msg.data.init){
+      newGame(msg.data.brain)
+    }
   });
   console.log("Canal estabelecido")
 }
-
+function deleteForm(){
+  const inhtml = new InHTML()
+  inhtml.DeleteIfExist("#form")
+}
 
 

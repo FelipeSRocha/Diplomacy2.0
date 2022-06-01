@@ -21,7 +21,7 @@ class View{
     this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {DB.AddPlayer()}, "", "flex:45%")
     this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{DB.NextRound()}, "", "flex:100%")
   }
-  RenderPlayers(){
+  RenderPlayers(DB){
       //Verifica se existe algo na parte dos jogadores e exclui 
       this.Inhtml.DeleteIfExist("#ContainerID")
 

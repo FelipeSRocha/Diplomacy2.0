@@ -4,7 +4,6 @@ const database = require('../database/db')
 
 routes.get("/enter", (req, res) => {
     const params = req.query
-    console.log(`Requesito: ${JSON.stringify(params)}`)
     if (params.isHost === "true"){
         const server = {room: params.room, password: params.password, player: params.player}
 

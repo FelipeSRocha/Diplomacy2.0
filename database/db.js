@@ -1,46 +1,33 @@
+const DataBase = require('../database/brain')
+
 class serverList{
   constructor(){
-    this.liveServers = {"test":{
-      password: "123" ,
-      player: ["nick"]
-      }
-    }
-  }
-  addServer(server){
-    console.log(server)
-    const testroom = server.room in this.liveServers
-    let result = true
+    this.liveServers = {}
     
-    if(!testroom){
-      this.liveServers[server.room] = {
-        password: server.password,
-        player: [server.player]
-        }
-
-    }else{
-      result = false
-
-    }
-    return result
   }
-  enterServer(server){
-    let result = "1"
-    const testroom = server.room in this.liveServers
-
-    if(testroom){
-      result = "2"
-      if(server.password == this.liveServers[server.room].password){
-
-        if(this.liveServers[server.room].player.length <4){
-          this.liveServers[server.room].player.push(server.player)
-          result = "3"
-          
-        }else{
-          result = "4"
+  joinServer(isHost, nickname, roomCode, clientId){
+    let resp = {init: false, brain: false}
+    if(isHost){
+      const testroom = roomCode in this.liveServers
+      if(!testroom){
+        console.log("nova sala")
+        this.liveServers[roomCode] = {
+          player: [nickname],
+          playerID:[clientId],
+          brain: new DataBase()
+          }
+          resp = {init: true, brain: this.liveServers[roomCode].brain}
+        } 
+      }else{
+        const testroom = roomCode in this.liveServers
+        if(testroom){
+          console.log("Entrando na sala")
+          this.liveServers[roomCode].player.push([nickname])
+          this.liveServers[roomCode].playerID.push([clientId])
+          resp = {init: true, brain: this.liveServers[roomCode].brain}
         }
       }
-    }
-    return result
+    return resp
   }
 }
 const listServer = new serverList()
