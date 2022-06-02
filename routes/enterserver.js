@@ -13,27 +13,6 @@ let activeGameRooms = {};
 
 const GAME_ROOM_CAPACITY = 4;
 
-
-routes.get("/gameplay", (request, response) => {
-    let requestedRoom = request.query.roomCode;
-    let isReqHost = request.query.isHost == "true";
-    if (!isReqHost && activeGameRooms[requestedRoom]) {
-      if (
-        activeGameRooms[requestedRoom].totalPlayers + 1 <= GAME_ROOM_CAPACITY
-      ) {
-        response.sendFile(__dirname + "/views/index.html");
-      } else {
-        console.log("here");
-        response.sendFile(__dirname + "/views/gameRoomFull.html");
-      }
-    } else if (isReqHost) {
-      response.sendFile(__dirname + "/views/index.html");
-    } else {
-      response.sendFile(__dirname + "/views/gameRoomFull.html");
-    }
-    console.log(JSON.stringify(activeGameRooms));
-});
-
 const uniqueId = function () {
     return "id-" + Math.random().toString(36).substr(2, 16);
   };
@@ -69,17 +48,39 @@ routes.get("/auth", (request, response) => {
 realtime.connection.once("connected", () => {
     globalChannel = realtime.channels.get("global_Channel");
 
-    // subscribe to new players entering the game
+    // subscribe to new players creating new the games
     globalChannel.presence.subscribe("enter", (player) => {
+        //Create new server in database
         const resp = db.joinServer(
             player.data.isHost,
             player.data.nickname,
             player.data.roomCode,
             player.clientId
         );
+        //publish data to initiate new game for host
         initChannel = realtime.channels.get(player.data.roomCode)
-        initChannel.publish('init',{init: resp.init, brain: resp.brain})
+        initChannel.publish('init',resp)
+        
+        //create enter/leave channel
+        let newPlayers = realtime.channels.get(player.data.roomCode+"_activePlayers")
+        newPlayers.presence.subscribe("enter", (enterplayer) =>{
+          db.addPlayertoServer(enterplayer)
+        })
+        newPlayers.presence.subscribe("leave", (leaveplayer) =>{
+          db.removePlayerfromServer(leaveplayer)
+        })
+        //create gametruth channel
+        let truthChannel = realtime.channels.get(player.data.roomCode+"gameTruth")
+        truthChannel.subscribe(function(msg){
+          brainlogic(msg)
+        })
+
     });
 });
 
+function brainlogic(msg){
+  const room = msg.room
+  const player = msg.player
+  const action = msg.action
+}
 module.exports = routes

@@ -3,31 +3,36 @@ const DataBase = require('../database/brain')
 class serverList{
   constructor(){
     this.liveServers = {}
-    
+    this.MaxPlayers = 4
   }
   joinServer(isHost, nickname, roomCode, clientId){
     let resp = {init: false, brain: false}
     if(isHost){
+      console.log("nova sala")
+      this.liveServers[roomCode] = {
+        brain: new DataBase(nickname, clientId)
+        }
+        resp = {init: true, code: roomCode, brain: this.liveServers[roomCode].brain}
+    }else{
       const testroom = roomCode in this.liveServers
-      if(!testroom){
-        console.log("nova sala")
-        this.liveServers[roomCode] = {
-          player: [nickname],
-          playerID:[clientId],
-          brain: new DataBase()
-          }
-          resp = {init: true, brain: this.liveServers[roomCode].brain}
-        } 
-      }else{
-        const testroom = roomCode in this.liveServers
-        if(testroom){
+      if(testroom){
+        const maxPlayers = Object.keys(this.liveServers[roomCode].brain.players).length
+        console.log(maxPlayers)
+        if (maxPlayers < this.MaxPlayers){
           console.log("Entrando na sala")
-          this.liveServers[roomCode].player.push([nickname])
-          this.liveServers[roomCode].playerID.push([clientId])
+          this.liveServers[roomCode].brain.createPlayer(nickname, clientId)
           resp = {init: true, brain: this.liveServers[roomCode].brain}
         }
       }
+    }
     return resp
+  }
+  addPlayertoServer(enterplayer){
+    const isHost = enterplayer.data.isHost
+    const nickname = enterplayer.data.nickname
+    const clientId = enterplayer.clientId
+    const roomCode = enterplayer.data.roomCode
+    this.liveServers[roomCode].brain
   }
 }
 const listServer = new serverList()

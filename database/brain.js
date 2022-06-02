@@ -1,5 +1,5 @@
 class DataBase{
-    constructor(){
+    constructor(name, clientId){
         this.countries = {'Siberia': {"Energia": 0, "Comida": 2, "Exercito": 0, "Tecnologia": 0, "Nome":"Sibéria", "Players":[false,false,false,false]}, 
         'Inglaterra': {"Energia": 0, "Comida": 0, "Exercito": 1, "Tecnologia": 1, "Nome":"Inglaterra", "Players":[false,false,false,false]}, 
         'Tchita': {"Energia": 0, "Comida": 0, "Exercito": 1, "Tecnologia": 0, "Nome":"Tchita", "Players":[false,false,false,false]}, 
@@ -44,40 +44,37 @@ class DataBase{
         'Madagascar': {"Energia": 0, "Comida": 1, "Exercito": 0, "Tecnologia": 0, "Nome":"Madagascar", "Players":[false,false,false,false]},
         'Chile': {"Energia": 0, "Comida": 1, "Exercito": 0, "Tecnologia": 0, "Nome":"Chile", "Players":[false,false,false,false]}
         }
-        this.players = 
-        {0:{
-            stats: {name: "eu", color: "Yellow"},
-            prod:{Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},
-            bank:{Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},  
-            territories:[]
-            },
-        1:{
-            stats: {name: "voce", color: "Red" },
-            prod:{Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},
-            bank:{Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},  
-            territories:[]          
-            },
-        2:{
-            stats: {name: "tu", color: "Green"},
-            prod:{Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},
-            bank:{Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0}, 
-            territories:[]           
-            },
-        3:{
-            stats: {name: "nos", color: "Cyan"},
-            prod:{Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},
-            bank:{Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},   
-            territories:[]         
-            },
-        }  
-
+        this.AmountofPlayers = 1
+        this.activePlayers = [false,false,false,false]
+        this.players = {}
+        this.createPlayer(name, clientId)
         this.Events = this.ResetEvents()
-        this.AmountofPlayers = 4
         this.MaxPlayers = 4
         this.MinPlayers = 2
         this.Round = -1
     }
 
+    createPlayer(name, clientId){
+        for (let i = 0; i <= this.AmountofPlayers; i++){
+
+            if (!this.activePlayers[i]){
+                this.players[clientId] = {
+                    stats: {name: name, color: "Yellow", position: i},
+                    prod: {Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},
+                    bank: {Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},  
+                    territories:[]
+                    }
+                console.log("Adicionado")
+                console.log(this.players[clientId])
+                this.activePlayers[i] = true
+                this.updateAmountofPlayers()
+                break
+            }
+        }
+    }
+    updateAmountofPlayers(){
+        this.AmountofPlayers = Object.keys(this.players).length
+    }
     ResetEvents(){
         //reseta aos eventos padroes de inicio de ano
         const events ={

@@ -22,12 +22,15 @@ class View{
     this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{DB.NextRound()}, "", "flex:100%")
   }
   RenderPlayers(DB){
+    console.log("RenderPlayers")
       //Verifica se existe algo na parte dos jogadores e exclui 
       this.Inhtml.DeleteIfExist("#ContainerID")
 
       this.Inhtml.AddElement("div","masterID","ContainerID","ContainerClass","",()=>{})
       //Itera pela lista de jogares para renderizar a interface de cada um
-      for (let pN = 0; pN < DB.AmountofPlayers; pN++){
+      Object.keys(DB.players).forEach(id=>{
+        const pN = DB.players[id].stats.position
+
         //Cria os elementos da interface do jogador
 
         this.Inhtml.AddElement("div","ContainerID", `IDPlayerStats_${(pN)}`, `ClassPlayerStats`)
@@ -39,9 +42,9 @@ class View{
             this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerBank_${(pN)}`, `ClassPlayerBank`)
             this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerProd_${(pN)}`, `ClassPlayerProd`)
           }
-          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[pN].stats.name)
+          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[id].stats.name)
         }else{
-          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[pN].stats.name)
+          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[id].stats.name)
           if (pN<=1){
             this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerProd_${(pN)}`, `ClassPlayerProd`)
             this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerBank_${(pN)}`, `ClassPlayerBank`)
@@ -52,7 +55,7 @@ class View{
         }
         //Itera pelos stats dos jogadores
 
-        Object.keys(DB.players[pN].prod).forEach(key =>{
+        Object.keys(DB.players[id].prod).forEach(key =>{
           this.Inhtml.AddElement("div",`IDPlayerProd_${(pN)}`, `IDPlayerProd_${key}_${(pN)}`, `ClassPlayerProd_each`)
           let src_prod = `/Img/Prod${key}.png`
           this.Inhtml.AddElement("img",`IDPlayerProd_${key}_${(pN)}`, "", "img_resources","",() =>{}, src_prod)
@@ -63,7 +66,7 @@ class View{
           this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Dec5", "-5",()=>{DB.ModifyValue(pN,"prod",key,-5)})
           this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Inc5", "+5",()=>{DB.ModifyValue(pN,"prod",key,5)})
         })
-        Object.keys(DB.players[pN].bank).forEach(key =>{
+        Object.keys(DB.players[id].bank).forEach(key =>{
           this.Inhtml.AddElement("div",`IDPlayerBank_${(pN)}`, `IDPlayerBank_${key}_${(pN)}`, `ClassPlayerBank_each`)
           let src_Bank = `/Img/${key}.png`
           this.Inhtml.AddElement("img",`IDPlayerBank_${key}_${(pN)}`, "", "img_resources","",() =>{}, src_Bank)
@@ -74,7 +77,7 @@ class View{
           this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Dec5", "-5",()=>{DB.ModifyValue(pN,"bank",key,-5)})
           this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Inc5", "+5",()=>{DB.ModifyValue(pN,"bank",key,5)})
         })
-      } 
+      })
       
   }
   RenderMap(){

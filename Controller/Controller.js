@@ -3,12 +3,15 @@ let gameInit
 let pubChannel
 let subChannel
 let connect
+let DB
 let VIEW = new View() 
 const Inhtml = new InHTML()
 
 function newGame(database){
+  establishConnections()
   deleteForm()
-  let DB = database
+  DB = database
+  VIEW.RenderTitle()
   VIEW.RenderPlayers(DB)
   VIEW.RenderMap()
   VIEW.RenderFooter(DB)
@@ -44,6 +47,9 @@ function enterGame(game, realtime){
 function deleteForm(){
   const inhtml = new InHTML()
   inhtml.DeleteIfExist("#form")
+}
+function establishConnections(){
+
 }
 
 

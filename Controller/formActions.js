@@ -129,7 +129,9 @@ function hostNewGame(){
       //server não criou o jogo
       alert("Não foi possível achar a sala")
     }
+    initChannel.unsubscribe()
   })
+
 
   globalChannel.presence.enter({
     nickname: nickname,
@@ -149,6 +151,18 @@ function joinRoom(){
   localStorage.setItem("nickname", nickname);
   localStorage.setItem("roomCode", roomCode);
 
+  initChannel = realtime.channels.get(roomCode)
+  initChannel.subscribe(function(msg){
+    if (msg.data.init){
+      //server criou o jogo
+      console.log("Iniciando jogo", msg.data.brain)
+      newGame(msg.data.brain)
+    } else{
+      //server não criou o jogo
+      alert("Não foi possível achar a sala")
+    }
+    initChannel.unsubscribe()
+  })
 
   globalChannel.presence.enter({
     nickname: nickname,
@@ -156,7 +170,6 @@ function joinRoom(){
     isHost: false,
   })
 
-  window.location.replace("/gameplay?room=" + roomCode + "&isHost=false");
 }
 function getRandomRoomId() {
   return "room-" + Math.random().toString(36).substr(2, 8);
