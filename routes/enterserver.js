@@ -10,6 +10,8 @@ const db = require('../database/db')
 let initChannel;
 let globalChannel;
 let activeGameRooms = {};
+let truthChannelName
+let truthChannel
 
 const GAME_ROOM_CAPACITY = 4;
 
@@ -58,11 +60,11 @@ realtime.connection.once("connected", () => {
             player.clientId
         );
         //publish data to initiate new game for host
-        initChannel = realtime.channels.get(player.data.roomCode)
-        initChannel.publish('init',resp)
+        truthChannel = realtime.channels.get(player.data.roomCode)
+        truthChannel.publish('init',resp)
         
         //create enter/leave channel
-        let newPlayers = realtime.channels.get(player.data.roomCode+"_activePlayers")
+        let newPlayers = realtime.channels.get(player.data.roomCode+"-activePlayers")
         newPlayers.presence.subscribe("enter", (enterplayer) =>{
           db.addPlayertoServer(enterplayer)
         })
@@ -70,17 +72,29 @@ realtime.connection.once("connected", () => {
           db.removePlayerfromServer(leaveplayer)
         })
         //create gametruth channel
-        let truthChannel = realtime.channels.get(player.data.roomCode+"gameTruth")
-        truthChannel.subscribe(function(msg){
-          brainlogic(msg)
-        })
+        const playerChannelName = player.data.roomCode+"-playerTruth"
 
+        let playerChannel = realtime.channels.get(playerChannelName)
+        playerChannel.subscribe(function(msg){
+          //mensagem de ação vem como {action:, params:, roomCode:, clientId:}
+          console.log("Action recebida")
+          const resp = brainlogic(msg)          
+          truthChannel.publish('init',resp)
+        })
     });
 });
 
 function brainlogic(msg){
-  const room = msg.room
-  const player = msg.player
-  const action = msg.action
+  const roomCode = msg.data.roomCode
+  const clientId = msg.data.clientId
+  const action = msg.data.action
+  const params = msg.data.params
+
+  switch(action){
+    case "ModifyValue": 
+      db.liveServers[roomCode].brain.ModifyValue(params)
+      break
+  }
+  return resp = {type: "action", resp:"ModifyValue", brain: db.liveServers[roomCode].brain}
 }
 module.exports = routes

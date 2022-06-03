@@ -1,7 +1,7 @@
 let nickname = "";
 let roomCode = "";
 let globalChannel;
-let initChannel;
+let truthChannel;
 let myClientId;
 let myChannel;
 let myChannelName;
@@ -14,80 +14,6 @@ let myGameRoomCh;
 let myNickname = localStorage.getItem("nickname");
 let myGameRoomCode = localStorage.getItem("roomCode");
 let amIHost = localStorage.getItem("isHost");
-
-// function criarSala(){
-//   const game = getDatafromform()
-//   if (game){
-//     const url = `http://localhost:3000/enter?room=${game.room}&player=${game.player}&password=${game.password}&isHost=true`
-//     const options = {
-//         method: 'GET',
-//         }
-
-//     fetch(url,options)
-//     .then(response=>response.json())
-//     .then(data=>{
-//       if(data){
-//         // alert("Sala criada com sucesso!")
-//         deleteForm()
-//         const realtime = connectStream()
-//         enterGame(game, realtime)
-//       }else{
-//         alert("Esse nome de sala já existe!")
-//       }
-//     }
-//     )
-//   }
-// }
-// function entrarSala(){
-//   const game = getDatafromform()
-//   const url = `http://localhost:3000/gameroom?room=${game.room}&password=${game.password}&isHost=false`
-//   const options = {
-
-//       method: 'GET',
-//   }
-//   fetch(url,options)
-//   .then(response=>response.json())
-//   .then(data=>{
-//     console.log(data)
-//     switch(data.resp){
-//       case "1":
-//         //Sala nao existe
-//         alert("Sala não existe!")
-//       break
-//       case "2":
-//         //senha incorreta
-//         alert("Senha Incorreta!")
-//       break
-//       case "3":
-//         //tudo ok
-//         deleteForm()
-//         newGame(game.room)
-//       break
-//       case "4":
-//         //tudo ok
-//         alert("Sala Cheia!")
-//       break
-//     }
-//   })
-// }
-// function getDatafromform(){
-//   const nick = document.getElementById("nick").value
-//   const room = document.getElementById("room").value
-//   const password = document.getElementById("password").value
-//   if (nick =="" || room == ""|| password ==""){
-//     alert("Preencha todos os campos")
-//     return false
-//   }
-//   const game = {room: room,
-//     player: nick ,
-//     password: password ,
-//     }
-//   return game
-// }
-// function deleteForm(){
-//   const inhtml = new InHTML()
-//   inhtml.DeleteIfExist("#form")
-// }
 
 console.log(`Conectando com stream`)
 
@@ -116,20 +42,39 @@ function hostNewGame(){
   localStorage.setItem("isHost", true);
   localStorage.setItem("nickname", nickname);
   localStorage.setItem("roomCode", roomCode);
+  localStorage.setItem("clientId", myClientId);
 
   console.log("Preparando")
 
-  initChannel = realtime.channels.get(roomCode)
-  initChannel.subscribe(function(msg){
+  truthChannel = realtime.channels.get(roomCode)
+  truthChannel.subscribe(function(msg){
+    switch (msg.data.type){
+      case "init":
+        console.log("Iniciando jogo", msg.data.brain)
+        newGame(msg.data)
+        break
+      case "newPlayer":
+
+        break
+      case "action":
+        console.log("resposta da action recebida")
+        updateTruth(msg.data)
+        break
+      case "leavePlayer":
+
+        break
+      default:
+        alert("Não foi possível achar a sala")
+    }
     if (msg.data.init){
       //server criou o jogo
-      console.log("Iniciando jogo", msg.data.brain)
-      newGame(msg.data.brain)
-    } else{
+
+    } else if (msg.data.game){
+
+    }else{
       //server não criou o jogo
-      alert("Não foi possível achar a sala")
+
     }
-    initChannel.unsubscribe()
   })
 
 

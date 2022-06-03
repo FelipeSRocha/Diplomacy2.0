@@ -1,20 +1,20 @@
 let zoom = 1
 let gameInit 
-let pubChannel
-let subChannel
+let playerChannel
 let connect
 let DB
 let VIEW = new View() 
 const Inhtml = new InHTML()
 
-function newGame(database){
-  establishConnections()
+function newGame(newGame){
+  establishConnections(newGame)
   deleteForm()
-  DB = database
+  DB = newGame.brain
   VIEW.RenderTitle()
   VIEW.RenderPlayers(DB)
   VIEW.RenderMap()
   VIEW.RenderFooter(DB)
+  console.log(truthChannel)
 }
 function resetGame(){
   Inhtml.DeleteIfExist('#masterID')
@@ -28,28 +28,31 @@ function resetGame(){
   VIEW.RenderMap()
   VIEW.RenderFooter()
 }
-
-function enterGame(game, realtime){
-  console.log("Achando canal")
-  connect = realtime
-  gameInit = connect.channels.get(`${game.room}-Master`);
-  pubChannel = connect.channels.get(`${game.room}-Player`);
-  subChannel = connect.channels.get(`${game.room}-Server`);
-  pubChannel.publish('init',{init:true})
-
-  gameInit.subscribe(function(msg) {
-    if (msg.data.init){
-      newGame(msg.data.brain)
-    }
-  });
-  console.log("Canal estabelecido")
-}
 function deleteForm(){
   const inhtml = new InHTML()
   inhtml.DeleteIfExist("#form")
 }
-function establishConnections(){
+function establishConnections(newGame){
+  const truthChannelName = newGame.roomCode
+  const playerChannelName = newGame.roomCode+"-playerTruth"
+  console.log(truthChannelName, playerChannelName)
+
+  playerChannel = realtime.channels.get(playerChannelName)
+}
+function updateTruth(respData){
+  DB = respData.brain
+  switch (respData.resp){
+    case "ModifyValue":
+      VIEW.changeValueofPlayer(DB)
+      break
+  }
 
 }
+function sendAction(action, params){
+  //action é composto por ("ação",lista de parametros)
+  console.log("enviando action")
+  playerChannel.publish("action",{action:action, params:params, roomCode:localStorage.getItem("roomCode"), clientId:localStorage.getItem("clientId")})
+}
+
 
 

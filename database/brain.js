@@ -89,7 +89,11 @@ class DataBase{
         }
         return events
     }
-    ModifyValue(player,type, attribute, amount){
+    ModifyValue(params){
+        const player = params[0]
+        const type = params[1]
+        const attribute = params[2]
+        const amount = params[3]
         //adiciona um valor no banco ou producao de um player
         let newValue = amount + this.players[player][type][attribute]
         if (newValue<0){
@@ -98,8 +102,6 @@ class DataBase{
             newValue=25
         }
         this.players[player][type][attribute] = newValue
-        
-        VIEW.ChangePlayerValue(player,type, attribute, newValue)
     }
 
     UpdateInfluency(NameofCountry){

@@ -22,7 +22,7 @@ class View{
     this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{DB.NextRound()}, "", "flex:100%")
   }
   RenderPlayers(DB){
-    console.log("RenderPlayers")
+    console.log("RenderPlayers:", DB)
       //Verifica se existe algo na parte dos jogadores e exclui 
       this.Inhtml.DeleteIfExist("#ContainerID")
 
@@ -61,10 +61,10 @@ class View{
           this.Inhtml.AddElement("img",`IDPlayerProd_${key}_${(pN)}`, "", "img_resources","",() =>{}, src_prod)
           this.Inhtml.AddElement("p",`IDPlayerProd_${key}_${(pN)}`, `P${pN}_prod${key}`, "ResourcesText", 0,()=>{})
 
-          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Dec1", "-1",()=>{DB.ModifyValue(pN,"prod",key,-1)})
-          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Inc1", "+1",()=>{DB.ModifyValue(pN,"prod",key,1)})
-          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Dec5", "-5",()=>{DB.ModifyValue(pN,"prod",key,-5)})
-          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Inc5", "+5",()=>{DB.ModifyValue(pN,"prod",key,5)})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Dec1", "-1",()=>{sendAction("ModifyValue",[id,"prod",key,-1])})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Inc1", "+1",()=>{sendAction("ModifyValue",[id,"prod",key,1])})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Dec5", "-5",()=>{sendAction("ModifyValue",[id,"prod",key,-5])})
+          this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Inc5", "+5",()=>{sendAction("ModifyValue",[id,"prod",key,5])})
         })
         Object.keys(DB.players[id].bank).forEach(key =>{
           this.Inhtml.AddElement("div",`IDPlayerBank_${(pN)}`, `IDPlayerBank_${key}_${(pN)}`, `ClassPlayerBank_each`)
@@ -293,6 +293,15 @@ class View{
     round.innerHTML = `Round: ${fase.Round}`
     Quarter.innerHTML = `Quarter: ${fase.Quarter}`
     Year.innerHTML = `Year: ${fase.Year}`
+  }
+  changeValueofPlayer(DB){
+    Object.keys(DB.players).forEach(id=>{
+      const pN = DB.players[id].stats.position
+      Object.keys(DB.players[id].prod).forEach(keyprod=>{
+        const tag = document.getElementById(`P${pN}_prod${keyprod}`)
+        tag.innerHTML = DB.players[id].prod[keyprod]
+      })
+    })
   }
 }
 
