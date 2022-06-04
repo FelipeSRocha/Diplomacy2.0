@@ -44,6 +44,22 @@ class DataBase{
         'Madagascar': {"Energia": 0, "Comida": 1, "Exercito": 0, "Tecnologia": 0, "Nome":"Madagascar", "Players":[false,false,false,false]},
         'Chile': {"Energia": 0, "Comida": 1, "Exercito": 0, "Tecnologia": 0, "Nome":"Chile", "Players":[false,false,false,false]}
         }
+        this.objinfluency = ["Influence at least 12 territories",
+        "Be the most influence player",
+        "Influecy countries in every continent",
+        "Reach the majoraty influence in two continents",
+        "Reach more than half of territories"
+        ]
+        this.objprod = ["Reach at least 10 in energy production",
+        "Reach the biggest tecnology productor",
+        "Reach at least 9 in food production",
+        "Reach at least 6 in energy, food and tecnology production"
+        ]
+        this.objleader = [["authoritarian","Own the bigger army production"],
+        ["Cautious","Have neither the smallest army production nor the greatest"],
+        ["Democratic","Have at least 6  shared influence territories"],
+        ["Pacifist", "Be the player with the lowest army production"]
+        ]
         this.AmountofPlayers = 1
         this.activePlayers = [false,false,false,false]
         this.players = {}
@@ -52,17 +68,47 @@ class DataBase{
         this.MaxPlayers = 4
         this.MinPlayers = 2
         this.Round = -1
-    }
 
-    createPlayer(name, clientId, color){
+    }
+    
+
+    createPlayer(name, clientId){
         for (let i = 0; i <= this.AmountofPlayers; i++){
+            let color
+            switch (i){
+                case 0:
+                    color = "Yellow"
+                    break
+                case 1:
+                    color = "Green"
+                    break
+                case 2:
+                    color = "Red"
+                    break
+                case 3:
+                    color = "Cyan"
+                    break
+            }
+
+            const randominf = Math.floor(Math.random() * this.objinfluency.length)
+            const objinfluency = this.objinfluency[randominf]
+            this.objinfluency.splice(randominf,1)
+
+            const randomprod = Math.floor(Math.random() * this.objprod.length)
+            const objprod = this.objprod[randomprod]
+            this.objprod.splice(randomprod,1)
+
+            const randomleader = Math.floor(Math.random() * this.objleader.length)
+            const objleader = this.objleader[randomleader]
+            this.objleader.splice(randomleader,1)
 
             if (!this.activePlayers[i]){
                 this.players[clientId] = {
-                    stats: {name: name, color: "Yellow", position: i},
+                    stats: {name: name, color: color, position: i},
                     prod: {Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},
                     bank: {Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},  
-                    territories:[]
+                    territories:[],
+                    objective:[objinfluency, objprod, objleader]
                     }
                 this.activePlayers[i] = true
                 this.updateAmountofPlayers()
@@ -101,14 +147,12 @@ class DataBase{
         }
         this.players[player][type][attribute] = newValue
     }
-
     UpdateInfluency([NameofCountry, influencyplayers]){
         //adiciona o pais selecionado na producao dos jogadores
 
         this.countries[NameofCountry].Players = influencyplayers
         this.UpdatePlayersProduction()
     }
-
     NextRound(){
         //realiza todas as verificacoes para avancar o round
         this.Round++
@@ -121,9 +165,6 @@ class DataBase{
 
         this.ProducetoBank()
 
-        this.UpdateProdorBank("bank")
-
-        VIEW.UpdateFooter(fase)
     }
     GenerateFase(){
         //calcula proxima fase e verifica eventos
@@ -182,16 +223,16 @@ class DataBase{
                     break
                 case 4:
                     //Todos os jogadores menos o maior produtor de alimento não produzem mais comida durante o ano
-                    for (let pN =0; pN < this.AmountofPlayers; pN++){
-                        const verify = targetPlayer.indexOf(pN)
+                    Object.keys(this.players).forEach(id=>{
+                        const verify = targetPlayer.indexOf(id)
                         if (verify == -1){
-                            this.players[pN].prod.Comida = 0
+                            this.players[id].prod.Comida = 0
                         }
-                    }
+                    })
                     break
             }
         })
-        this.UpdateProdorBank("prod")
+        // this.UpdateProdorBank("prod")
     } 
     ProducetoBank(){
         Object.keys(this.players).forEach(pN =>{
@@ -209,7 +250,6 @@ class DataBase{
         })  
         //adiciona um valor no banco ou producao de um player
     }
-
     ResetBank(){
         Object.keys(this.players).forEach(pN =>{
             Object.keys(this.players[pN].prod).forEach(attribute =>{
@@ -222,12 +262,6 @@ class DataBase{
         //adiciona eventos ativos
         const random = Math.floor(Math.random() * this.Events.lista.length)
         const number = this.Events.lista[random]
-        
-        if(Quarter==1){
-            VIEW.DisplayEvent(this.Events[number].nome, this.Events[number].efeito)
-        }else if(Quarter==3){
-            VIEW.DisplaySecondEvent(this.Events[number].nome, this.Events[number].efeito)
-        }
 
         this.Events.lista.splice(random,1)
         const target = this.SelectTargetPlayer(number)
@@ -250,19 +284,23 @@ class DataBase{
     }
     findBiggestProd(attribute){
         //acha o jogador com a maior producao de determinado atributo
-        let targetPlayer = 0
-        let listofTargets = [0]
-        for (let pN = 1; pN <this.AmountofPlayers;pN++){
-
-            let verif = this.players[pN].prod[attribute]
-            let target = this.players[targetPlayer].prod[attribute]
-            if (verif > target){    
-                listofTargets = [pN]
-                targetPlayer = pN
-            } else if (verif == target){
-                listofTargets.push(pN)
+        let targetPlayer
+        let listofTargets
+        Object.keys(this.players).forEach(id=>{
+            if (this.players[id].stats.position == 0){
+                targetPlayer = Object.keys(this.players)[0]
+                listofTargets = [targetPlayer]
+            } else {
+                let verif = this.players[id].prod[attribute]
+                let target = this.players[targetPlayer].prod[attribute]
+                if (verif > target){    
+                    listofTargets = [id]
+                    targetPlayer = id
+                } else if (verif == target){
+                    listofTargets.push(id)
+                }
             }
-        }
+        })
         return listofTargets
     }
 

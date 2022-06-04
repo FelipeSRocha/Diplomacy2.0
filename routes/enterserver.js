@@ -102,6 +102,12 @@ function brainlogic(msg){
       db.liveServers[roomCode].brain.UpdateInfluency(params)
       other = params[0]
       break
+    
+    case "NextRound":
+      console.log("NextRound", params)
+      db.liveServers[roomCode].brain.NextRound()
+
+      break
   }
   return resp = {type: "action", resp:action, brain: db.liveServers[roomCode].brain, other: other}
 }

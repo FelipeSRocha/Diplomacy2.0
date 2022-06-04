@@ -41,9 +41,27 @@ class View{
             this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerBank_${(pN)}`, `ClassPlayerBank`)
             this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerProd_${(pN)}`, `ClassPlayerProd`)
           }
-          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[id].stats.name)
+          this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDiv_${(pN)}`, `ClassPlayerDiv`)
+          if(id == myClientId){
+            this.Inhtml.AddElement("div",`IDPlayerDiv_${(pN)}`, `IDPlayerDivojb_${(pN)}`, `ClassPlayerDivobj`)
+            this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[0])
+            this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[1])
+            this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[2][1])
+          }
+          this.Inhtml.AddElement("div",`IDPlayerDiv_${(pN)}`, `IDPlayerDivTitle_${(pN)}`, `ClassPlayerDivTitle`)
+          this.Inhtml.AddElement("h1",`IDPlayerDivTitle_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[id].stats.name)
+
         }else{
-          this.Inhtml.AddElement("h1",`IDPlayerStats_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[id].stats.name)
+          this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDivtitle_${(pN)}`, `ClassPlayerDivtitle`)
+          this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDivTitle_${(pN)}`, `ClassPlayerDivTitle`)
+          this.Inhtml.AddElement("h1",`IDPlayerDivTitle_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[id].stats.name)
+          if(id == myClientId){
+            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDivojb_${(pN)}`, `ClassPlayerDivobj`)
+            this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[0])
+            this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[1])
+            this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[2][1])
+          }
+
           if (pN<=1){
             this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerProd_${(pN)}`, `ClassPlayerProd`)
             this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerBank_${(pN)}`, `ClassPlayerBank`)
@@ -218,7 +236,7 @@ class View{
   RenderFooter(){
     this.Inhtml.DeleteIfExist("#IDFooter")
     this.Inhtml.AddElement("div","masterID", `IDFooter`, `ClassFooter`)
-    this.Inhtml.AddElement("button", `IDFooter`, "btn_NextRound", "Players_btn", "Next Round",()=>{DB.NextRound()}, "", "flex:100%")
+    this.Inhtml.AddElement("button", `IDFooter`, "btn_NextRound", "Players_btn", "Next Round",()=>{sendAction("NextRound")})
     this.Inhtml.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: 0`) 
     this.Inhtml.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: 0`)
     this.Inhtml.AddElement("p","IDFooter", `IDYear`, `ClassRound`, `Year: 0`)

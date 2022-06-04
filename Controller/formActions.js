@@ -11,9 +11,9 @@ let totalPlayers = 0;
 let game;
 let myGameRoomName;
 let myGameRoomCh;
-let myNickname = localStorage.getItem("nickname");
-let myGameRoomCode = localStorage.getItem("roomCode");
-let amIHost = localStorage.getItem("isHost");
+let myNickname
+let myGameRoomCode
+let amIHost
 
 console.log(`Conectando com stream`)
 
@@ -38,11 +38,6 @@ function hostNewGame(){
   let nicknameInput = document.getElementById("nick");
   nickname = nicknameInput.value;
   roomCode = document.getElementById("new_roomcode").value;
-
-  localStorage.setItem("isHost", true);
-  localStorage.setItem("nickname", nickname);
-  localStorage.setItem("roomCode", roomCode);
-  localStorage.setItem("clientId", myClientId);
 
   truthChannel = realtime.channels.get(roomCode)
   truthChannel.subscribe(function(msg){
@@ -77,11 +72,6 @@ function joinRoom(){
   let nicknameInput = document.getElementById("nick");
   nickname = nicknameInput.value;
   roomCode = document.getElementById("join_roomcode").value;
-
-  localStorage.setItem("isHost", false);
-  localStorage.setItem("nickname", nickname);
-  localStorage.setItem("roomCode", roomCode);
-  localStorage.setItem("clientId", myClientId);
 
   truthChannel = realtime.channels.get(roomCode)
   truthChannel.subscribe(function(msg){

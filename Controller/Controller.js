@@ -39,6 +39,7 @@ function establishConnections(newGame){
 }
 function updateTruth(respData){
   DB = respData.brain
+  
   switch (respData.resp){
     case "ModifyValue":
       VIEW.changeValueofPlayer(DB)
@@ -55,10 +56,32 @@ function updateTruth(respData){
         VIEW.ColorPlayerCircle(respData.other, pN, id, influenciedcountry)
       })
       break
+
+    case "NextRound":
+
+      VIEW.changeValueofPlayer(DB)
+
+      let Quarter = (DB.Round%4)+1
+      let year = parseInt(DB.Round/4)
+      let fase = {"Round": DB.Round+1, "Quarter":Quarter,"Year":year}
+
+      VIEW.UpdateFooter(fase)
+
+      if(Quarter==1 && DB.Round > 1|| Quarter == 3 && DB.Round == 2){
+        console.log("primeiro evento")
+        const numberEvent = DB.Events.activeEvents[0][0]
+        VIEW.DisplayEvent(DB.Events[numberEvent].nome, DB.Events[numberEvent].efeito)
+
+      }else if(Quarter==3){
+        console.log("Segundo evento")
+        const numberEvent = DB.Events.activeEvents[1][0]
+        VIEW.DisplaySecondEvent(DB.Events[numberEvent].nome, DB.Events[numberEvent].efeito)
+    }
+  
   }
 
 }
-function sendAction(action, params){
+function sendAction(action, params=[]){
   //action é composto por ("ação",lista de parametros)
   console.log("enviando action", params)
   playerChannel.publish("action",{action:action, params:params, roomCode:localStorage.getItem("roomCode"), clientId:localStorage.getItem("clientId")})
