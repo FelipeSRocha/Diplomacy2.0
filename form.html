@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Form</title>
+    <link rel="stylesheet" href="main.css">
+</head>
+<body>
+    <h1 class="titulo">Bem vindo a Diplomacy!</h1>
+    <form>
+        <label for="nick">Insira seu nick: </label>
+        <input type="text" id="nick"> 
+        <label for="room">Insira o nome da sala: </label>
+        <input type="text" id="room"> 
+        <label for="password">Insira a senha da sala: </label>
+        <input type="text" id="password"> 
+        <button type="button" onclick="criarSala()">Criar Sala</button>
+        <button type="button" onclick="entrarSala()">Entrar</button>
+    </form>
+    <script src="/database/db.js"></script>
+    <script src="/controller/formActions.js"></script>
+</body>
+</html>
