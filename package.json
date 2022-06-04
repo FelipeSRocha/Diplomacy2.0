@@ -16,13 +16,13 @@
   "main": "app.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/FelipeSRocha/Diplomacy.git"
+    "url": "git+https://github.com/FelipeSRocha/Diplomacy2.0.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/FelipeSRocha/Diplomacy/issues"
+    "url": "https://github.com/FelipeSRocha/Diplomacy2.0/issues"
   },
-  "homepage": "https://github.com/FelipeSRocha/Diplomacy#readme",
+  "homepage": "https://github.com/FelipeSRocha/Diplomacy2.0#readme",
   "description": ""
 }
