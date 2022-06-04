@@ -24,7 +24,7 @@ body{
     transform: translate(-50%);
     width: 20%;
     display: grid;
-    grid-template-rows: 60px 80px;
+    /* grid-template-rows: 50% 50%; */
     grid-template-areas: 
     "head"
     "btn";
@@ -69,7 +69,7 @@ body{
     border: 0;
     padding: 5px;
     margin: 5px;
-    font-size: 12px;
+    font-size: 22px;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
@@ -130,28 +130,28 @@ cursor: not-allowed;
     font-style: italic;
     margin: 0;
 }
-#IDPlayerTitle_1{
+#IDPlayerTitle_0{
     color: #fdf901;
     width: fit-content;
     margin-left: 15px;
     margin-right: 15px;
     justify-self: left;
 }
-#IDPlayerTitle_2{
+#IDPlayerTitle_1{
     color: #fa4040;
     width: fit-content;
     margin-left: 15px;
     margin-right: 15px;
     justify-self: right;
 }   
-#IDPlayerTitle_3{
+#IDPlayerTitle_2{
     color: #43fb00;
     width: fit-content;
     margin-left: 15px;
     margin-right: 15px;
     justify-self: left;
 }
-#IDPlayerTitle_4{
+#IDPlayerTitle_3{
     color: #00f2ff;
     width: fit-content;
     margin-left: 15px;
@@ -217,13 +217,13 @@ cursor: not-allowed;
 }
 .img_resources{
     grid-area: img;
-    height: 25px;
+    height: 20px;
 }
 /* CSS */
 .Dec1 {
   background-color: rgb(251, 173, 173);
   border-radius: 8px;
-  height: 80%;
+  height: 90%;
   color: #000;
   cursor: pointer;
   font-weight: bold;
@@ -255,7 +255,7 @@ cursor: not-allowed;
 .Inc1 {
     background-color: rgb(251, 242, 173);
     border-radius: 8px;
-    height: 80%;
+    height: 90%;
     color: #000;
     cursor: pointer;
     font-weight: bold;
@@ -286,7 +286,7 @@ cursor: not-allowed;
 .Dec5 {
     background-color: rgb(251, 135, 135);
     border-radius: 8px;
-    height: 80%;
+    height: 90%;
     color: #000;
     cursor: pointer;
     font-weight: bold;
@@ -316,7 +316,7 @@ cursor: not-allowed;
 .Inc5 {
     background-color: rgb(249, 232, 105);
     border-radius: 8px;
-    height: 80%;
+    height: 90%;
     color: #000;
     cursor: pointer;
     font-weight: bold;
@@ -540,18 +540,21 @@ cursor: not-allowed;
     position: absolute;
     align-self: center;
     left: 50%;
+    bottom: 10px;
     transform: translate(-50%);
     width: 20%;
-    height: 100px;
-    bottom: 0;
     
     position: fixed;
-    display: flex;
+    display: grid;
     justify-content: center;
     align-items: center;
     gap: 10px;
     align-self: center;
     z-index: 1;
+    grid-template-areas: 
+    "year quarter round"
+    "next next next"
+    ;
 }
 .ClassRound{
     background-color: rgb(253, 253, 253);
@@ -564,7 +567,19 @@ cursor: not-allowed;
     font-family: 'Roboto', sans-serif;
     font-size: 15px;
     font-weight: bold;
-
+    grid-area: round;
+}
+#btn_NextRound{
+    grid-area: next;
+}
+#IDYear{
+    grid-area: year;
+}
+#IDQuarter{
+    grid-area: quarter;
+}
+#IDRound{
+    grid-area: round;
 }
 .C_AmericaNorte {
     fill: rgb(218, 164, 98);

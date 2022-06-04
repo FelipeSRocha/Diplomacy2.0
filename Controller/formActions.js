@@ -44,13 +44,10 @@ function hostNewGame(){
   localStorage.setItem("roomCode", roomCode);
   localStorage.setItem("clientId", myClientId);
 
-  console.log("Preparando")
-
   truthChannel = realtime.channels.get(roomCode)
   truthChannel.subscribe(function(msg){
     switch (msg.data.type){
       case "init":
-        console.log("Iniciando jogo", msg.data.brain)
         newGame(msg.data)
         break
       case "newPlayer":
@@ -66,17 +63,7 @@ function hostNewGame(){
       default:
         alert("Não foi possível achar a sala")
     }
-    if (msg.data.init){
-      //server criou o jogo
-
-    } else if (msg.data.game){
-
-    }else{
-      //server não criou o jogo
-
-    }
   })
-
 
   globalChannel.presence.enter({
     nickname: nickname,
@@ -84,29 +71,37 @@ function hostNewGame(){
     isHost: true,
   })
 
-  // window.location.replace("/gameplay?room=" + roomCode + "&isHost=true");
 }
 function joinRoom(){
   localStorage.clear();
   let nicknameInput = document.getElementById("nick");
   nickname = nicknameInput.value;
   roomCode = document.getElementById("join_roomcode").value;
-  
+
   localStorage.setItem("isHost", false);
   localStorage.setItem("nickname", nickname);
   localStorage.setItem("roomCode", roomCode);
+  localStorage.setItem("clientId", myClientId);
 
-  initChannel = realtime.channels.get(roomCode)
-  initChannel.subscribe(function(msg){
-    if (msg.data.init){
-      //server criou o jogo
-      console.log("Iniciando jogo", msg.data.brain)
-      newGame(msg.data.brain)
-    } else{
-      //server não criou o jogo
-      alert("Não foi possível achar a sala")
+  truthChannel = realtime.channels.get(roomCode)
+  truthChannel.subscribe(function(msg){
+    switch (msg.data.type){
+      case "init":
+        newGame(msg.data)
+        break
+      case "newPlayer":
+
+        break
+      case "action":
+        console.log("resposta da action recebida")
+        updateTruth(msg.data)
+        break
+      case "leavePlayer":
+
+        break
+      default:
+        alert("Não foi possível achar a sala")
     }
-    initChannel.unsubscribe()
   })
 
   globalChannel.presence.enter({
@@ -114,7 +109,6 @@ function joinRoom(){
     roomCode: roomCode,
     isHost: false,
   })
-
 }
 function getRandomRoomId() {
   return "room-" + Math.random().toString(36).substr(2, 8);

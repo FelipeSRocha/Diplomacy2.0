@@ -54,7 +54,7 @@ class DataBase{
         this.Round = -1
     }
 
-    createPlayer(name, clientId){
+    createPlayer(name, clientId, color){
         for (let i = 0; i <= this.AmountofPlayers; i++){
 
             if (!this.activePlayers[i]){
@@ -64,8 +64,6 @@ class DataBase{
                     bank: {Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},  
                     territories:[]
                     }
-                console.log("Adicionado")
-                console.log(this.players[clientId])
                 this.activePlayers[i] = true
                 this.updateAmountofPlayers()
                 break
@@ -104,18 +102,11 @@ class DataBase{
         this.players[player][type][attribute] = newValue
     }
 
-    UpdateInfluency(NameofCountry){
+    UpdateInfluency([NameofCountry, influencyplayers]){
         //adiciona o pais selecionado na producao dos jogadores
-        let influencyplayers = [false,false,false,false]
-        for(let i=0;i<this.AmountofPlayers;i++){
-          let test = document.getElementById(`checkbox_p${i}`).checked
-          if(test==true){
-            influencyplayers[i]=true
-          }
-        }
+
         this.countries[NameofCountry].Players = influencyplayers
         this.UpdatePlayersProduction()
-        this.UpdateProdorBank("prod")
     }
 
     NextRound(){
@@ -152,7 +143,8 @@ class DataBase{
     } 
     UpdatePlayersProduction(){
         //Itera sobre os paises e atualiza a producao de todos os jogadores
-        for(let pN = 0; pN < this.AmountofPlayers; pN++){
+        Object.keys(this.players).forEach(id=>{
+            const pN = this.players[id].stats.position
             let prod = {Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0}
             Object.keys(this.countries).forEach(country =>{
                 const value = this.countries[country].Players[pN]
@@ -162,22 +154,19 @@ class DataBase{
                     prod.Exercito += this.countries[country].Exercito
                     prod.Tecnologia += this.countries[country].Tecnologia
 
-                    const index = this.players[pN].territories.indexOf(country)
+                    const index = this.players[id].territories.indexOf(country)
                     if (index == -1) {
-                        this.players[pN].territories.push(country) 
+                        this.players[id].territories.push(country) 
                     }
-
-                    VIEW.ColorPlayerCircle(country, pN, true)
                 }else{
-                    VIEW.ColorPlayerCircle(country, pN, false)
-                    const index = this.players[pN].territories.indexOf(country)
+                    const index = this.players[id].territories.indexOf(country)
                     if (index > -1) {
-                        this.players[pN].territories.splice(index, 1); 
+                        this.players[id].territories.splice(index, 1); 
                     }
                 }
             })
-            this.players[pN].prod = prod
-        }
+            this.players[id].prod = prod
+        })
 
     }
     ExecuteEvents(){
@@ -195,7 +184,6 @@ class DataBase{
                     //Todos os jogadores menos o maior produtor de alimento não produzem mais comida durante o ano
                     for (let pN =0; pN < this.AmountofPlayers; pN++){
                         const verify = targetPlayer.indexOf(pN)
-                        console.log(pN, targetPlayer,verify)
                         if (verify == -1){
                             this.players[pN].prod.Comida = 0
                         }
@@ -221,14 +209,7 @@ class DataBase{
         })  
         //adiciona um valor no banco ou producao de um player
     }
-    UpdateProdorBank(type){
-        //renderiza a prod ou bank dos jogadores na tela
-        Object.keys(DB.players).forEach(pN =>{
-            Object.keys(DB.players[pN][type]).forEach(key =>{
-                VIEW.ChangePlayerValue(pN,type,key,DB.players[pN][type][key])
-            })
-        })  
-    }
+
     ResetBank(){
         Object.keys(this.players).forEach(pN =>{
             Object.keys(this.players[pN].prod).forEach(attribute =>{
@@ -257,7 +238,6 @@ class DataBase{
         let targetPlayer = [-1]
         switch(key){
             case 2:
-                console.log("Achou o evento")
                 //O jogador com maior produção energética descarta seus tokens de energia e perde sua produção de energia durante o ano.
                 targetPlayer = this.findBiggestProd("Energia")
                 break
@@ -266,7 +246,6 @@ class DataBase{
                 targetPlayer = this.findBiggestProd("Comida")
                 break
         }
-        console.log(key, targetPlayer)
         return targetPlayer
     }
     findBiggestProd(attribute){
@@ -277,7 +256,6 @@ class DataBase{
 
             let verif = this.players[pN].prod[attribute]
             let target = this.players[targetPlayer].prod[attribute]
-            console.log(verif, target, pN, targetPlayer)
             if (verif > target){    
                 listofTargets = [pN]
                 targetPlayer = pN

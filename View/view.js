@@ -13,16 +13,15 @@ class View{
     this.Inhtml.AddElement("div","masterID","HeaderID","HeaderClass","")
     this.Inhtml.AddElement("div","HeaderID","TitleID","TitleClass","")
     this.Inhtml.AddElement("p","TitleID","Txt_HeadID","Txt_HeadClass","Diplomacy")
-    this.Inhtml.AddElement("div","HeaderID","Btn_HeadID","Btn_HeadClass","")
+    // this.Inhtml.AddElement("div","HeaderID","Btn_HeadID","Btn_HeadClass","")
 
     //Adiciona os botões Iniciais
-    this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{resetGame()}, "","flex:100%")
-    this.Inhtml.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {DB.RemovePlayer()}, "", "flex:45%")
-    this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {DB.AddPlayer()}, "", "flex:45%")
-    this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_NextRound", "Players_btn", "Next Round",()=>{DB.NextRound()}, "", "flex:100%")
+    // this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{resetGame()}, "","flex:100%")
+    // this.Inhtml.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {DB.RemovePlayer()}, "", "flex:45%")
+    // this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {DB.AddPlayer()}, "", "flex:45%")
+
   }
   RenderPlayers(DB){
-    console.log("RenderPlayers:", DB)
       //Verifica se existe algo na parte dos jogadores e exclui 
       this.Inhtml.DeleteIfExist("#ContainerID")
 
@@ -72,10 +71,10 @@ class View{
           this.Inhtml.AddElement("img",`IDPlayerBank_${key}_${(pN)}`, "", "img_resources","",() =>{}, src_Bank)
           this.Inhtml.AddElement("p",`IDPlayerBank_${key}_${(pN)}`, `P${pN}_bank${key}`, "ResourcesText", 0,()=>{})
 
-          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Dec1", "-1",()=>{DB.ModifyValue(pN,"bank",key,-1)})
-          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Inc1", "+1",()=>{DB.ModifyValue(pN,"bank",key,1)})
-          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Dec5", "-5",()=>{DB.ModifyValue(pN,"bank",key,-5)})
-          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Inc5", "+5",()=>{DB.ModifyValue(pN,"bank",key,5)})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Dec1", "-1",()=>{sendAction("ModifyValue",[id,"bank",key,-1])})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Inc1", "+1",()=>{sendAction("ModifyValue",[id,"bank",key,1])})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Dec5", "-5",()=>{sendAction("ModifyValue",[id,"bank",key,-5])})
+          this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Inc5", "+5",()=>{sendAction("ModifyValue",[id,"bank",key,5])})
         })
       })
       
@@ -214,11 +213,12 @@ class View{
       this.Inhtml.AddText(`InfoTabID`,`checkbox_ID_P${x+1}`,`checkbox_txt_Class`,`P${x+1}`)
       this.Inhtml.AddInput(`checkbox`,`InfoTabID`, `checkbox_p${x}`,`Checkbox_p`,Country.Players[x])
     }
-    this.Inhtml.AddBtn(`InfoTabID`,`ID_CheckInfluency`,`Players_btn`,`Confirmar Influência`,()=>DB.UpdateInfluency(NameofCountry))
+    this.Inhtml.AddBtn(`InfoTabID`,`ID_CheckInfluency`,`Players_btn`,`Confirmar Influência`,()=>{this.getInfluencyInfo(NameofCountry)})
   }
   RenderFooter(){
     this.Inhtml.DeleteIfExist("#IDFooter")
     this.Inhtml.AddElement("div","masterID", `IDFooter`, `ClassFooter`)
+    this.Inhtml.AddElement("button", `IDFooter`, "btn_NextRound", "Players_btn", "Next Round",()=>{DB.NextRound()}, "", "flex:100%")
     this.Inhtml.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: 0`) 
     this.Inhtml.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: 0`)
     this.Inhtml.AddElement("p","IDFooter", `IDYear`, `ClassRound`, `Year: 0`)
@@ -249,7 +249,6 @@ class View{
   PutinCenterofCountry(TagofCountry, NameCountry){
     const Country = document.getElementById(TagofCountry)
     const center = this.FindDimensionsofCountry(NameCountry)
-    console.log(center)
     Country.style.left = `${center.x_center}px`
     Country.style.top = `${center.y_center}px`
     // Country.style.width = `${center.width/2}px`
@@ -266,17 +265,12 @@ class View{
     const center_x_place = (x_place+w_place/2)
     const center_y_place = (y_place+h_place/2)
     const dimensions = {left: x_place,top: y_place,width:w_place,height: h_place,x_center: center_x_place,y_center: center_y_place}
-    console.log(dimensions)
     return dimensions
   }
-  ChangePlayerValue(player,type, attribute, newValue){
-    const valueChange = document.getElementById(`P${player}_${type}${attribute}`)
-    valueChange.innerHTML = newValue
-  }
-  ColorPlayerCircle(country, pN, color){
+  ColorPlayerCircle(country, pN, id, color){
     let circle = document.getElementById(`${country}_2`).children[2].children[pN]
     if (color){ 
-        circle.style.fill = DB.players[pN].stats.color
+        circle.style.fill = DB.players[id].stats.color
         circle.style['stroke-opacity'] = "1";
         circle.style['stroke-width'] = "2";
     }else{
@@ -301,7 +295,33 @@ class View{
         const tag = document.getElementById(`P${pN}_prod${keyprod}`)
         tag.innerHTML = DB.players[id].prod[keyprod]
       })
+      Object.keys(DB.players[id].bank).forEach(keyprod=>{
+        const tag = document.getElementById(`P${pN}_bank${keyprod}`)
+        tag.innerHTML = DB.players[id].bank[keyprod]
+      })
     })
   }
+  getInfluencyInfo(NameofCountry){
+    let influencyplayers = [false,false,false,false]
+    Object.keys(DB.players).forEach(id=>{
+      const pN = DB.players[id].stats.position
+
+        let test = document.getElementById(`checkbox_p${pN}`).checked
+        if(test==true){
+          influencyplayers[pN]=true
+        }
+      
+    })
+    sendAction("UpdateInfluency",[NameofCountry, influencyplayers])
+  }
+  updateProdBank(type){
+    //renderiza a prod ou bank dos jogadores na tela
+    Object.keys(DB.players).forEach(id =>{
+      Object.keys(DB.players[id][type]).forEach(key =>{
+          this.ChangePlayerValue(id,type,key,DB.players[id][type][key])
+      })
+    }) 
+  }
+ 
 }
 

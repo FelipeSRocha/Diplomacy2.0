@@ -29,7 +29,6 @@ function configServerStream(room){
         }
       });
     
-    console.log(`Stream com a sala "${room}" criado`)
 }
 routes.use(express.static("js"));
 
@@ -72,14 +71,15 @@ realtime.connection.once("connected", () => {
           db.removePlayerfromServer(leaveplayer)
         })
         //create gametruth channel
-        const playerChannelName = player.data.roomCode+"-playerTruth"
+        const playerChannelName = player.data.roomCode+"-"+ player.clientId+"Truth"
+        console.log(playerChannelName)
 
         let playerChannel = realtime.channels.get(playerChannelName)
         playerChannel.subscribe(function(msg){
           //mensagem de ação vem como {action:, params:, roomCode:, clientId:}
-          console.log("Action recebida")
           const resp = brainlogic(msg)          
           truthChannel.publish('init',resp)
+          console.log("Action recebida")
         })
     });
 });
@@ -89,12 +89,20 @@ function brainlogic(msg){
   const clientId = msg.data.clientId
   const action = msg.data.action
   const params = msg.data.params
+  let other
 
   switch(action){
     case "ModifyValue": 
+      console.log("Action ModifyValue")
       db.liveServers[roomCode].brain.ModifyValue(params)
       break
+    
+    case "UpdateInfluency":
+      console.log("UpdateInfluency", params)
+      db.liveServers[roomCode].brain.UpdateInfluency(params)
+      other = params[0]
+      break
   }
-  return resp = {type: "action", resp:"ModifyValue", brain: db.liveServers[roomCode].brain}
+  return resp = {type: "action", resp:action, brain: db.liveServers[roomCode].brain, other: other}
 }
 module.exports = routes

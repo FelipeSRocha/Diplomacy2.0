@@ -16,13 +16,14 @@ class InHTML{
         let DivExist = document.querySelectorAll(IDElement).length > 0
         return DivExist
     }
-    AddElement(type, id_place="", id="", classname="", text="",f = ()=>{}, src=""){
+    AddElement(type, id_place="", id="", classname="", text="",f = ()=>{}, src="", style=""){
         const place = document.getElementById(id_place)
         const el = document.createElement(type)
         el.innerHTML = text
         el.className = classname
         el.id = id
         el.src = src
+        el.style = style
         el.addEventListener("click", () =>{
             f()
         })

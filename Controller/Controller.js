@@ -14,7 +14,6 @@ function newGame(newGame){
   VIEW.RenderPlayers(DB)
   VIEW.RenderMap()
   VIEW.RenderFooter(DB)
-  console.log(truthChannel)
 }
 function resetGame(){
   Inhtml.DeleteIfExist('#masterID')
@@ -34,8 +33,7 @@ function deleteForm(){
 }
 function establishConnections(newGame){
   const truthChannelName = newGame.roomCode
-  const playerChannelName = newGame.roomCode+"-playerTruth"
-  console.log(truthChannelName, playerChannelName)
+  const playerChannelName = newGame.roomCode+"-"+newGame.clientId+"Truth"
 
   playerChannel = realtime.channels.get(playerChannelName)
 }
@@ -45,12 +43,24 @@ function updateTruth(respData){
     case "ModifyValue":
       VIEW.changeValueofPlayer(DB)
       break
+    case "UpdateInfluency":
+      //other chega como [NameofCountry]
+
+      VIEW.changeValueofPlayer(DB)
+      Object.keys(DB.players).forEach(id=>{
+        const pN = DB.players[id].stats.position
+
+        const influenciedcountry = DB.players[id].territories.includes(respData.other)
+        console.log(respData.other, DB.players[id].territories)
+        VIEW.ColorPlayerCircle(respData.other, pN, id, influenciedcountry)
+      })
+      break
   }
 
 }
 function sendAction(action, params){
   //action é composto por ("ação",lista de parametros)
-  console.log("enviando action")
+  console.log("enviando action", params)
   playerChannel.publish("action",{action:action, params:params, roomCode:localStorage.getItem("roomCode"), clientId:localStorage.getItem("clientId")})
 }
 
