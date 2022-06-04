@@ -24,13 +24,22 @@ body{
     transform: translate(-50%);
     width: 20%;
     display: grid;
-    /* grid-template-rows: 50% 50%; */
+    grid-template-rows: 50% 50%;
     grid-template-areas: 
     "head"
-    "btn";
+    "code";
     justify-items: center;
     align-items: center;
     gap: 5px;
+}
+.Txt_codeClass{
+    font-family: 'Anton', sans-serif;
+    color: rgb(255, 255, 255);
+    text-shadow: 5px 5px 10px black;
+    font-size: 20px;
+    text-align: center;
+    width: 100%;
+    grid-area: code;
 }
 .Head{
     height: 100%;

@@ -13,6 +13,7 @@ class View{
     this.Inhtml.AddElement("div","masterID","HeaderID","HeaderClass","")
     this.Inhtml.AddElement("div","HeaderID","TitleID","TitleClass","")
     this.Inhtml.AddElement("p","TitleID","Txt_HeadID","Txt_HeadClass","Diplomacy")
+    this.Inhtml.AddElement("p","HeaderID","Txt_codeID","Txt_codeClass",`Room code: ${roomCode}`)
     // this.Inhtml.AddElement("div","HeaderID","Btn_HeadID","Btn_HeadClass","")
 
     //Adiciona os botões Iniciais
