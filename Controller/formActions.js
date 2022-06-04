@@ -49,14 +49,13 @@ function hostNewGame(){
 
         break
       case "action":
-        console.log("resposta da action recebida")
         updateTruth(msg.data)
         break
       case "leavePlayer":
 
         break
       default:
-        alert("Não foi possível achar a sala")
+        alert("Não foi possível achar a sala ou ela está cheia")
     }
   })
 

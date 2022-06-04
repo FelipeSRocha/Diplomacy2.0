@@ -68,12 +68,10 @@ function updateTruth(respData){
       VIEW.UpdateFooter(fase)
 
       if(Quarter==1 && DB.Round > 1|| Quarter == 3 && DB.Round == 2){
-        console.log("primeiro evento")
         const numberEvent = DB.Events.activeEvents[0][0]
         VIEW.DisplayEvent(DB.Events[numberEvent].nome, DB.Events[numberEvent].efeito)
 
       }else if(Quarter==3){
-        console.log("Segundo evento")
         const numberEvent = DB.Events.activeEvents[1][0]
         VIEW.DisplaySecondEvent(DB.Events[numberEvent].nome, DB.Events[numberEvent].efeito)
     }
@@ -83,8 +81,8 @@ function updateTruth(respData){
 }
 function sendAction(action, params=[]){
   //action é composto por ("ação",lista de parametros)
-  console.log("enviando action", params)
-  playerChannel.publish("action",{action:action, params:params, roomCode:localStorage.getItem("roomCode"), clientId:localStorage.getItem("clientId")})
+
+  playerChannel.publish("action",{action:action, params:params, roomCode:roomCode, clientId:myClientId})
 }
 
 

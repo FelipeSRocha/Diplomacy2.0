@@ -90,21 +90,22 @@ function brainlogic(msg){
   const action = msg.data.action
   const params = msg.data.params
   let other
-
+  console.log(db)
+  console.log(msg)
   switch(action){
+    
     case "ModifyValue": 
       console.log("Action ModifyValue")
       db.liveServers[roomCode].brain.ModifyValue(params)
       break
     
     case "UpdateInfluency":
-      console.log("UpdateInfluency", params)
+
       db.liveServers[roomCode].brain.UpdateInfluency(params)
       other = params[0]
       break
     
     case "NextRound":
-      console.log("NextRound", params)
       db.liveServers[roomCode].brain.NextRound()
 
       break
