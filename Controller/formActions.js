@@ -46,7 +46,7 @@ function hostNewGame(){
         newGame(msg.data)
         break
       case "newPlayer":
-
+        
         break
       case "action":
         updateTruth(msg.data)

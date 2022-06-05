@@ -51,11 +51,15 @@ class View{
           }
           this.Inhtml.AddElement("div",`IDPlayerDiv_${(pN)}`, `IDPlayerDivTitle_${(pN)}`, `ClassPlayerDivTitle`)
           this.Inhtml.AddElement("h1",`IDPlayerDivTitle_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[id].stats.name)
+          const textcolor = document.getElementById(`IDPlayerTitle_${(pN)}`)
+          textcolor.style.color = DB.players[id].stats.color
 
         }else{
           this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDivtitle_${(pN)}`, `ClassPlayerDivtitle`)
           this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDivTitle_${(pN)}`, `ClassPlayerDivTitle`)
           this.Inhtml.AddElement("h1",`IDPlayerDivTitle_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[id].stats.name)
+          const textcolor = document.getElementById(`IDPlayerTitle_${(pN)}`)
+          textcolor.style.color = DB.players[id].stats.color
           if(id == myClientId){
             this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDivojb_${(pN)}`, `ClassPlayerDivobj`)
             this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[0])
@@ -77,7 +81,7 @@ class View{
           this.Inhtml.AddElement("div",`IDPlayerProd_${(pN)}`, `IDPlayerProd_${key}_${(pN)}`, `ClassPlayerProd_each`)
           let src_prod = `/Img/Prod${key}.png`
           this.Inhtml.AddElement("img",`IDPlayerProd_${key}_${(pN)}`, "", "img_resources","",() =>{}, src_prod)
-          this.Inhtml.AddElement("p",`IDPlayerProd_${key}_${(pN)}`, `P${pN}_prod${key}`, "ResourcesText", 0,()=>{})
+          this.Inhtml.AddElement("p",`IDPlayerProd_${key}_${(pN)}`, `P${pN}_prod${key}`, "ResourcesText", DB.players[id].prod[key],()=>{})
 
           this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Dec1", "-1",()=>{sendAction("ModifyValue",[id,"prod",key,-1])})
           this.Inhtml.AddElement("button", `IDPlayerProd_${key}_${(pN)}`, "", "Inc1", "+1",()=>{sendAction("ModifyValue",[id,"prod",key,1])})
@@ -88,7 +92,7 @@ class View{
           this.Inhtml.AddElement("div",`IDPlayerBank_${(pN)}`, `IDPlayerBank_${key}_${(pN)}`, `ClassPlayerBank_each`)
           let src_Bank = `/Img/${key}.png`
           this.Inhtml.AddElement("img",`IDPlayerBank_${key}_${(pN)}`, "", "img_resources","",() =>{}, src_Bank)
-          this.Inhtml.AddElement("p",`IDPlayerBank_${key}_${(pN)}`, `P${pN}_bank${key}`, "ResourcesText", 0,()=>{})
+          this.Inhtml.AddElement("p",`IDPlayerBank_${key}_${(pN)}`, `P${pN}_bank${key}`, "ResourcesText", DB.players[id].bank[key],()=>{})
 
           this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Dec1", "-1",()=>{sendAction("ModifyValue",[id,"bank",key,-1])})
           this.Inhtml.AddElement("button", `IDPlayerBank_${key}_${(pN)}`, "", "Inc1", "+1",()=>{sendAction("ModifyValue",[id,"bank",key,1])})
@@ -98,18 +102,18 @@ class View{
       })
       
   }
-  RenderMap(){
+  RenderMap(DB){
     //Deleta Table Anterior
     this.Inhtml.DeleteIfExist("#IDTable")
 
     //Cria o mapa
     this.Inhtml.AddElement("div", `masterID`, "IDTable", "ClassTable")
     this.Inhtml.AddElement("div", `IDTable`, "IDImgTable", "ClassImgTable")
-    this.MapInsert()
+    this.MapInsert(DB)
     this.MapZoom()
     this.MapMove()
   }
-  MapInsert(){
+  MapInsert(DB){
     //Magia que troca imagem pelo SVG
     const table = document.getElementById("IDImgTable")
     table.innerHTML="<img id='idimg' src='SVGMap/MapaSVG.svg'/>"
@@ -124,11 +128,23 @@ class View{
           const inlineSvg = span.getElementsByTagName("svg")[0]
           image.parentNode.replaceChild(inlineSvg, image)
           this.ActionMap()
+          this.updateAllCircle(DB)
           return true
         })
     }
     fetchSvg(img)
+
     
+  }
+  updateAllCircle(DB){
+    console.log(DB)
+    Object.keys(DB.countries).forEach(country=>{
+      Object.keys(DB.players).forEach(id=>{
+        const pN = DB.players[id].stats.position
+        const color = DB.countries[country].Players[pN]
+        this.ColorPlayerCircle(country, pN, id, color, DB)
+      })
+    })
   }
   ActionMap(){
     //Adiciona no svg o evento de clicar e renderizar o custo do pais

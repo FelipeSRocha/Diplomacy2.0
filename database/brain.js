@@ -1,4 +1,4 @@
-class DataBase{
+class Brain{
     constructor(name, clientId){
         this.countries = {'Siberia': {"Energia": 0, "Comida": 2, "Exercito": 0, "Tecnologia": 0, "Nome":"Sibéria", "Players":[false,false,false,false]}, 
         'Inglaterra': {"Energia": 0, "Comida": 0, "Exercito": 1, "Tecnologia": 1, "Nome":"Inglaterra", "Players":[false,false,false,false]}, 
@@ -68,10 +68,7 @@ class DataBase{
         this.MaxPlayers = 4
         this.MinPlayers = 2
         this.Round = -1
-
     }
-    
-
     createPlayer(name, clientId){
         for (let i = 0; i <= this.AmountofPlayers; i++){
             let color
@@ -80,7 +77,7 @@ class DataBase{
                     color = "Yellow"
                     break
                 case 1:
-                    color = "Green"
+                    color = "#43fb00"
                     break
                 case 2:
                     color = "Red"
@@ -305,4 +302,4 @@ class DataBase{
     }
 
 }
-module.exports = DataBase
+module.exports = Brain

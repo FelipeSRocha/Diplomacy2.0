@@ -12,8 +12,9 @@ function newGame(newGame){
   DB = newGame.brain
   VIEW.RenderTitle()
   VIEW.RenderPlayers(DB)
-  VIEW.RenderMap()
+  VIEW.RenderMap(DB)
   VIEW.RenderFooter(DB)
+  // updateAllCircle(DB)
 }
 function resetGame(){
   Inhtml.DeleteIfExist('#masterID')
@@ -32,7 +33,6 @@ function deleteForm(){
   inhtml.DeleteIfExist("#form")
 }
 function establishConnections(newGame){
-  const truthChannelName = newGame.roomCode
   const playerChannelName = newGame.roomCode+"-"+newGame.clientId+"Truth"
 
   playerChannel = realtime.channels.get(playerChannelName)
@@ -52,7 +52,6 @@ function updateTruth(respData){
         const pN = DB.players[id].stats.position
 
         const influenciedcountry = DB.players[id].territories.includes(respData.other)
-        console.log(respData.other, DB.players[id].territories)
         VIEW.ColorPlayerCircle(respData.other, pN, id, influenciedcountry)
       })
       break
