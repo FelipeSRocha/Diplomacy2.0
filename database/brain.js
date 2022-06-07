@@ -87,19 +87,20 @@ class Brain{
                     break
             }
 
-            const randominf = Math.floor(Math.random() * this.objinfluency.length)
-            const objinfluency = this.objinfluency[randominf]
-            this.objinfluency.splice(randominf,1)
-
-            const randomprod = Math.floor(Math.random() * this.objprod.length)
-            const objprod = this.objprod[randomprod]
-            this.objprod.splice(randomprod,1)
-
-            const randomleader = Math.floor(Math.random() * this.objleader.length)
-            const objleader = this.objleader[randomleader]
-            this.objleader.splice(randomleader,1)
-
+            //check for the first seat available
             if (!this.activePlayers[i]){
+                const randominf = Math.floor(Math.random() * this.objinfluency.length)
+                const objinfluency = this.objinfluency[randominf]
+                this.objinfluency.splice(randominf,1)
+    
+                const randomprod = Math.floor(Math.random() * this.objprod.length)
+                const objprod = this.objprod[randomprod]
+                this.objprod.splice(randomprod,1)
+    
+                const randomleader = Math.floor(Math.random() * this.objleader.length)
+                const objleader = this.objleader[randomleader]
+                this.objleader.splice(randomleader,1)
+
                 this.players[clientId] = {
                     stats: {name: name, color: color, position: i},
                     prod: {Energia: 0,Comida: 0,Exercito: 0,Tecnologia:0},

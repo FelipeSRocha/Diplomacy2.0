@@ -45,6 +45,7 @@ class View{
           this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDiv_${(pN)}`, `ClassPlayerDiv`)
           if(id == myClientId){
             this.Inhtml.AddElement("div",`IDPlayerDiv_${(pN)}`, `IDPlayerDivojb_${(pN)}`, `ClassPlayerDivobj`)
+            this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, "Objectives:")
             this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[0])
             this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[1])
             this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[2][1])
@@ -55,13 +56,16 @@ class View{
           textcolor.style.color = DB.players[id].stats.color
 
         }else{
-          this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDivtitle_${(pN)}`, `ClassPlayerDivtitle`)
-          this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDivTitle_${(pN)}`, `ClassPlayerDivTitle`)
+          this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDiv_${(pN)}`, `ClassPlayerDiv`)
+          this.Inhtml.AddElement("div",`IDPlayerDiv_${(pN)}`, `IDPlayerDivTitle_${(pN)}`, `ClassPlayerDivTitle`)
           this.Inhtml.AddElement("h1",`IDPlayerDivTitle_${(pN)}`, `IDPlayerTitle_${(pN)}`, `ClassPlayerTitle`, DB.players[id].stats.name)
           const textcolor = document.getElementById(`IDPlayerTitle_${(pN)}`)
           textcolor.style.color = DB.players[id].stats.color
+
+          this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDiv_${(pN)}`, `ClassPlayerDiv`)
           if(id == myClientId){
-            this.Inhtml.AddElement("div",`IDPlayerStats_${(pN)}`, `IDPlayerDivojb_${(pN)}`, `ClassPlayerDivobj`)
+            this.Inhtml.AddElement("div",`IDPlayerDiv_${(pN)}`, `IDPlayerDivojb_${(pN)}`, `ClassPlayerDivobj`)
+            this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, "Objectives:")
             this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[0])
             this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[1])
             this.Inhtml.AddElement("h1",`IDPlayerDivojb_${(pN)}`, `IDobjinfluency_${(pN)}`, `Classobj`, DB.players[id].objective[2][1])
@@ -137,7 +141,6 @@ class View{
     
   }
   updateAllCircle(DB){
-    console.log(DB)
     Object.keys(DB.countries).forEach(country=>{
       Object.keys(DB.players).forEach(id=>{
         const pN = DB.players[id].stats.position
