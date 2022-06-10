@@ -58,6 +58,9 @@ routes.get("/Img/Exercito.png", (req, res) => {
 routes.get("/Img/Tecnologia.png", (req, res) => {
     res.sendFile(dirmaster+'/Img/Tecnologia.png');
 });
+routes.get("/Img/Interroga.png", (req, res) => {
+    res.sendFile(dirmaster+'/Img/Interroga.png');
+});
 routes.get("/SVGMap/Energia.svg", (req, res) => {
     res.sendFile(dirmaster+'/SVGMap/Energia.svg');
 });

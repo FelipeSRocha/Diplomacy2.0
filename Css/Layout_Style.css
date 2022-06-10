@@ -26,10 +26,10 @@ p{
     transform: translate(-50%);
     width: 20%;
     display: grid;
-    grid-template-rows: 50% 50%;
     grid-template-areas: 
     "head"
-    "code";
+    "code"
+    "dice";
     justify-items: center;
     align-items: center;
     gap: 5px;
@@ -42,6 +42,17 @@ p{
     text-align: center;
     width: 100%;
     grid-area: code;
+}
+.diceTitleDiv{
+    grid-area: dice;
+    display: grid;
+    grid-template-areas: 
+    "btn figure";
+    height: 1vw;
+}
+.diceFigure{
+    grid-area: figure;
+    height: 3vw;
 }
 .Head{
     height: 100%;
@@ -80,7 +91,7 @@ p{
     border: 0;
     padding: 5px;
     margin: 5px;
-    font-size: 22px;
+    font-size: 1vw;
     user-select: none;
     -webkit-user-select: none;
     touch-action: manipulation;
@@ -592,7 +603,8 @@ cursor: not-allowed;
     left: 50%;
     bottom: 10px;
     transform: translate(-50%);
-    width: 20%;
+    max-width: 20vw;
+    gap: 5px;
     
     position: fixed;
     display: grid;
@@ -601,6 +613,7 @@ cursor: not-allowed;
     align-self: center;
     z-index: 1;
     grid-template-areas: 
+    "log log log"
     "year quarter round"
     "next next next"
     ;
@@ -614,9 +627,23 @@ cursor: not-allowed;
     padding: 5px;
     text-align: center;
     font-family: 'Roboto', sans-serif;
-    font-size: 15px;
+    font-size: 13px;
     font-weight: bold;
     grid-area: round;
+}
+.actionLog{
+    grid-area: log;
+    grid-column-start: 1;
+    grid-column-end: 4;
+}
+.log{
+    text-align: left;
+    font-family: 'Roboto', sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    font-style: italic;
+    max-width: 14vw;
+    margin:0;
 }
 #btn_NextRound{
     grid-area: next;

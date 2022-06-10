@@ -14,12 +14,10 @@ class View{
     this.Inhtml.AddElement("div","HeaderID","TitleID","TitleClass","")
     this.Inhtml.AddElement("p","TitleID","Txt_HeadID","Txt_HeadClass","Diplomacy")
     this.Inhtml.AddElement("p","HeaderID","Txt_codeID","Txt_codeClass",`Room code: ${roomCode}`)
-    // this.Inhtml.AddElement("div","HeaderID","Btn_HeadID","Btn_HeadClass","")
-
-    //Adiciona os botões Iniciais
-    // this.Inhtml.AddElement("button", `Btn_HeadID`, "btn_ResetGame", "Players_btn", "Reset Game",()=>{resetGame()}, "","flex:100%")
-    // this.Inhtml.AddElement("button", `Btn_HeadID`, "Btn_RemovePlayer", "Players_btn", 'Remove Player', () => {DB.RemovePlayer()}, "", "flex:45%")
-    // this.Inhtml.AddElement("button",`Btn_HeadID`, "Btn_AddPlayer","Players_btn", 'Add Player',() => {DB.AddPlayer()}, "", "flex:45%")
+    this.Inhtml.AddElement("div","HeaderID","diceTitleDiv","diceTitleDiv")
+    this.Inhtml.AddElement("button", `diceTitleDiv`, "rollDice", "Players_btn", "Roll Dice",()=>{sendAction("rollDice",[])})
+    let src_prod = `Img/Interroga.png`
+    this.Inhtml.AddElement("img",`diceTitleDiv`, "diceFigure", "diceFigure","",() =>{}, src_prod)
 
   }
   RenderPlayers(DB){
@@ -256,6 +254,10 @@ class View{
   RenderFooter(){
     this.Inhtml.DeleteIfExist("#IDFooter")
     this.Inhtml.AddElement("div","masterID", `IDFooter`, `ClassFooter`)
+    this.Inhtml.AddElement("div",`IDFooter`, `actionLog`, `actionLog`)
+      this.Inhtml.AddElement("h1",`actionLog`, `log3`, `log`)
+      this.Inhtml.AddElement("h1",`actionLog`, `log2`, `log`)
+      this.Inhtml.AddElement("h1",`actionLog`, `log1`, `log`)
     this.Inhtml.AddElement("button", `IDFooter`, "btn_NextRound", "Players_btn", "Next Round",()=>{sendAction("NextRound")})
     this.Inhtml.AddElement("p","IDFooter", `IDRound`, `ClassRound`, `Round: 0`) 
     this.Inhtml.AddElement("p","IDFooter", `IDQuarter`, `ClassRound`, `Quarter: 0`)

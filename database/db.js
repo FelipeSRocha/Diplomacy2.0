@@ -1,6 +1,7 @@
 const Brain = require('../database/brain')
 const envConfig = require("dotenv").config();
 const Ably = require("ably");
+const { param } = require('../routes/gamebase');
 const ABLY_API_KEY = process.env.ABLY_API_KEY
 const realtime = new Ably.Realtime(ABLY_API_KEY);
 
@@ -80,28 +81,65 @@ class serverList{
     const clientId = msg.data.clientId
     const action = msg.data.action
     const params = msg.data.params
-    let other
 
+    let other
+    let newLog
+    const name = this.liveServers[roomCode].brain.players[clientId].stats.name
     switch(action){
       
       case "ModifyValue": 
-        console.log("Action ModifyValue")
+        //params = [id,"bank",key,-1]
         this.liveServers[roomCode].brain.ModifyValue(params)
+
+        const player = this.liveServers[roomCode].brain.players[params[0]].stats.name
+        if (params[3]>0){
+          newLog = `${name} adicionou ${params[3]} de ${params[2]} no banco de ${player}`
+        }
+        if (params[3]<0){
+          newLog = `${name} removeu ${params[3]} de ${params[2]} no banco de ${player}`
+        }
         break
       
       case "UpdateInfluency":
   
         this.liveServers[roomCode].brain.UpdateInfluency(params)
         other = params[0]
+
+        let loop =[]
+        Object.keys(this.liveServers[roomCode].brain.players).forEach(id=>{
+          const position = this.liveServers[roomCode].brain.players[id].stats.position
+          if(params[1][position]){
+            loop.push(this.liveServers[roomCode].brain.players[id].stats.name)
+          }
+        })
+        let text = loop.join(", ")
+        const country = this.liveServers[roomCode].brain.countries[params[0]].Nome
+        if (loop.length<1){
+          newLog = `${name} confirmou que ${country} está sob influência de ninguém.`
+        } else{
+          newLog = `${name} confirmou que ${country} está sob influência de ${text}.`
+        }
+        
         break
       
       case "NextRound":
         this.liveServers[roomCode].brain.NextRound()
-  
+        newLog = `${name} passou o round.`
+        break
+
+      case "rollDice":
+        other = this.rollDice()
+        newLog = `${name} rolou ${other}`
         break
     }
-    const resp = {type: "action", resp:action, brain: this.liveServers[roomCode].brain, other: other}
+    const resp = {type: "action", resp:action, brain: this.liveServers[roomCode].brain, other: other, newLog: newLog}
     return resp
+  }
+  rollDice(){
+    const dice = ["Comida", "Comida", "Energia", "Energia", "Tecnologia", "Exercito"]
+    const random = Math.floor(Math.random() * dice.length)
+    const value = dice[random]
+    return value
   }
 }
 

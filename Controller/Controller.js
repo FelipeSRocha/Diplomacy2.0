@@ -39,7 +39,7 @@ function establishConnections(newGame){
 }
 function updateTruth(respData){
   DB = respData.brain
-  
+  let newLog
   switch (respData.resp){
     case "ModifyValue":
       VIEW.changeValueofPlayer(DB)
@@ -73,10 +73,24 @@ function updateTruth(respData){
       }else if(Quarter==3){
         const numberEvent = DB.Events.activeEvents[1][0]
         VIEW.DisplaySecondEvent(DB.Events[numberEvent].nome, DB.Events[numberEvent].efeito)
-    }
-  
+      }
+      break
+    case "rollDice":
+      const resource = respData.other
+      const img = document.getElementById("diceFigure")
+      img.src= `Img/${resource}.png`
+      break
   }
-
+  updateLog(respData.newLog)
+}
+function updateLog(newLog){
+  const log1 = document.getElementById("log1")
+  const log2 = document.getElementById("log2")
+  const log3 = document.getElementById("log3")
+  log3.innerHTML = log2.innerHTML
+  log2.innerHTML = log1.innerHTML
+  log1.innerHTML = newLog
+  
 }
 function sendAction(action, params=[]){
   //action é composto por ("ação",lista de parametros)
