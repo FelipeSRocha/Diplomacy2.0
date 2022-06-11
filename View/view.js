@@ -181,9 +181,13 @@ class View{
     });
   }
   MapMove(){
-    const wrapper = document.querySelector("#IDTable")
+    let wrapper = document.querySelector("#IDTable"),
+      x = 0, 
+      y = 0, 
+      mousedown = false; 
     let map = wrapper.querySelector("#IDImgTable")
     let Speed = 50
+    //map move with mouse
     document.addEventListener("keydown", function(e){
       let getstyle = window.getComputedStyle(wrapper)
       let left = parseInt(getstyle.left)
@@ -224,6 +228,45 @@ class View{
         break
       }
     })
+    wrapper.addEventListener('mousedown', function (e) { 
+      // mouse state set to true 
+      mousedown = true; 
+      // subtract offset 
+      x = wrapper.offsetLeft - e.clientX; 
+      y = wrapper.offsetTop - e.clientY; 
+    }, true); 
+   
+    // wrapper event mouseup 
+    wrapper.addEventListener('mouseup', function (e) { 
+        // mouse state set to false 
+        mousedown = false; 
+    }, true); 
+   
+    // element mousemove to stop 
+    wrapper.addEventListener('mousemove', function (e) { 
+        let moveX
+        let moveY
+        // Is mouse pressed 
+        if (mousedown) { 
+            // Now we calculate the difference upwards 
+            moveX = (e.clientX + x)
+            moveY = (e.clientY + y)
+            if (moveX<-200*zoom*zoom){
+              moveX = -200*zoom*zoom
+            }
+            if (moveX>200*zoom*zoom){
+              moveX = 200*zoom*zoom
+            }
+            if (moveY>200*zoom*zoom){
+              moveY = 200*zoom*zoom
+            }
+            if (moveY<-200*zoom*zoom){
+              moveY = -200*zoom*zoom
+            }
+            wrapper.style.left = moveX + 'px'; 
+            wrapper.style.top = moveY + 'px'; 
+        } 
+    }, true); 
   }
   RenderInfoCountry(NameofCountry){
     this.Inhtml.DeleteIfExist("#InfoTabID")
