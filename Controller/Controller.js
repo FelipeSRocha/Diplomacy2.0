@@ -14,7 +14,6 @@ function newGame(newGame){
   VIEW.RenderPlayers(DB)
   VIEW.RenderMap(DB)
   VIEW.RenderFooter(DB)
-  // updateAllCircle(DB)
 }
 function resetGame(){
   Inhtml.DeleteIfExist('#masterID')
@@ -39,7 +38,7 @@ function establishConnections(newGame){
 }
 function updateTruth(respData){
   DB = respData.brain
-  let newLog
+
   switch (respData.resp){
     case "ModifyValue":
       VIEW.changeValueofPlayer(DB)

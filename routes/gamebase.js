@@ -73,5 +73,8 @@ routes.get("/SVGMap/Tecnologia.svg", (req, res) => {
 routes.get("/SVGMap/Exercito.svg", (req, res) => {
     res.sendFile(dirmaster+'/SVGMap/Exercito.svg');
 });
+routes.get("/Img/Logo.png", (req, res) => {
+    res.sendFile(dirmaster+'/Img/Logo.png');
+});
 
 module.exports = routes

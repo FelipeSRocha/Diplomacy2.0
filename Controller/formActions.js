@@ -46,7 +46,8 @@ function hostNewGame(){
         newGame(msg.data)
         break
       case "newPlayer":
-        
+        newGame(msg.data)
+        updateTruth(msg.data)
         break
       case "action":
         updateTruth(msg.data)
@@ -79,7 +80,8 @@ function joinRoom(){
         newGame(msg.data)
         break
       case "newPlayer":
-
+        newGame(msg.data)
+        updateTruth(msg.data)
         break
       case "action":
         console.log("resposta da action recebida")

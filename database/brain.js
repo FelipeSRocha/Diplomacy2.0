@@ -114,6 +114,13 @@ class Brain{
             }
         }
     }
+    removePlayertoServer(clientId){
+        const name = this.players.stats.name
+        const position = this.players.stats.position
+        this.activePlayers[position] = false
+        delete this.players[clientId]
+        return name
+    }
     updateAmountofPlayers(){
         this.AmountofPlayers = Object.keys(this.players).length
     }

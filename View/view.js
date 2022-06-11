@@ -3,6 +3,7 @@ class View{
       this.Title = document.getElementById("HeaderID")
       this.Table = document.getElementById("ContainerID")
       this.Inhtml = new InHTML()
+
   }
 
   RenderTitle(){

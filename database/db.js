@@ -18,7 +18,6 @@ class serverList{
       this.liveServers[roomCode] = {
         brain: new Brain(nickname, clientId),
         truthChannel: realtime.channels.get(roomCode),
-        doorChannel: this.initDoorChannel(),
         playerChannel: []
         }
       //config the player channel
@@ -39,25 +38,13 @@ class serverList{
           this.initPlayerChannel(clientId, roomCode)
 
           //send resp to render the new player
-          resp = {type: "init", clientId: clientId, roomCode: roomCode, brain: this.liveServers[roomCode].brain}
+          resp = {type: "newPlayer", clientId: clientId, roomCode: roomCode, brain: this.liveServers[roomCode].brain, newLog: `${nickname} entrou.`}
           this.liveServers[roomCode].truthChannel.publish('init', resp)
         }
       }
     }
   }
-  initDoorChannel(){
-    const newPlayers = realtime.channels.get(this.roomCode+"-activePlayers")
-    newPlayers.presence.subscribe("enter", (enterplayer) =>{
-      // player entering the server
-      // brain.addPlayertoServer(enterplayer)
-    })
-    newPlayers.presence.subscribe("leave", (enterplayer) =>{
-      // player leaving the server
-      // brain.addPlayertoServer(enterplayer)
-    })
-    return newPlayers
 
-  }
   initPlayerChannel(clientId, roomCode){
     const playerChannelName = roomCode+"-"+ clientId+"Truth"
 
