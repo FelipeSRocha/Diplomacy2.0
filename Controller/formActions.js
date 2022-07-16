@@ -11,11 +11,11 @@ let totalPlayers = 0;
 let game;
 let myGameRoomName;
 let myGameRoomCh;
-let myNickname
-let myGameRoomCode
-let amIHost
+let myNickname;
+let myGameRoomCode;
+let amIHost;
 
-console.log(`Conectando com stream`)
+console.log(`Conectando com stream`);
 
 const realtime = new Ably.Realtime({
   authUrl: "/auth",
@@ -25,81 +25,86 @@ realtime.connection.once("connected", () => {
   myClientId = realtime.auth.clientId;
   globalChannel = realtime.channels.get("global_Channel");
 
-  console.log("Cliente conectado com stream")
-})
+  console.log("Cliente conectado com stream");
+});
 
-function load(){
+function load() {
   roomCode = getRandomRoomId();
-  const input = document.getElementById("new_roomcode")
-  input.value = roomCode
+  const input = document.getElementById("new_roomcode");
+  input.value = roomCode;
 }
-function hostNewGame(){
+function hostNewGame() {
   localStorage.clear();
   let nicknameInput = document.getElementById("nick");
   nickname = nicknameInput.value;
-  roomCode = document.getElementById("new_roomcode").value;
+  if (nickname == "") {
+    alert("Insert a Nickname!");
+  } else {
+    roomCode = document.getElementById("new_roomcode").value;
 
-  truthChannel = realtime.channels.get(roomCode)
-  truthChannel.subscribe(function(msg){
-    switch (msg.data.type){
-      case "init":
-        newGame(msg.data)
-        break
-      case "newPlayer":
-        newGame(msg.data)
-        updateTruth(msg.data)
-        break
-      case "action":
-        updateTruth(msg.data)
-        break
-      case "leavePlayer":
+    truthChannel = realtime.channels.get(roomCode);
+    truthChannel.subscribe(function (msg) {
+      switch (msg.data.type) {
+        case "init":
+          newGame(msg.data);
+          break;
+        case "newPlayer":
+          newGame(msg.data);
+          updateTruth(msg.data);
+          break;
+        case "action":
+          updateTruth(msg.data);
+          break;
+        case "leavePlayer":
+          break;
+        default:
+          alert("Não foi possível achar a sala ou ela está cheia");
+      }
+    });
 
-        break
-      default:
-        alert("Não foi possível achar a sala ou ela está cheia")
-    }
-  })
-
-  globalChannel.presence.enter({
-    nickname: nickname,
-    roomCode: roomCode,
-    isHost: true,
-  })
-
+    globalChannel.presence.enter({
+      nickname: nickname,
+      roomCode: roomCode,
+      isHost: true,
+    });
+  }
 }
-function joinRoom(){
+function joinRoom() {
   localStorage.clear();
   let nicknameInput = document.getElementById("nick");
   nickname = nicknameInput.value;
-  roomCode = document.getElementById("join_roomcode").value;
+  if (nickname == "") {
+    alert("Insert a Nickname!");
+  } else {
+    roomCode = document.getElementById("join_roomcode").value;
 
-  truthChannel = realtime.channels.get(roomCode)
-  truthChannel.subscribe(function(msg){
-    switch (msg.data.type){
-      case "init":
-        newGame(msg.data)
-        break
-      case "newPlayer":
-        newGame(msg.data)
-        updateTruth(msg.data)
-        break
-      case "action":
-        console.log("resposta da action recebida")
-        updateTruth(msg.data)
-        break
-      case "leavePlayer":
+    truthChannel = realtime.channels.get(roomCode);
+    truthChannel.subscribe(function (msg) {
+      switch (msg.data.type) {
+        case "init":
+          newGame(msg.data);
+          break;
+        case "newPlayer":
+          newGame(msg.data);
+          updateTruth(msg.data);
+          break;
+        case "action":
+          console.log("resposta da action recebida");
+          updateTruth(msg.data);
+          break;
+        case "leavePlayer":
+          break;
+        default:
+          alert("Não foi possível achar a sala");
+      }
+    });
 
-        break
-      default:
-        alert("Não foi possível achar a sala")
-    }
-  })
-
-  globalChannel.presence.enter({
-    nickname: nickname,
-    roomCode: roomCode,
-    isHost: false,
-  })
+    globalChannel.presence.enter({
+      nickname: nickname,
+      roomCode: roomCode,
+      isHost: false,
+    });
+  }
 }
 function getRandomRoomId() {
   return "room-" + Math.random().toString(36).substr(2, 8);

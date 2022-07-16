@@ -80,10 +80,10 @@ class serverList{
 
         const player = this.liveServers[roomCode].brain.players[params[0]].stats.name
         if (params[3]>0){
-          newLog = `${name} adicionou ${params[3]} de ${params[2]} no banco de ${player}`
+          newLog = `${name} added ${params[3]} ${params[2]} to ${player}'s bank`
         }
         if (params[3]<0){
-          newLog = `${name} removeu ${params[3]} de ${params[2]} no banco de ${player}`
+          newLog = `${name} removed ${params[3]} ${params[2]} to ${player}'s bank`
         }
         break
       
@@ -102,21 +102,21 @@ class serverList{
         let text = loop.join(", ")
         const country = this.liveServers[roomCode].brain.countries[params[0]].Nome
         if (loop.length<1){
-          newLog = `${name} confirmou que ${country} está sob influência de ninguém.`
+          newLog = `${name} confirmed that ${country} is under the influence of no one.`
         } else{
-          newLog = `${name} confirmou que ${country} está sob influência de ${text}.`
+          newLog = `${name} confirmed that ${country} is under the influence of ${text}.`
         }
         
         break
       
       case "NextRound":
         this.liveServers[roomCode].brain.NextRound()
-        newLog = `${name} passou o round.`
+        newLog = `${name} passed the round.`
         break
 
       case "rollDice":
         other = this.rollDice()
-        newLog = `${name} rolou ${other}`
+        newLog = `${name} rolled ${other}`
         break
     }
     const resp = {type: "action", resp:action, brain: this.liveServers[roomCode].brain, other: other, newLog: newLog}

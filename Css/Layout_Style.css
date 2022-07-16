@@ -97,8 +97,7 @@ p{
     touch-action: manipulation;
   }
 
-.Players_btn:not(:disabled):hover,
-.Players_btn:not(:disabled):focus {
+.Players_btn:not(:disabled):hover{
 outline: 0;
 background: rgb(255, 254, 254);
 color: rgb(10, 10, 10);
@@ -887,5 +886,67 @@ cursor: not-allowed;
 .TagUpClass{
     display: flex;
     justify-content: center;
+}
+.helpBtn{
+    font-size: 25px;
+    z-index: 2;
+    background-color: rgb(56, 50, 50);
+    border-radius: 12px;
+    color: rgb(235, 235, 235);
+    cursor: pointer;
+    font-family: 'Roboto', sans-serif;
+    font-weight: bold;
+    text-align: center;
+    transition: 200ms;
+    box-sizing: border-box;
+    border: 0;
+    padding: 0px 30px;
+    margin: 5px;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+}
+.helpBtn:not(:disabled):hover{
+outline: 0;
+background: rgb(255, 254, 254);
+color: rgb(10, 10, 10);
+box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.2), 0 3px 8px 0 rgba(0, 0, 0, 0.15);
+}
+
+.helpBtn:disabled {
+filter: saturate(0.2) opacity(0.5);
+-webkit-filter: saturate(0.2) opacity(0.5);
+cursor: not-allowed;
+}
+.helpBox{
+    z-index: 1;
+    position: absolute;
+    height: 95vh;
+    width: auto;
+    left: 50%;
+    top: 50%;
+
+    border-radius: 10px;
+    transform: translate(-50%,-50%);
+    background-color: #fffcfc;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+    justify-content: space-around;
+    padding: 20px;
+    gap:10px;
+}
+h1{
+    margin: 0;
+}
+h2{
+    margin: 0;
+}
+p{
+    margin: 0;
+}
+.helpBox-hide{
+    display: none;
 }
 

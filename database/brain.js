@@ -127,12 +127,12 @@ class Brain{
     ResetEvents(){
         //reseta aos eventos padroes de inicio de ano
         const events ={
-            0:{nome:"Embargo Econômico",efeito:"O jogador com maior produção de tecnologia escolhe um jogador para que não possa comprar passagens, criar alianças e negociar recursos durante o ano."},
-            1:{nome:"Avanço Militar", efeito:"O jogador com maior exército retira o domínio de um território de outro jogador."},
-            2:{nome:"Sobrecarga", efeito:"O jogador com maior produção energética descarta seus tokens de energia e perde sua produção de energia durante o ano.",},
-            3:{nome:"Represália", efeito:"O jogador com maior produção energética retira o domínio de um território de outro jogador."},
-            4:{nome:"Escassez de Comida", efeito:"Todos os jogadores menos o maior produtor de alimento não produzem mais comida durante o ano."},
-            5:{nome:"Combate a Fome", efeito:"O jogador com a maior produção de alimento deve distribuir todo o seu estoque de alimento aos outros jogadores durante o ano (ele escolhe a quantidade e para quem)."},
+            0:{nome:"Economic Embargo",efeito:"The player with the highest tech production chooses a player so that they cannot buy tickets, create alliances and trade resources during the year."},
+            1:{nome:"Military advance", efeito:"The player with the highest army production takes control of a territory from another player."},
+            2:{nome:"Overload", efeito:"The player with the highest energy production discards their energy tokens and loses their energy production during the year.(automated)",},
+            3:{nome:"Retaliation", efeito:"The player with the highest energy production takes control of a territory from another player."},
+            4:{nome:"Food Shortage", efeito:"All players except the biggest food producer no longer produce food during the year.(automated)"},
+            5:{nome:"Fight against Hunger", efeito:"The player with the highest food production must distribute his entire food supply to the other players all during the year."},
             lista:[0,1,2,3,4,5],
             activeEvents:[],
         }
