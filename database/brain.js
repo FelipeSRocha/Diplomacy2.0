@@ -48,7 +48,7 @@ class Brain{
         "Be the most influence player",
         "Influecy countries in every continent",
         "Reach the majoraty influence in two continents",
-        "Reach more than half of territories"
+        "Reach more than half of territories of a continent"
         ]
         this.objprod = ["Reach at least 10 in energy production",
         "Reach the biggest tecnology productor",
